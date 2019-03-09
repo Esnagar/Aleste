@@ -1,7 +1,8 @@
 # depslib dependency file v1.0
-1551115834 source:/home/esther/Escritorio/Aleste/main.cpp
+1552162293 source:/home/esther/Escritorio/Aleste/main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
+	"Disparo.h"
 
 1551117689 source:/home/esther/Escritorio/Aleste/src/disparo.cpp
 	"disparo.h"
@@ -9,6 +10,10 @@
 	<SFML/Graphics.hpp>
 
 1551117685 /home/esther/Escritorio/Aleste/include/disparo.h
+	<iostream>
+	<SFML/Graphics.hpp>
+
+1552162332 /home/esther/Escritorio/Aleste/include/Disparo.h
 	<iostream>
 	<SFML/Graphics.hpp>
 

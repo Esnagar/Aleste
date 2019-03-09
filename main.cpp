@@ -1,26 +1,19 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Disparo.h"
 
-#define SPRITE_SPEED 1
+#define SPRITE_SPEED 5
 
 int main()
 {
     //Creamos una ventana
-    sf::RenderWindow window(sf::VideoMode(640, 480), "P0. Fundamentos de los Videojuegos. DCCIA");
+    sf::RenderWindow window(sf::VideoMode(640, 480), "Aleste");
 
     //Cargo la imagen donde reside la textura del sprite
     sf::Texture tex;
     if (!tex.loadFromFile("resources/nave.png"))
     {
         std::cerr << "Error cargando la imagen nave.png";
-        exit(0);
-    }
-
-
-    sf::Texture laser;
-    if (!laser.loadFromFile("resources/disparos.png"))
-    {
-        std::cerr << "Error cargando la imagen disparos.png";
         exit(0);
     }
 
@@ -34,12 +27,6 @@ int main()
 
 
 
-    sf::Sprite disparo(laser);
-    disparo.setOrigin(disparo.getGlobalBounds().width/2,disparo.getGlobalBounds().height/2);
-    disparo.setTextureRect(sf::IntRect(190, 90, 50, 20));
-    disparo.setRotation(90);
-
-
 // Sprite coordinates
     int x=window.getSize().x/2.;
     int y=window.getSize().y/2.;
@@ -50,13 +37,15 @@ int main()
     bool downFlag=false;
     bool leftFlag=false;
     bool rightFlag=false;
-    bool disparar=false;
+    bool haDisparado=false;
     bool disparado=false;
 
     sf::Clock timer;
+    std::vector <Disparo> vectorDisparos;
+
     while (window.isOpen())
     {
-        window.setFramerateLimit(1000); //esto aun no me queda claro para que es
+        window.setFramerateLimit(60); //esto aun no me queda claro para que es
 
         // Process events
         sf::Event event;
@@ -78,7 +67,7 @@ int main()
                 case sf::Keyboard::Down:    downFlag=true; break;
                 case sf::Keyboard::Left:    leftFlag=true; break;
                 case sf::Keyboard::Right:   rightFlag=true; break;
-                case sf::Keyboard::Space:   disparar=true; break;
+                case sf::Keyboard::Space:   haDisparado=true; break;
 
                 default : break;
                 }
@@ -111,16 +100,19 @@ int main()
         window.clear();
         window.draw(sprite);
 
-        if(disparar){
-            window.draw(disparo);
-            disparo.setPosition(sprite.getPosition().x, sprite.getPosition().y - 20);
-            disparado = true;
+        if(haDisparado){
+            Disparo disparo("resources/disparos.png");
+            disparo.setPosicion(sprite.getPosition().x, sprite.getPosition().y);
+            disparo.draw(window);
+            vectorDisparos.push_back(disparo);
+            haDisparado = false;
         }
 
-        if(disparado){
-            std::cout << "buenos dias" << std::endl;
-            disparo.setPosition(disparo.getPosition().x,disparo.getPosition().y + 5);
+        for (int i=0; i<vectorDisparos.size(); i++) {
+            vectorDisparos[i].mover(0, -3);
+            vectorDisparos[i].draw(window);
         }
+
 
         window.display();
     }
