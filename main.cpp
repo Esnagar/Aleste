@@ -1,114 +1,113 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Disparo.h"
+#include "Enemigo.h"
+#include "Jugador.h"
 
-#define SPRITE_SPEED 5
+#define kVELOCIDAD 5
 
-int main()
-{
-    //Creamos una ventana
+int main() {
+
     sf::RenderWindow window(sf::VideoMode(640, 480), "Aleste");
-
-    //Cargo la imagen donde reside la textura del sprite
-    sf::Texture tex;
-    if (!tex.loadFromFile("resources/nave.png"))
-    {
-        std::cerr << "Error cargando la imagen nave.png";
-        exit(0);
-    }
-
-
-
-    //Y creo el spritesheet a partir de la imagen anterior
-    sf::Sprite sprite(tex);
-    sprite.setOrigin(sprite.getGlobalBounds().width/2,sprite.getGlobalBounds().height/2);
-    sprite.setScale(0.3f, 0.3f);
-    sprite.setPosition(320, 240);
-
-
-
-// Sprite coordinates
-    int x=window.getSize().x/2.;
-    int y=window.getSize().y/2.;
-
-    tex.setSmooth(true);
-    // Flags for key pressed
-    bool upFlag=false;
-    bool downFlag=false;
-    bool leftFlag=false;
-    bool rightFlag=false;
-    bool haDisparado=false;
-    bool disparado=false;
-
     sf::Clock timer;
+
+
+    // Declaración de los personajes/objetos
+    Jugador jugador("resources/nave.png");
+    Enemigo enemigo("resources/sprites.png");
     std::vector <Disparo> vectorDisparos;
 
-    while (window.isOpen())
-    {
-        window.setFramerateLimit(60); //esto aun no me queda claro para que es
 
-        // Process events
+    // Input del jugador
+    bool arriba      = false;
+    bool abajo       = false;
+    bool izquierda   = false;
+    bool derecha     = false;
+    bool haDisparado = false;
+    bool aLaDerecha  = true;
+
+
+    while (window.isOpen()) {
+
+        window.setFramerateLimit(60);
+
         sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // Close the window if a key is pressed or if requested
+        while (window.pollEvent(event)) {
+
             if (event.type == sf::Event::Closed) window.close();
 
-            // If a key is pressed
-            if (event.type == sf::Event::KeyPressed)
-            {
-                switch (event.key.code)
-                {
-                // If escape is pressed, close the application
-                case  sf::Keyboard::Escape : window.close(); break;
+            if (event.type == sf::Event::KeyPressed) {
 
-                // Process the up, down, left and right keys
-                case sf::Keyboard::Up :     upFlag=true; break;
-                case sf::Keyboard::Down:    downFlag=true; break;
-                case sf::Keyboard::Left:    leftFlag=true; break;
-                case sf::Keyboard::Right:   rightFlag=true; break;
-                case sf::Keyboard::Space:   haDisparado=true; break;
+                switch (event.key.code) {
+                    case sf::Keyboard::Up :     arriba      = true; break;
+                    case sf::Keyboard::Down:    abajo       = true; break;
+                    case sf::Keyboard::Left:    izquierda   = true; break;
+                    case sf::Keyboard::Right:   derecha     = true; break;
+                    case sf::Keyboard::Space:   haDisparado = true; break;
 
-                default : break;
+                    case sf::Keyboard::Escape: window.close(); break;
+
+                    default: break;
                 }
             }
 
-            // If a key is released
-            if (event.type == sf::Event::KeyReleased)
-            {
-                switch (event.key.code)
-                {
-                // Process the up, down, left and right keys
-                case sf::Keyboard::Up :     upFlag=false; break;
-                case sf::Keyboard::Down:    downFlag=false; break;
-                case sf::Keyboard::Left:    leftFlag=false; break;
-                case sf::Keyboard::Right:   rightFlag=false; break;
-                default : break;
+
+            // Si se suelta una tecla
+            if (event.type == sf::Event::KeyReleased) {
+
+                switch (event.key.code) {
+                    case sf::Keyboard::Up :     arriba      = false; break;
+                    case sf::Keyboard::Down:    abajo       = false; break;
+                    case sf::Keyboard::Left:    izquierda   = false; break;
+                    case sf::Keyboard::Right:   derecha     = false; break;
+
+                    default : break;
                 }
             }
         }
 
-        // Update coordinates
-        if (leftFlag) x-=SPRITE_SPEED;
-        if (rightFlag) x+=SPRITE_SPEED;
-        if (upFlag) y-=SPRITE_SPEED;
-        if (downFlag) y+=SPRITE_SPEED;
+        // Actualizar coordenadas
+        if (izquierda)  jugador.mover(-kVELOCIDAD, 0);
+        if (derecha)    jugador.mover(kVELOCIDAD, 0);
+        if (arriba)     jugador.mover(0, -kVELOCIDAD);
+        if (abajo)      jugador.mover(0, kVELOCIDAD);
 
-        sprite.setPosition(x,y);
-        //sprite.setRotation( timer.getElapsedTime().asSeconds() / M_PI * 90.f );
+
+        ///////////////////////////////////////////////////////JUGADOR///////////////////////////////////////////////////////////
 
         window.clear();
-        window.draw(sprite);
+        jugador.draw(window);
 
-        if(haDisparado){
-            Disparo disparo("resources/disparos.png");
-            disparo.setPosicion(sprite.getPosition().x, sprite.getPosition().y);
+        ///////////////////////////////////////////////////////ENEMIGOS//////////////////////////////////////////////////////////
+
+        if(aLaDerecha) {
+            enemigo.mover(3,0);
+
+            if(enemigo.getPosX() > 630) aLaDerecha = false;
+
+        } else {
+            enemigo.mover(-3,0);
+
+            if(enemigo.getPosX() < 50)  aLaDerecha = true;
+        }
+
+
+        for (int i = 0; i < vectorDisparos.size(); i++) {
+            enemigo.checkColision(vectorDisparos[i]);
+        }
+
+        enemigo.draw(window);
+
+        //////////////////////////////////////////////////////DISPAROS///////////////////////////////////////////////////////////
+
+        if(haDisparado) {
+            Disparo disparo("resources/disparos.png", jugador.getPosX(), jugador.getPosY() - 70);
             disparo.draw(window);
             vectorDisparos.push_back(disparo);
             haDisparado = false;
         }
 
-        for (int i=0; i<vectorDisparos.size(); i++) {
+        for (int i = 0; i < vectorDisparos.size(); i++) {
             vectorDisparos[i].mover(0, -3);
             vectorDisparos[i].draw(window);
         }

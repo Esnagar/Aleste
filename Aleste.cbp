@@ -42,9 +42,16 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="cb.bmp" />
-		<Unit filename="include/disparo.h" />
+		<Unit filename="include/Disparo.h" />
+		<Unit filename="include/Enemigo.h" />
+		<Unit filename="include/Jugador.h" />
+		<Unit filename="include/TextureManager.h" />
+		<Unit filename="include/Window.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="src/disparo.cpp" />
+		<Unit filename="src/Disparo.cpp" />
+		<Unit filename="src/Enemigo.cpp" />
+		<Unit filename="src/Jugador.cpp" />
+		<Unit filename="src/TextureManager.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

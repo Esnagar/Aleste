@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1552162293 source:/home/esther/Escritorio/Aleste/main.cpp
+1552259644 source:/home/esther/Escritorio/Aleste/main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Disparo.h"
+	"Enemigo.h"
+	"Jugador.h"
 
 1551117689 source:/home/esther/Escritorio/Aleste/src/disparo.cpp
 	"disparo.h"
@@ -13,7 +15,32 @@
 	<iostream>
 	<SFML/Graphics.hpp>
 
-1552162332 /home/esther/Escritorio/Aleste/include/Disparo.h
+1552410310 /home/esther/Escritorio/Aleste/include/Disparo.h
 	<iostream>
 	<SFML/Graphics.hpp>
+	<TextureManager.h>
+
+1552412166 /home/esther/Escritorio/Aleste/include/Enemigo.h
+	"Disparo.h"
+
+1552411275 /home/esther/Escritorio/Aleste/include/Jugador.h
+	"Enemigo.h"
+
+1552408627 /home/esther/Escritorio/Aleste/include/TextureManager.h
+	<SFML/Graphics.hpp>
+	<string>
+	<map>
+
+1552408564 source:/home/esther/Escritorio/Aleste/src/TextureManager.cpp
+	"TextureManager.h"
+	<iostream>
+
+1552410686 source:/home/esther/Escritorio/Aleste/src/Disparo.cpp
+	"Disparo.h"
+
+1552411284 source:/home/esther/Escritorio/Aleste/src/Jugador.cpp
+	"Jugador.h"
+
+1552412080 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
+	"Enemigo.h"
 
