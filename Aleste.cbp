@@ -41,7 +41,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="cb.bmp" />
 		<Unit filename="include/Disparo.h" />
 		<Unit filename="include/Enemigo.h" />
 		<Unit filename="include/Jugador.h" />

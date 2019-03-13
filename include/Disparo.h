@@ -19,6 +19,7 @@ class Disparo {
 
         void mover(float x, float y);
         void draw(sf::RenderWindow &window);
+        bool dentroPantalla(sf::RenderWindow &window);
 
         int getRight();
         int getLeft();
