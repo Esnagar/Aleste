@@ -4,6 +4,8 @@
 sf::Texture texJugador;
 sf::Sprite jugador;
 
+Jugador::Jugador() {}
+
 
 Jugador::Jugador(std::string ruta) {
 
@@ -36,7 +38,7 @@ void Jugador::checkColision(Enemigo enemigo) {
 }
 
 
-void Jugador::draw(sf::RenderWindow &window) {
+void Jugador::draw(Window &window) {
     window.draw(jugador);
 }
 

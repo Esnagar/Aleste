@@ -3,6 +3,7 @@
 
 sf::Texture texEnemigo;
 sf::Sprite enemigo;
+bool aLaDerecha;
 
 
 Enemigo::Enemigo(std::string ruta) {
@@ -18,22 +19,31 @@ Enemigo::Enemigo(std::string ruta) {
     enemigo.setTextureRect(sf::IntRect(0*75, 0*75, 75, 75));
     enemigo.setOrigin(enemigo.getGlobalBounds().width/2,enemigo.getGlobalBounds().height/2);
     enemigo.setPosition(320, 50);
+
+    aLaDerecha = true;
 }
 
 
-void Enemigo::mover(float x, float y) {
-    enemigo.move(x, y);
+void Enemigo::mover(int velocidad) {
+
+    if(aLaDerecha) {
+        enemigo.move(velocidad,0);
+
+        if(enemigo.getPosition().x > 630) aLaDerecha = false;
+
+    } else {
+        enemigo.move(-velocidad,0);
+
+        if(enemigo.getPosition().x < 50)  aLaDerecha = true;
+    }
 }
 
 
 void Enemigo::checkColision(Disparo disparo) {
 
-    if (enemigo.getPosition().x < disparo.getRight() &&
-        enemigo.getPosition().x + enemigo.getGlobalBounds().width > disparo.getLeft() &&
-        enemigo.getPosition().y < disparo.getBottom() &&
-        enemigo.getPosition().y + enemigo.getGlobalBounds().height > disparo.getTop()) {
-
-        enemigo.setPosition(sf::Vector2f(4234432, 4234423));
+    if (enemigo.getGlobalBounds().intersects(disparo.getGlobalBounds())) {
+        enemigo.setPosition(sf::Vector2f(4234432, 4234423)); //Eliminar al enemigo pero no se como aun jj
+        disparo.cambiarSprite("explosion");
     }
 }
 

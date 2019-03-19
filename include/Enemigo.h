@@ -8,6 +8,7 @@ class Enemigo
     private:
         sf::Texture texEnemigo;
         sf::Sprite enemigo;
+        bool aLaDerecha;
 
     protected:
 
@@ -17,7 +18,7 @@ class Enemigo
         Enemigo(std::string ruta);
         ~Enemigo();
 
-        void mover(float x, float y);
+        void mover(int velocidad);
         void checkColision(Disparo disparo);
         void draw(sf::RenderWindow &window);
 

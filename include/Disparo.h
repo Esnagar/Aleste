@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <TextureManager.h>
+#include "Window.h"
 
 class Disparo {
     private:
@@ -18,13 +19,17 @@ class Disparo {
         ~Disparo();
 
         void mover(float x, float y);
-        void draw(sf::RenderWindow &window);
-        bool dentroPantalla(sf::RenderWindow &window);
+        void draw(Window &window);
+        bool dentroPantalla(Window &window);
+        void cambiarSprite(string estado);
+
+        void update();
 
         int getRight();
         int getLeft();
         int getTop();
         int getBottom();
+        sf::FloatRect getGlobalBounds(){ return disparo.getGlobalBounds(); }
 };
 
 #endif // DISPARO_H

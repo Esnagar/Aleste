@@ -18,24 +18,42 @@ Disparo::Disparo(std::string ruta, float x, float y) {
 
 }
 
+void Disparo::update() {
+    this->mover(0, -1);
+    //disparo.draw();
+
+}
+
 void Disparo::mover(float x, float y) {
     disparo.move(x, y);
 }
 
 
-void Disparo::draw(sf::RenderWindow &window) {
+void Disparo::draw(Window &window) {
     disparo.setTexture(texDisparo);
     disparo.setTextureRect(sf::IntRect(190, 90, 50, 20));
     window.draw(disparo);
 }
 
 
-bool Disparo::dentroPantalla(sf::RenderWindow &window) {
-    if(getRight() < 0  || getLeft() > window.getSize().x || getBottom() < 0 || getTop() > window.getSize().y) {
+bool Disparo::dentroPantalla(Window &window) {
+    if(getRight() < 0  || getLeft() > window.getTamanyo().x || getBottom() < 0 || getTop() > window.getTamanyo().y) {
         return false;
 
     } else {
         return true;
+    }
+}
+
+void Disparo::cambiarSprite(string estado) {
+
+    if(estado == "explosion") {
+        disparo.setTexture(texDisparo);
+        disparo.setTextureRect(sf::IntRect(200, 100, 50, 20));
+        //window.draw(disparo);
+
+    } else {
+        std::cout << "No existe ese estado del disparo" << std::endl;
     }
 }
 

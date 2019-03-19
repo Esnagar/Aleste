@@ -1,44 +1,29 @@
-#ifndef WINDOW_H_INCLUDED
-#define WINDOW_H_INCLUDED
+#ifndef WINDOW_H
+#define WINDOW_H
+#include <SFML/Graphics.hpp>
 
-class Window{
-    private:
-        void Setup(const std::string& p_titulo, const sf::Vector2u& p_tamanyo) {
-
-            titulo = p_titulo;
-            tamanyo = p_tamanyo;
-            estaHecha = false;
-            pantallaCompleta = false;
-        }
-
-        void Destroy() {
-            window.close();
-        }
-        void Create();
-        sf::RenderWindow window;
-        sf::Vector2u tamanyo;
-        std::string titulo;
-        bool estaHecha;
-        bool pantallaCompleta;
-
+class Window
+{
     public:
+        Window();
+        ~Window();
 
-        Window(const std::string& titulo, const sf::Vector2u& tamanyo){
-            Setup(titulo, tamanyo);
-        }
+        void beginDraw();
+        void endDraw();
+
+        void update();
+        void draw(sf::Drawable &p_dibujo);
+
+        bool haTerminado();
+        sf::Vector2u getTamanyo();
 
 
-        ~Window(){ Destroy(); }
+    protected:
 
-        void BeginDraw(); // Clear the window.
-        void EndDraw(); // Display the changes.
-        void Update();
-        bool IsDone();
-        bool IsFullscreen();
-        sf::Vector2u GetWindowSize();
-        void ToggleFullscreen();
-        void Draw(sf::Drawable& l_drawable);
-
+    private:
+        sf::RenderWindow ventana;
+        bool terminada;
+        void destroy();
 };
 
-#endif // WINDOW_H_INCLUDED
+#endif // WINDOW_H

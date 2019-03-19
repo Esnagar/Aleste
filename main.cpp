@@ -3,17 +3,30 @@
 #include "Disparo.h"
 #include "Enemigo.h"
 #include "Jugador.h"
+#include "Juego.h"
+#include "Window.h"
 
-#define kVELOCIDAD 6
+//#define kVELOCIDAD 6
 
 int main() {
 
+    Juego juego;
+
+    while(!juego.getWindow()->haTerminado()) {
+        juego.procesarInput();
+        juego.update();
+        juego.render();
+    }
+
+    return 0;
+}
+
+/*
     sf::RenderWindow window(sf::VideoMode(640, 480), "Aleste");
     sf::Clock timer;
 
-
     // Declaración de los personajes/objetos
-    Jugador jugador("resources/nave.png");
+    //Jugador jugador("resources/nave.png");
     Enemigo enemigo("resources/sprites.png");
     std::vector <Disparo> vectorDisparos;
 
@@ -31,24 +44,17 @@ int main() {
     fondoTex.setRepeated(true);
 
 
-    sf::View view(window.getDefaultView());
-    sf::FloatRect fBounds(0.f, 0.f, 640.f, 480.f);
-    sf::IntRect iBounds(fBounds);
-
-
     sf::Sprite fondo(fondoTex);
     fondo.setOrigin(0, fondo.getGlobalBounds().height);
     fondo.setPosition(0, 480);
 
-    sf::Sprite fondo2(fondoTex);
-    fondo2.setOrigin(0, fondo.getGlobalBounds().height);
-    fondo2.setPosition(0,0);
+
 
     while (window.isOpen()) {
 
         window.setFramerateLimit(60);
 
-        fondo.move(0, 4);
+        //fondo.move(0, 4);
 
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -95,20 +101,12 @@ int main() {
         ///////////////////////////////////////////////////////JUGADOR///////////////////////////////////////////////////////////
 
         window.clear();
+        window.draw(fondo);
         jugador.draw(window);
 
         ///////////////////////////////////////////////////////ENEMIGOS//////////////////////////////////////////////////////////
 
-        if(aLaDerecha) {
-            enemigo.mover(3,0);
-
-            if(enemigo.getPosX() > 630) aLaDerecha = false;
-
-        } else {
-            enemigo.mover(-3,0);
-
-            if(enemigo.getPosX() < 50)  aLaDerecha = true;
-        }
+        enemigo.mover(kVELOCIDAD);
 
 
         for (int i = 0; i < vectorDisparos.size(); i++) {
@@ -144,4 +142,4 @@ int main() {
     }
 
     return 0;
-}
+}*/
