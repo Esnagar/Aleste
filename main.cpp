@@ -1,20 +1,21 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "Disparo.h"
-#include "Enemigo.h"
 #include "Jugador.h"
 #include "Juego.h"
-#include "Window.h"
 
-//#define kVELOCIDAD 6
+#define UPDATE_TICK_TIME 1000/15
 
 int main() {
 
     Juego juego;
 
-    while(!juego.getWindow()->haTerminado()) {
-        juego.procesarInput();
-        juego.update();
+
+    while(!Window::getInstancia()->haTerminado()) {
+
+        //if(Window::getInstancia()->relojUpdate.getElapsedTime().asMilliseconds() > UPDATE_TICK_TIME) {
+          //  tiempoPasado = Window::getInstancia()->relojUpdate.restart();
+            juego.update();
+        //}
         juego.render();
     }
 

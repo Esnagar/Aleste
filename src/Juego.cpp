@@ -3,68 +3,63 @@
 #include "Window.h"
 #include "Disparo.h"
 
-Juego::Juego(): ventana(), jugador("resources/nave.png"){ }
+Juego::Juego(): jugador("resources/nave2.png") {}
 
 Juego::~Juego() {}
 
 
-
 void Juego::update() {
-    ventana.update();
 
-    for (int i = 0; i < vectorDisparos.size(); i++) {
-        vectorDisparos[i].update();
+    Window::getInstancia()->procesarInput();
 
-        if(!vectorDisparos[i].dentroPantalla(ventana))
-            vectorDisparos.erase(vectorDisparos.begin() + i);
+    //UPDATEAR JUGADOR
+    jugador.update();
+
+
+    //CREAR DISPAROS SI EL JUGADOR HA PULSADO SPACE
+    if (Window::getInstancia()->inputs[4]) {
+        Disparo disparo("resources/disparos.png", jugador.getPosX(), jugador.getPosY() - 70);
+        vectorDisparos.push_back(disparo);
     }
 
-    //disparo.update();
-    procesarInput();
+
+    //UPDATEAR DISPAROS
+    for(int i = 0; i < vectorDisparos.size(); i++) {
+        vectorDisparos[i].update();
+
+        //ELIMINAR LOS QUE SALGAN FUERA DE LA PANTALLA
+        if(!vectorDisparos[i].dentroPantalla())
+            vectorDisparos.erase(vectorDisparos.begin() + i);
+    }
 }
 
-
-void Juego::procesarInput() {
-
-    sf::Event event;
-
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-        jugador.mover(-kVELOCIDAD, 0);
-
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-        jugador.mover(kVELOCIDAD, 0);
-
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-        jugador.mover(0, -kVELOCIDAD);
-
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-        jugador.mover(0, kVELOCIDAD);
-
-    /*        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
-            Disparo disparo("resources/disparos.png", jugador.getPosX(), jugador.getPosY() - 70);
-            anyadirDisparo(disparo);
-        }*/
-
-}
-
-void Juego::anyadirDisparo(Disparo disparo) {
-     vectorDisparos.push_back(disparo);
-}
 
 
 void Juego::render() {
-    ventana.beginDraw();
-    jugador.draw(ventana);
-    for (int i = 0; i < vectorDisparos.size(); i++) {
-        vectorDisparos[i].draw(ventana);
+
+    Window::getInstancia()->beginDraw();
+
+
+    //RENDER FONDO
+    Window::getInstancia()->renderWindow.draw( Window::getInstancia()->fondo);
+
+    //RENDER JUGADOR
+    jugador.render();
+
+    //RENDER DISPAROS
+    for(int i = 0; i < vectorDisparos.size(); i++) {
+        vectorDisparos[i].render();
     }
-    ventana.endDraw();
+
+    //RENDER ENEMIGOS
+
+    //for (int i = 0; i < vectorDisparos.size(); i++) {
+    //    vectorDisparos[i].draw(Window::getInstancia());
+    //}
+
+    //RENDER HUD
+    hud.render();
+
+    Window::getInstancia()->endDraw();
+
 }
-
-
-
-Window* Juego::getWindow() { return &ventana; }

@@ -1,7 +1,10 @@
 #ifndef JUGADOR_H_INCLUDED
 #define JUGADOR_H_INCLUDED
-#include "Enemigo.h"
-#include "Window.h"
+#include <SFML/Graphics.hpp>
+#include <iostream>
+
+#define kVELOCIDAD 6
+
 
 class Jugador
 {
@@ -16,9 +19,9 @@ class Jugador
         Jugador(std::string ruta);
         ~Jugador();
 
-        void mover(float x, float y);
-        void checkColision(Enemigo enemigo);
-        void draw(Window &window);
+        //void checkColision(Enemigo enemigo);
+        void update();
+        void render();
 
         float getPosX();
         float getPosY();

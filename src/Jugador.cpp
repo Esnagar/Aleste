@@ -1,11 +1,9 @@
 #include "Jugador.h"
-
-
-sf::Texture texJugador;
-sf::Sprite jugador;
+#include "Window.h"
 
 Jugador::Jugador() {}
 
+Jugador::~Jugador() { }
 
 Jugador::Jugador(std::string ruta) {
 
@@ -18,16 +16,13 @@ Jugador::Jugador(std::string ruta) {
 
     jugador.setTexture(texJugador);
     jugador.setOrigin(jugador.getGlobalBounds().width/2, jugador.getGlobalBounds().height/2);
-    jugador.setScale(0.3f, 0.3f);
+    jugador.setScale(0.1f, 0.15f);
     jugador.setPosition(320, 240);
 }
 
-void Jugador::mover(float x, float y) {
-    jugador.move(x, y);
-}
 
 
-void Jugador::checkColision(Enemigo enemigo) {
+/*void Jugador::checkColision(Enemigo enemigo) {
 
     /*if (enemigo.getPosX() > jugador.getPosition().x &&
         enemigo.getPosY() < jugador.getPosition().y + jugador.getLocalBounds().height &&
@@ -35,12 +30,25 @@ void Jugador::checkColision(Enemigo enemigo) {
 
         jugador.setPosition(sf::Vector2f(4234432, 4234423));
     }*/
+//}
+
+
+
+void Jugador::update() {
+
+    // Actualizar coordenadas
+    if (Window::getInstancia()->inputs[0])  jugador.move(0, -kVELOCIDAD);
+    if (Window::getInstancia()->inputs[1])  jugador.move(0, kVELOCIDAD);
+    if (Window::getInstancia()->inputs[2])  jugador.move(-kVELOCIDAD, 0);
+    if (Window::getInstancia()->inputs[3])  jugador.move(kVELOCIDAD, 0);
+
 }
 
 
-void Jugador::draw(Window &window) {
-    window.draw(jugador);
+void Jugador::render() {
+    Window::getInstancia()->renderWindow.draw(jugador);
 }
+
 
 float Jugador::getPosX() {
     return jugador.getPosition().x;
@@ -49,6 +57,3 @@ float Jugador::getPosX() {
 float Jugador::getPosY() {
     return jugador.getPosition().y;
 }
-
-
-Jugador::~Jugador() { }

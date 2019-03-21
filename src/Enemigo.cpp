@@ -1,11 +1,6 @@
 #include "Enemigo.h"
 
 
-sf::Texture texEnemigo;
-sf::Sprite enemigo;
-bool aLaDerecha;
-
-
 Enemigo::Enemigo(std::string ruta) {
 
     if (!texEnemigo.loadFromFile(ruta)) {
@@ -39,13 +34,13 @@ void Enemigo::mover(int velocidad) {
 }
 
 
-void Enemigo::checkColision(Disparo disparo) {
+/*void Enemigo::checkColision(Disparo disparo) {
 
     if (enemigo.getGlobalBounds().intersects(disparo.getGlobalBounds())) {
         enemigo.setPosition(sf::Vector2f(4234432, 4234423)); //Eliminar al enemigo pero no se como aun jj
         disparo.cambiarSprite("explosion");
     }
-}
+}*/
 
 
 void Enemigo::draw(sf::RenderWindow &window) {

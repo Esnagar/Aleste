@@ -1,6 +1,6 @@
 #ifndef ENEMIGO_H_INCLUDED
 #define ENEMIGO_H_INCLUDED
-#include "Disparo.h"
+#include "Juego.h"
 
 
 class Enemigo
@@ -19,7 +19,7 @@ class Enemigo
         ~Enemigo();
 
         void mover(int velocidad);
-        void checkColision(Disparo disparo);
+        //void checkColision(Disparo disparo);
         void draw(sf::RenderWindow &window);
 
         float getPosX();
