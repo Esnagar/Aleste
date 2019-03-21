@@ -14,14 +14,17 @@
 	<iostream>
 	<SFML/Graphics.hpp>
 
-1553031765 /home/esther/Escritorio/Aleste/include/Disparo.h
+1553187621 /home/esther/Escritorio/Aleste/include/Disparo.h
 	<iostream>
 	<SFML/Graphics.hpp>
-	<TextureManager.h>
+	"TextureManager.h"
 	"Window.h"
 
-1552985142 /home/esther/Escritorio/Aleste/include/Enemigo.h
-	"Juego.h"
+1553191099 /home/esther/Escritorio/Aleste/include/Enemigo.h
+	<iostream>
+	<SFML/Graphics.hpp>
+	"Window.h"
+	"TextureManager.h"
 
 1553106167 /home/esther/Escritorio/Aleste/include/Jugador.h
 	<SFML/Graphics.hpp>
@@ -32,31 +35,32 @@
 	<string>
 	<map>
 
-1552408564 source:/home/esther/Escritorio/Aleste/src/TextureManager.cpp
+1553189513 source:/home/esther/Escritorio/Aleste/src/TextureManager.cpp
 	"TextureManager.h"
 	<iostream>
 
-1553110132 source:/home/esther/Escritorio/Aleste/src/Disparo.cpp
+1553188403 source:/home/esther/Escritorio/Aleste/src/Disparo.cpp
 	"Disparo.h"
 
 1553115630 source:/home/esther/Escritorio/Aleste/src/Jugador.cpp
 	"Jugador.h"
 	"Window.h"
 
-1552985187 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
+1553189641 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
 	"Enemigo.h"
 
-1553115551 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
+1553191124 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
 	"Juego.h"
 	"Jugador.h"
 	"Window.h"
 	"Disparo.h"
 
-1553112229 /home/esther/Escritorio/Aleste/include/Juego.h
+1553187113 /home/esther/Escritorio/Aleste/include/Juego.h
 	"Window.h"
-	"Disparo.h"
-	"Jugador.h"
 	"HUD.h"
+	"Jugador.h"
+	"Disparo.h"
+	"Enemigo.h"
 
 1553111313 /home/esther/Escritorio/Aleste/include/Window.h
 	<SFML/Graphics.hpp>
@@ -73,10 +77,10 @@
 1552930099 source:/home/esther/Escritorio/Aleste/src/ee.cpp
 	"ee.h"
 
-1553127297 /home/esther/Escritorio/Aleste/include/HUD.h
+1553185195 /home/esther/Escritorio/Aleste/include/HUD.h
 	<SFML/Graphics.hpp>
 
-1553127289 source:/home/esther/Escritorio/Aleste/src/HUD.cpp
+1553185034 source:/home/esther/Escritorio/Aleste/src/HUD.cpp
 	"HUD.h"
 	"Window.h"
 

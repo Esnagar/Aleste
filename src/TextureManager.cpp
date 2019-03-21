@@ -15,6 +15,7 @@ sf::Texture *TextureManager::loadTexture(string name, string path) {
         textures[name] = texture;
 
         order.push_back(name);
+
         return textures[name];
 
     } else {

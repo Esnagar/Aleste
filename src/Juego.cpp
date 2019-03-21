@@ -12,24 +12,37 @@ void Juego::update() {
 
     Window::getInstancia()->procesarInput();
 
-    //UPDATEAR JUGADOR
+    //Updatear jugador
     jugador.update();
 
 
-    //CREAR DISPAROS SI EL JUGADOR HA PULSADO SPACE
+    //Crear disparos si se ha pulsado la tecla
     if (Window::getInstancia()->inputs[4]) {
         Disparo disparo("resources/disparos.png", jugador.getPosX(), jugador.getPosY() - 70);
         vectorDisparos.push_back(disparo);
     }
 
 
-    //UPDATEAR DISPAROS
+    //Updatear disparos
     for(int i = 0; i < vectorDisparos.size(); i++) {
         vectorDisparos[i].update();
 
-        //ELIMINAR LOS QUE SALGAN FUERA DE LA PANTALLA
+        //Eliminar los que salgan fuera de la pantalla
         if(!vectorDisparos[i].dentroPantalla())
             vectorDisparos.erase(vectorDisparos.begin() + i);
+    }
+
+
+    //Crear enemigos
+    if (!haEntrado) {
+        Enemigo enemigo(1);
+        vectorEnemigos.push_back(enemigo);
+        haEntrado = true;
+    }
+
+    //Updatear enemigos
+    for(int i = 0; i < vectorEnemigos.size(); i++) {
+        vectorEnemigos[i].update();
     }
 }
 
@@ -40,24 +53,23 @@ void Juego::render() {
     Window::getInstancia()->beginDraw();
 
 
-    //RENDER FONDO
-    Window::getInstancia()->renderWindow.draw( Window::getInstancia()->fondo);
+    //Render fondo
+    Window::getInstancia()->renderWindow.draw(Window::getInstancia()->fondo);
 
-    //RENDER JUGADOR
+    //Render jugador
     jugador.render();
 
-    //RENDER DISPAROS
+    //Render disparos
     for(int i = 0; i < vectorDisparos.size(); i++) {
         vectorDisparos[i].render();
     }
 
-    //RENDER ENEMIGOS
+    //Render enemigos
+    for(int i = 0; i < vectorEnemigos.size(); i++) {
+        vectorEnemigos[i].render();
+    }
 
-    //for (int i = 0; i < vectorDisparos.size(); i++) {
-    //    vectorDisparos[i].draw(Window::getInstancia());
-    //}
-
-    //RENDER HUD
+    //Render HUD
     hud.render();
 
     Window::getInstancia()->endDraw();

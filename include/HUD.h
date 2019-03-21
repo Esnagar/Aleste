@@ -21,7 +21,7 @@ class HUD
         int disparosArma;
         int numVidas;
 
-        sf::Font fuente;
+        sf::Font* fuente = new sf::Font;;
         sf::Text sc;
         sf::Text scNUM;
         sf::Text arm;

@@ -11,7 +11,7 @@ HUD::HUD() {
     caja.setOutlineThickness(2.5);
     caja.setSize(sf::Vector2f(640, 35));
 
-    fuente.loadFromFile("resources/arcade.TTF");
+    fuente->loadFromFile("resources/arcade.TTF");
 
     crearText(sc, "SC", 40, 15);
     crearText(arm, "ARM  -", 352, 15);
@@ -45,7 +45,7 @@ void HUD::render() {
 
 
 void HUD::crearText(sf::Text &texto, std::string str, float posX, float posY){
-    texto.setFont(fuente);
+    texto.setFont(*fuente);
     texto.setCharacterSize(25);
     texto.setColor(sf::Color::White);
     texto.setString(str);

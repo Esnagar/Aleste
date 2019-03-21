@@ -1,21 +1,17 @@
 #include "Enemigo.h"
 
 
-Enemigo::Enemigo(std::string ruta) {
+Enemigo::Enemigo(int tipo) {
 
-    if (!texEnemigo.loadFromFile(ruta)) {
-        std::cerr << "Error cargando la imagen " << ruta;
-        exit(0);
+    if(tipo == 1) {
+        TextureManager::loadTexture("enemigo1", "resources/enemigos.png");
+        texEnemigo = TextureManager::getTexture("enemigo1");
+
+        enemigo.setTexture(*texEnemigo);
+        enemigo.setPosition(320, 100);
+
+        aLaDerecha = true;
     }
-
-    texEnemigo.setSmooth(true);
-
-    enemigo.setTexture(texEnemigo);
-    enemigo.setTextureRect(sf::IntRect(0*75, 0*75, 75, 75));
-    enemigo.setOrigin(enemigo.getGlobalBounds().width/2,enemigo.getGlobalBounds().height/2);
-    enemigo.setPosition(320, 50);
-
-    aLaDerecha = true;
 }
 
 
@@ -24,13 +20,28 @@ void Enemigo::mover(int velocidad) {
     if(aLaDerecha) {
         enemigo.move(velocidad,0);
 
-        if(enemigo.getPosition().x > 630) aLaDerecha = false;
+        if(enemigo.getPosition().x > Window::getInstancia()->getTamanyo().x - 50) aLaDerecha = false;
 
     } else {
         enemigo.move(-velocidad,0);
 
         if(enemigo.getPosition().x < 50)  aLaDerecha = true;
     }
+}
+
+
+void Enemigo::update() {
+    mover(2);
+}
+
+
+void Enemigo::render() {
+    enemigo.setTexture(*texEnemigo);
+    enemigo.setTextureRect(sf::IntRect(400, 165, 70, 70));
+    enemigo.setScale(0.8, 0.8);
+    enemigo.setOrigin(enemigo.getGlobalBounds().width/2,enemigo.getGlobalBounds().height/2);
+
+    Window::getInstancia()->draw(enemigo);
 }
 
 
@@ -43,9 +54,6 @@ void Enemigo::mover(int velocidad) {
 }*/
 
 
-void Enemigo::draw(sf::RenderWindow &window) {
-    window.draw(enemigo);
-}
 
 float Enemigo::getPosX() {
     return enemigo.getPosition().x;
@@ -56,6 +64,4 @@ float Enemigo::getPosY() {
 }
 
 
-Enemigo::~Enemigo() {
-
-}
+Enemigo::~Enemigo() {}

@@ -1,18 +1,21 @@
 #ifndef JUEGO_H
 #define JUEGO_H
 #include "Window.h"
-#include "Disparo.h"
-#include "Jugador.h"
 #include "HUD.h"
+#include "Jugador.h"
+#include "Disparo.h"
+#include "Enemigo.h"
 
 #define kVELOCIDAD 15
 
 class Juego
 {
     private:
+        HUD hud;
+
         Jugador jugador;
         std::vector <Disparo> vectorDisparos;
-        HUD hud;
+        std::vector <Enemigo> vectorEnemigos;
 
     protected:
 
@@ -20,6 +23,8 @@ class Juego
     public:
         Juego();
         ~Juego();
+
+        bool haEntrado = false;
 
         void update();
         void render();

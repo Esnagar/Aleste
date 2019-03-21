@@ -4,7 +4,7 @@
 Disparo::Disparo(std::string ruta, float x, float y) {
 
     TextureManager::loadTexture("disparo1", ruta);
-    texDisparo = TextureManager::getTexture("disparo1")[0];
+    texDisparo = *TextureManager::getTexture("disparo1");
     disparo.setTexture(texDisparo);
     disparo.setTextureRect(sf::IntRect(190, 90, 50, 20));
 
