@@ -44,6 +44,29 @@ void Juego::update() {
     for(int i = 0; i < vectorEnemigos.size(); i++) {
         vectorEnemigos[i].update();
     }
+
+
+    std::cout << "Num enemigos: " << vectorEnemigos.size() << std::endl;
+    std::cout << "Num disparos: " << vectorDisparos.size() << std::endl;
+
+
+    //Comprobar la colisión enemigo-disparo
+    for(int i = 0; i < vectorEnemigos.size(); i++)
+        for(int j = 0; j < vectorDisparos.size(); j++)
+            if(vectorEnemigos[i].checkColisionDisparo(vectorDisparos[j])) { //si estan colisionando
+
+                hud.updatePuntuacion(vectorEnemigos[i].getTipo());
+
+                vectorEnemigos.erase(vectorEnemigos.begin() + i);
+                vectorDisparos.erase(vectorDisparos.begin() + j);
+            }
+
+
+
+    //Comprobar la colisión enemigo-disparo
+    for(int i = 0; i < vectorEnemigos.size(); i++)
+        if(vectorEnemigos[i].checkColisionJugador(jugador))
+            jugador.mover(320, 240);
 }
 
 

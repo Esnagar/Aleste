@@ -9,7 +9,7 @@ class HUD
         virtual ~HUD();
         void crearText(sf::Text &texto, std::string str, float posX, float posY);
 
-        void update();//implementar
+        void updatePuntuacion(int tipoEnemigo);
         void render();
 
     protected:

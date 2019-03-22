@@ -33,6 +33,16 @@ HUD::HUD() {
 
 HUD::~HUD() {}
 
+
+void HUD::updatePuntuacion(int tipoEnemigo) {
+
+    if(tipoEnemigo == 1) {
+        puntuacion += 200;
+        scNUM.setString(std::to_string(puntuacion));
+    }
+}
+
+
 void HUD::render() {
     Window::getInstancia()->renderWindow.draw(caja);
     Window::getInstancia()->renderWindow.draw(sc);

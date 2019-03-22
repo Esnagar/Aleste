@@ -28,6 +28,7 @@ class Disparo {
         int getLeft();
         int getTop();
         int getBottom();
+        sf::FloatRect getGBounds() { return disparo.getGlobalBounds();}
 };
 
 #endif // DISPARO_H

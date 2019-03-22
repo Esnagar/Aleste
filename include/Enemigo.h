@@ -1,16 +1,17 @@
 #ifndef ENEMIGO_H_INCLUDED
 #define ENEMIGO_H_INCLUDED
-#include <iostream>
-#include <SFML/Graphics.hpp>
 #include "Window.h"
 #include "TextureManager.h"
-
+#include "Disparo.h"
+#include "Jugador.h"
 
 class Enemigo
 {
     private:
         sf::Texture* texEnemigo;
         sf::Sprite enemigo;
+        int tipo;
+
         bool aLaDerecha;
 
     protected:
@@ -24,10 +25,13 @@ class Enemigo
         void mover(int velocidad);
         void update();
         void render();
-        //void checkColision(Disparo disparo);
+        bool checkColisionDisparo(Disparo disparo);
+        bool checkColisionJugador(Jugador jugador);
 
         float getPosX();
         float getPosY();
+
+        int getTipo();
 };
 
 

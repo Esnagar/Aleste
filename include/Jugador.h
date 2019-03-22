@@ -25,6 +25,11 @@ class Jugador
 
         float getPosX();
         float getPosY();
+
+        sf::FloatRect getGBounds() { return jugador.getGlobalBounds(); }
+
+        void mover(float x, float y) { jugador.setPosition(x, y); }
+
 };
 
 #endif // JUGADOR_H_INCLUDED

@@ -28,6 +28,7 @@ class Juego
 
         void update();
         void render();
+
 };
 
 #endif // JUEGO_H

@@ -1,9 +1,11 @@
 #include "Enemigo.h"
 
 
-Enemigo::Enemigo(int tipo) {
+Enemigo::Enemigo(int tipoEnemigo) {
 
-    if(tipo == 1) {
+    if(tipoEnemigo == 1) {
+        tipo = tipoEnemigo;
+
         TextureManager::loadTexture("enemigo1", "resources/enemigos.png");
         texEnemigo = TextureManager::getTexture("enemigo1");
 
@@ -18,14 +20,14 @@ Enemigo::Enemigo(int tipo) {
 void Enemigo::mover(int velocidad) {
 
     if(aLaDerecha) {
-        enemigo.move(velocidad,0);
+        enemigo.move(velocidad,0.05);
 
-        if(enemigo.getPosition().x > Window::getInstancia()->getTamanyo().x - 50) aLaDerecha = false;
+        if(enemigo.getPosition().x > Window::getInstancia()->getTamanyo().x - 150) aLaDerecha = false;
 
     } else {
-        enemigo.move(-velocidad,0);
+        enemigo.move(-velocidad,0.05);
 
-        if(enemigo.getPosition().x < 50)  aLaDerecha = true;
+        if(enemigo.getPosition().x < 150)  aLaDerecha = true;
     }
 }
 
@@ -45,14 +47,21 @@ void Enemigo::render() {
 }
 
 
-/*void Enemigo::checkColision(Disparo disparo) {
-
-    if (enemigo.getGlobalBounds().intersects(disparo.getGlobalBounds())) {
-        enemigo.setPosition(sf::Vector2f(4234432, 4234423)); //Eliminar al enemigo pero no se como aun jj
+bool Enemigo::checkColisionDisparo(Disparo disparo) {
+    bool colision = false;
+    if (enemigo.getGlobalBounds().intersects(disparo.getGBounds())) {
         disparo.cambiarSprite("explosion");
+        colision = true;
     }
-}*/
+}
 
+
+bool Enemigo::checkColisionJugador(Jugador jugador) {
+    bool colision = false;
+    if (enemigo.getGlobalBounds().intersects(jugador.getGBounds())) {
+        colision = true;
+    }
+}
 
 
 float Enemigo::getPosX() {
@@ -61,6 +70,10 @@ float Enemigo::getPosX() {
 
 float Enemigo::getPosY() {
     return enemigo.getPosition().y;
+}
+
+int Enemigo::getTipo() {
+    return tipo;
 }
 
 
