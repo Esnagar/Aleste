@@ -17,7 +17,7 @@ Jugador::Jugador(std::string ruta) {
     jugador.setTexture(texJugador);
     jugador.setOrigin(jugador.getGlobalBounds().width/2, jugador.getGlobalBounds().height/2);
     jugador.setScale(0.1f, 0.15f);
-    jugador.setPosition(320, 240);
+    jugador.setPosition(Window::getInstancia()->getTamanyo().x/2, Window::getInstancia()->getTamanyo().y/2);
 }
 
 

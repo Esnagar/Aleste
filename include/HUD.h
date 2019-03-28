@@ -1,6 +1,7 @@
 #ifndef HUD_H
 #define HUD_H
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class HUD
 {
@@ -10,6 +11,8 @@ class HUD
         void crearText(sf::Text &texto, std::string str, float posX, float posY);
 
         void updatePuntuacion(int tipoEnemigo);
+        void updateVidas(int vidas);
+
         void render();
 
     protected:
@@ -32,7 +35,8 @@ class HUD
         sf::Texture texMininave;
         sf::Sprite mininave;
 
-        sf::RectangleShape caja;
+        sf::RectangleShape bandaNegra;
+        sf::RectangleShape marcoVerde;
 };
 
 #endif // HUD_H

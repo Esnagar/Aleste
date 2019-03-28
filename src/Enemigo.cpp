@@ -58,6 +58,7 @@ bool Enemigo::checkColisionDisparo(Disparo disparo) {
 
 bool Enemigo::checkColisionJugador(Jugador jugador) {
     bool colision = false;
+
     if (enemigo.getGlobalBounds().intersects(jugador.getGBounds())) {
         colision = true;
     }

@@ -13,17 +13,18 @@ Window* Window::getInstancia() {
 
 //Por defecto
 Window::Window() {
-    renderWindow.create(sf::VideoMode(640, 480), "Aleste");
+    renderWindow.create(sf::VideoMode(820, 630), "Aleste");
     renderWindow.setFramerateLimit(60);
 
     //Esto lo borrare supongo
-    TextureManager::loadTexture("fondoCiudad", "resources/fondoCiudad.png");
-    texFondo = TextureManager::getTexture("fondoCiudad")[0];
+    TextureManager::loadTexture("fondoAleste", "resources/fondoAleste.png");
+    texFondo = TextureManager::getTexture("fondoAleste")[0];
 
     fondo.setTexture(texFondo);
     fondo.setOrigin(fondo.getGlobalBounds().width/2,fondo.getGlobalBounds().height/2);
-    fondo.setScale(0.65, 0.65);
-    fondo.setPosition(320, 240);
+    fondo.setScale(1.2, 1.2);
+    fondo.setPosition(renderWindow.getSize().x/2, renderWindow.getSize().y/2);
+
 }
 
 Window::~Window() {

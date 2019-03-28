@@ -6,20 +6,32 @@ HUD::HUD() {
     numVidas = 3;
     tipoArma = 1;
 
-    caja.setFillColor(sf::Color::Black);
-    caja.setOutlineColor(sf::Color::Blue);
-    caja.setOutlineThickness(2.5);
-    caja.setSize(sf::Vector2f(640, 35));
+
+    marcoVerde.setFillColor(sf::Color::Transparent);
+    marcoVerde.setOutlineColor(sf::Color(0, 75, 0));
+    marcoVerde.setOutlineThickness(18);
+    marcoVerde.setSize(sf::Vector2f(Window::getInstancia()->getTamanyo().x - marcoVerde.getOutlineThickness()*2,
+                                    Window::getInstancia()->getTamanyo().y - marcoVerde.getOutlineThickness()*2));
+    marcoVerde.setPosition(18, 18);
+
+
+    bandaNegra.setFillColor(sf::Color::Black);
+    bandaNegra.setOutlineColor(sf::Color::Blue);
+    bandaNegra.setOutlineThickness(2.5);
+    bandaNegra.setSize(sf::Vector2f(Window::getInstancia()->getTamanyo().x, 35));
+    bandaNegra.setPosition(0, marcoVerde.getOutlineThickness());
+
+
 
     fuente->loadFromFile("resources/arcade.TTF");
 
-    crearText(sc, "SC", 40, 15);
-    crearText(arm, "ARM  -", 352, 15);
+    crearText(sc, "SC", 65, 33);
+    crearText(arm, "ARM  -", 435, 33);
 
     //NÚMEROS
-    crearText(scNUM, std::to_string(puntuacion), 200, 15);
-    crearText(armNUM, std::to_string(tipoArma), 385, 15);
-    crearText(vidasNUM, std::to_string(numVidas), 600, 15);
+    crearText(scNUM, std::to_string(puntuacion), 240, 33);
+    crearText(armNUM, std::to_string(tipoArma), 463, 33);
+    crearText(vidasNUM, std::to_string(numVidas), 760, 33);
 
     texMininave.loadFromFile("resources/nave2.png");
     texMininave.setSmooth(true);
@@ -27,7 +39,7 @@ HUD::HUD() {
     mininave.setTexture(texMininave);
     mininave.setOrigin(mininave.getGlobalBounds().width/2, mininave.getGlobalBounds().height/2);
     mininave.setScale(0.033f, 0.05f);
-    mininave.setPosition(550, 15);
+    mininave.setPosition(690, 33);
 
 }
 
@@ -42,9 +54,19 @@ void HUD::updatePuntuacion(int tipoEnemigo) {
     }
 }
 
+void HUD::updateVidas(int vidas) {
+
+    numVidas += vidas;
+    vidasNUM.setString(std::to_string(numVidas));
+
+    if(numVidas <= 0)
+        std::cout << "Has perdido!" << std::endl; //aquí reiniciar el juego
+
+}
 
 void HUD::render() {
-    Window::getInstancia()->renderWindow.draw(caja);
+    Window::getInstancia()->renderWindow.draw(bandaNegra);
+    Window::getInstancia()->renderWindow.draw(marcoVerde);
     Window::getInstancia()->renderWindow.draw(sc);
     Window::getInstancia()->renderWindow.draw(arm);
     Window::getInstancia()->renderWindow.draw(mininave);

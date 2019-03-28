@@ -46,10 +46,6 @@ void Juego::update() {
     }
 
 
-    std::cout << "Num enemigos: " << vectorEnemigos.size() << std::endl;
-    std::cout << "Num disparos: " << vectorDisparos.size() << std::endl;
-
-
     //Comprobar la colisión enemigo-disparo
     for(int i = 0; i < vectorEnemigos.size(); i++)
         for(int j = 0; j < vectorDisparos.size(); j++)
@@ -65,8 +61,10 @@ void Juego::update() {
 
     //Comprobar la colisión enemigo-disparo
     for(int i = 0; i < vectorEnemigos.size(); i++)
-        if(vectorEnemigos[i].checkColisionJugador(jugador))
-            jugador.mover(320, 240);
+        if(vectorEnemigos[i].checkColisionJugador(jugador)) {
+            hud.updateVidas(-1);
+            jugador.mover(Window::getInstancia()->getTamanyo().x/2, Window::getInstancia()->getTamanyo().y/2);
+        }
 }
 
 
