@@ -11,6 +11,8 @@ class Jugador
     private:
         sf::Texture texJugador;
         sf::Sprite jugador;
+        sf::CircleShape circuloColision;
+
 
     protected:
 
@@ -19,13 +21,12 @@ class Jugador
         Jugador(std::string ruta);
         ~Jugador();
 
-        //void checkColision(Enemigo enemigo);
         void update();
         void render();
 
         float getPosX();
         float getPosY();
-
+        float getRadioColision();
         sf::FloatRect getGBounds() { return jugador.getGlobalBounds(); }
 
         void mover(float x, float y) { jugador.setPosition(x, y); }

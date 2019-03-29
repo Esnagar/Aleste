@@ -1,7 +1,4 @@
 #include "Juego.h"
-#include "Jugador.h"
-#include "Window.h"
-#include "Disparo.h"
 
 Juego::Juego(): jugador("resources/nave2.png") {}
 
@@ -18,50 +15,59 @@ void Juego::update() {
 
     //Crear disparos si se ha pulsado la tecla
     if (Window::getInstancia()->inputs[4]) {
-        Disparo disparo("resources/disparos.png", jugador.getPosX(), jugador.getPosY() - 70);
-        vectorDisparos.push_back(disparo);
+        vectorDisparos.push_back(new Disparo("resources/disparos.png", jugador.getPosX(), jugador.getPosY() - 70));
     }
 
 
+    std::cout << vectorDisparos.size() << std::endl;
+
     //Updatear disparos
-    for(int i = 0; i < vectorDisparos.size(); i++) {
-        vectorDisparos[i].update();
+    for(int i=0; i<vectorDisparos.size(); i++) {
+        vectorDisparos[i]->update();
 
         //Eliminar los que salgan fuera de la pantalla
-        if(!vectorDisparos[i].dentroPantalla())
+        if(!vectorDisparos[i]->dentroPantalla()) {
+            delete vectorDisparos[i];
+            vectorDisparos[i] = nullptr;
+
             vectorDisparos.erase(vectorDisparos.begin() + i);
+        }
     }
 
 
     //Crear enemigos
     if (!haEntrado) {
-        Enemigo enemigo(1);
-        vectorEnemigos.push_back(enemigo);
+        vectorEnemigos.push_back(new Enemigo(1));
         haEntrado = true;
     }
 
     //Updatear enemigos
     for(int i = 0; i < vectorEnemigos.size(); i++) {
-        vectorEnemigos[i].update();
+        vectorEnemigos[i]->update();
     }
 
 
     //Comprobar la colisión enemigo-disparo
-    for(int i = 0; i < vectorEnemigos.size(); i++)
-        for(int j = 0; j < vectorDisparos.size(); j++)
-            if(vectorEnemigos[i].checkColisionDisparo(vectorDisparos[j])) { //si estan colisionando
+    for(int i = 0; i < vectorDisparos.size(); i++)
+        for(int j = 0; j < vectorEnemigos.size(); j++)
+            if(vectorDisparos[i]->checkColisionDisparo(*vectorEnemigos[j])) { //si estan colisionando
 
-                hud.updatePuntuacion(vectorEnemigos[i].getTipo());
+                hud.updatePuntuacion(vectorEnemigos[j]->getTipo());
 
-                vectorEnemigos.erase(vectorEnemigos.begin() + i);
-                vectorDisparos.erase(vectorDisparos.begin() + j);
+                delete vectorEnemigos[j];
+                vectorEnemigos[j] = nullptr;
+                vectorEnemigos.erase(vectorEnemigos.begin() + j);
+
+                delete vectorDisparos[i];
+                vectorDisparos[i] = nullptr;
+                vectorDisparos.erase(vectorDisparos.begin() + i);
             }
 
 
 
-    //Comprobar la colisión enemigo-disparo
+    //Comprobar la colisión enemigo-jugador
     for(int i = 0; i < vectorEnemigos.size(); i++)
-        if(vectorEnemigos[i].checkColisionJugador(jugador)) {
+        if(vectorEnemigos[i]->checkColisionJugador(jugador)) {
             hud.updateVidas(-1);
             jugador.mover(Window::getInstancia()->getTamanyo().x/2, Window::getInstancia()->getTamanyo().y/2);
         }
@@ -82,12 +88,12 @@ void Juego::render() {
 
     //Render disparos
     for(int i = 0; i < vectorDisparos.size(); i++) {
-        vectorDisparos[i].render();
+        vectorDisparos[i]->render();
     }
 
     //Render enemigos
     for(int i = 0; i < vectorEnemigos.size(); i++) {
-        vectorEnemigos[i].render();
+        vectorEnemigos[i]->render();
     }
 
     //Render HUD

@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "TextureManager.h"
 #include "Window.h"
+#include "Enemigo.h"
 
 class Disparo {
     private:
@@ -23,6 +24,7 @@ class Disparo {
         void update();
         bool dentroPantalla();
         void render();
+        bool checkColisionDisparo(Enemigo enemigo);
 
         int getRight();
         int getLeft();

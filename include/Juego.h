@@ -14,8 +14,8 @@ class Juego
         HUD hud;
 
         Jugador jugador;
-        std::vector <Disparo> vectorDisparos;
-        std::vector <Enemigo> vectorEnemigos;
+        std::vector <Disparo*> vectorDisparos; //vectorDisparos deberia ser un puntero?
+        std::vector <Enemigo*> vectorEnemigos;
 
     protected:
 

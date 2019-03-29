@@ -1,12 +1,11 @@
 #include "Disparo.h"
 
-
 Disparo::Disparo(std::string ruta, float x, float y) {
 
     TextureManager::loadTexture("disparo1", ruta);
     texDisparo = *TextureManager::getTexture("disparo1");
     disparo.setTexture(texDisparo);
-    disparo.setTextureRect(sf::IntRect(190, 90, 50, 20));
+    disparo.setTextureRect(sf::IntRect(190, 90, 20, 20));
 
     disparo.setOrigin(disparo.getGlobalBounds().width/2,disparo.getGlobalBounds().height/2);
     disparo.setRotation(90);
@@ -18,13 +17,13 @@ Disparo::~Disparo() {}
 
 void Disparo::update() {
     //comprobar colisiones con el enemigo
-    disparo.move(0, -4);
+    disparo.move(0, -7);
 }
 
 
 void Disparo::render() {
     disparo.setTexture(texDisparo);
-    disparo.setTextureRect(sf::IntRect(190, 90, 50, 20));
+    disparo.setTextureRect(sf::IntRect(190, 90, 50, 20)); //a que corresponde cada parametro?????
     Window::getInstancia()->renderWindow.draw(disparo);
 }
 
@@ -35,6 +34,14 @@ bool Disparo::dentroPantalla() {
 
     } else {
         return true;
+    }
+}
+
+bool Disparo::checkColisionDisparo(Enemigo enemigo) {
+    bool colision = false;
+    if (disparo.getGlobalBounds().intersects(enemigo.getCirculoColision())) {
+        //disparo.cambiarSprite("explosion");
+        colision = true;
     }
 }
 

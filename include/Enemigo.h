@@ -2,14 +2,15 @@
 #define ENEMIGO_H_INCLUDED
 #include "Window.h"
 #include "TextureManager.h"
-#include "Disparo.h"
 #include "Jugador.h"
+#include <cmath>
 
 class Enemigo
 {
     private:
         sf::Texture* texEnemigo;
         sf::Sprite enemigo;
+        sf::CircleShape circuloColision;
         int tipo;
 
         bool aLaDerecha;
@@ -25,13 +26,13 @@ class Enemigo
         void mover(int velocidad);
         void update();
         void render();
-        bool checkColisionDisparo(Disparo disparo);
         bool checkColisionJugador(Jugador jugador);
 
         float getPosX();
         float getPosY();
 
         int getTipo();
+        sf::FloatRect getCirculoColision();
 };
 
 
