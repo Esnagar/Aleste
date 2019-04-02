@@ -24,7 +24,7 @@ class Juego
         Juego();
         ~Juego();
 
-        bool haEntrado = false;
+        int haEntrado = 1;
 
         void update();
         void render();

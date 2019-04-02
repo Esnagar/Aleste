@@ -8,6 +8,7 @@ Juego::~Juego() {}
 void Juego::update() {
 
     Window::getInstancia()->procesarInput();
+    //Window::getInstancia()->fondo.move(0,3);
 
     //Updatear jugador
     jugador.update();
@@ -19,7 +20,7 @@ void Juego::update() {
     }
 
 
-    std::cout << vectorDisparos.size() << std::endl;
+    //std::cout << vectorDisparos.size() << std::endl;
 
     //Updatear disparos
     for(int i=0; i<vectorDisparos.size(); i++) {
@@ -36,14 +37,28 @@ void Juego::update() {
 
 
     //Crear enemigos
-    if (!haEntrado) {
-        vectorEnemigos.push_back(new Enemigo(1));
-        haEntrado = true;
+    if (haEntrado <= 2) {
+        if(haEntrado == 1)
+            vectorEnemigos.push_back(new Enemigo(1, sf::Vector2f(jugador.getPosX(), jugador.getPosY())));
+        else
+            vectorEnemigos.push_back(new Enemigo(2, sf::Vector2f(jugador.getPosX(), jugador.getPosY())));
+
+        haEntrado++;
     }
+
 
     //Updatear enemigos
     for(int i = 0; i < vectorEnemigos.size(); i++) {
         vectorEnemigos[i]->update();
+
+
+        //Eliminar los que salgan fuera de la pantalla
+        if(!vectorEnemigos[i]->dentroPantalla()) {
+            delete vectorEnemigos[i];
+            vectorEnemigos[i] = nullptr;
+
+            vectorEnemigos.erase(vectorEnemigos.begin() + i);
+        }
     }
 
 

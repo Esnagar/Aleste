@@ -3,7 +3,7 @@
 #include "Jugador.h"
 #include "Juego.h"
 
-#define UPDATE_TICK_TIME 1000/15
+#define UPDATE_TICK_TIME (1000/15)
 
 int main() {
 

@@ -17,7 +17,7 @@ Jugador::Jugador(std::string ruta) {
     jugador.setTexture(texJugador);
     jugador.setOrigin(jugador.getGlobalBounds().width/2, jugador.getGlobalBounds().height/2);
     jugador.setScale(0.1f, 0.15f);
-    jugador.setPosition(Window::getInstancia()->getTamanyo().x/2, Window::getInstancia()->getTamanyo().y/2);
+    jugador.setPosition(Window::getInstancia()->getTamanyo().x/2, Window::getInstancia()->getTamanyo().y - 100);
 
     circuloColision.setRadius(jugador.getGlobalBounds().width/3.0);
     circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);

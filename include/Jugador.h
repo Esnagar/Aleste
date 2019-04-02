@@ -13,7 +13,6 @@ class Jugador
         sf::Sprite jugador;
         sf::CircleShape circuloColision;
 
-
     protected:
 
     public:
