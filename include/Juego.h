@@ -29,6 +29,8 @@ class Juego
         void update();
         void render();
 
+        sf::Vector2f getPosicionJugador();
+
 };
 
 #endif // JUEGO_H

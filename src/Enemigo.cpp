@@ -89,9 +89,8 @@ void Enemigo::render() {
     enemigo.setScale(0.8, 0.8);
     enemigo.setOrigin(enemigo.getGlobalBounds().width/2,enemigo.getGlobalBounds().height/2);
 
-    Window::getInstancia()->draw(enemigo);
     Window::getInstancia()->draw(circuloColision);
-
+    Window::getInstancia()->draw(enemigo);
 }
 
 

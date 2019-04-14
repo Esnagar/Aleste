@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-#define kVELOCIDAD 6
+#define kVELOCIDAD 300
 
 
 class Jugador
@@ -20,15 +20,15 @@ class Jugador
         Jugador(std::string ruta);
         ~Jugador();
 
-        void update();
+        void update(float segundosUpdate);
         void render();
 
         float getPosX();
         float getPosY();
         float getRadioColision();
-        sf::FloatRect getGBounds() { return jugador.getGlobalBounds(); }
+        sf::FloatRect getGBounds();
 
-        void mover(float x, float y) { jugador.setPosition(x, y); }
+        void mover(float x, float y);
 
 };
 

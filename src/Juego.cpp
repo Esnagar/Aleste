@@ -7,11 +7,22 @@ Juego::~Juego() {}
 
 void Juego::update() {
 
+    float segundosUpdate = Window::getInstancia()->relojUpdate.restart().asSeconds();
+
+    //Guardamos la última posición
+    Window::getInstancia()->last = Window::getInstancia()->first;
+
+    //Procesamos las teclas pulsadas
     Window::getInstancia()->procesarInput();
-    //Window::getInstancia()->fondo.move(0,3);
+
 
     //Updatear jugador
-    jugador.update();
+    Window::getInstancia()->percent = std::min(1.0, (double)Window::getInstancia()->relojInterp.getElapsedTime().asMilliseconds() / UPDATE_TICK_TIME);
+    jugador.update(segundosUpdate);
+
+
+    //Update del fondo
+    Window::getInstancia()->updateFondo();
 
 
     //Crear disparos si se ha pulsado la tecla
@@ -19,8 +30,6 @@ void Juego::update() {
         vectorDisparos.push_back(new Disparo("resources/disparos.png", jugador.getPosX(), jugador.getPosY() - 70));
     }
 
-
-    //std::cout << vectorDisparos.size() << std::endl;
 
     //Updatear disparos
     for(int i=0; i<vectorDisparos.size(); i++) {
@@ -30,7 +39,6 @@ void Juego::update() {
         if(!vectorDisparos[i]->dentroPantalla()) {
             delete vectorDisparos[i];
             vectorDisparos[i] = nullptr;
-
             vectorDisparos.erase(vectorDisparos.begin() + i);
         }
     }
@@ -51,12 +59,10 @@ void Juego::update() {
     for(int i = 0; i < vectorEnemigos.size(); i++) {
         vectorEnemigos[i]->update();
 
-
         //Eliminar los que salgan fuera de la pantalla
         if(!vectorEnemigos[i]->dentroPantalla()) {
             delete vectorEnemigos[i];
             vectorEnemigos[i] = nullptr;
-
             vectorEnemigos.erase(vectorEnemigos.begin() + i);
         }
     }
@@ -79,7 +85,6 @@ void Juego::update() {
             }
 
 
-
     //Comprobar la colisión enemigo-jugador
     for(int i = 0; i < vectorEnemigos.size(); i++)
         if(vectorEnemigos[i]->checkColisionJugador(jugador)) {
@@ -93,7 +98,6 @@ void Juego::update() {
 void Juego::render() {
 
     Window::getInstancia()->beginDraw();
-
 
     //Render fondo
     Window::getInstancia()->renderWindow.draw(Window::getInstancia()->fondo);
@@ -116,4 +120,8 @@ void Juego::render() {
 
     Window::getInstancia()->endDraw();
 
+}
+
+sf::Vector2f Juego::getPosicionJugador() {
+    return sf::Vector2f(jugador.getPosX(), jugador.getPosY());
 }

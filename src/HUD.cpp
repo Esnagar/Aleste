@@ -31,7 +31,7 @@ HUD::HUD() {
     //NÚMEROS
     crearText(scNUM, std::to_string(puntuacion), 240, 33);
     crearText(armNUM, std::to_string(tipoArma), 463, 33);
-    crearText(vidasNUM, std::to_string(numVidas), 760, 33);
+    crearText(vidasNUM, std::to_string(numVidas), 740, 33);
 
     texMininave.loadFromFile("resources/nave2.png");
     texMininave.setSmooth(true);
