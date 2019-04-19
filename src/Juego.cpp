@@ -48,10 +48,12 @@ void Juego::update() {
 
     //Crear enemigos
     if (haEntrado <= 2) {
-        if(haEntrado == 1)
-            vectorEnemigos.push_back(new Enemigo(1, sf::Vector2f(jugador.getPosX(), jugador.getPosY())));
-        else
-            vectorEnemigos.push_back(new Enemigo(2, sf::Vector2f(jugador.getPosX(), jugador.getPosY())));
+        if(haEntrado == 1) {
+            vectorEnemigos.push_back(factoriaEnem.crearEnemigo(1, sf::Vector2f(jugador.getPosX(), jugador.getPosY())));
+            vectorEnemigos.push_back(factoriaEnem.crearEnemigo(2, sf::Vector2f(jugador.getPosX(), jugador.getPosY())));
+
+        } else
+            vectorEnemigos.push_back(factoriaEnem.crearEnemigo(3, sf::Vector2f(jugador.getPosX(), jugador.getPosY())));
 
         haEntrado++;
     }

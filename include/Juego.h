@@ -5,6 +5,7 @@
 #include "Jugador.h"
 #include "Disparo.h"
 #include "Enemigo.h"
+#include "FactoryEnemigo.h"
 
 #define kVELOCIDAD 15
 
@@ -14,6 +15,9 @@ class Juego
         HUD hud;
 
         Jugador jugador;
+
+        FactoryEnemigo factoriaEnem;
+
         std::vector <Disparo*> vectorDisparos; //vectorDisparos deberia ser un puntero?
         std::vector <Enemigo*> vectorEnemigos;
 

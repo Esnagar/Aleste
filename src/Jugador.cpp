@@ -1,8 +1,6 @@
 #include "Jugador.h"
 #include "Window.h"
 
-Jugador::Jugador(std::string ruta) {}
-
 Jugador::~Jugador() { }
 
 Jugador::Jugador() {
@@ -16,10 +14,7 @@ Jugador::Jugador() {
 
     circuloColision.setRadius(jugador.getGlobalBounds().width/3.0);
     circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
-
 }
-
-
 
 void Jugador::update(float segundosUpdate) {
 
@@ -38,7 +33,6 @@ void Jugador::render() {
     Window::getInstancia()->renderWindow.draw(circuloColision);
     Window::getInstancia()->renderWindow.draw(jugador);
 }
-
 
 float Jugador::getPosX() {
     return jugador.getPosition().x;

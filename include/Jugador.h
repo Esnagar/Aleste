@@ -10,7 +10,6 @@
 class Jugador
 {
     private:
-        sf::Texture texJugador;
         sf::Sprite jugador;
         sf::CircleShape circuloColision;
 
@@ -18,9 +17,9 @@ class Jugador
 
     public:
         Jugador();
-        Jugador(std::string ruta);
         ~Jugador();
 
+        void mover(float x, float y);
         void update(float segundosUpdate);
         void render();
 
@@ -28,9 +27,6 @@ class Jugador
         float getPosY();
         float getRadioColision();
         sf::FloatRect getGBounds();
-
-        void mover(float x, float y);
-
 };
 
 #endif // JUGADOR_H_INCLUDED

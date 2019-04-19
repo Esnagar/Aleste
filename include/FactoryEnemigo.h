@@ -1,18 +1,27 @@
 #ifndef FACTORYENEMIGO_H
 #define FACTORYENEMIGO_H
-
+#include "Enemigo.h"
 
 class FactoryEnemigo
 {
     public:
         FactoryEnemigo();
         virtual ~FactoryEnemigo();
-
-        void crearEnemigo(int tipo);
+        Enemigo* crearEnemigo(int p_tipo, sf::Vector2f posicionJugador);
 
     protected:
 
     private:
+        int tipo;
+
+        int posRX;
+        int posRY;
+        int ancho;
+        int alto;
+        float escala;
+
+        sf::Vector2f posicion;
+        sf::Vector2f direccionEnemigo;
 };
 
 #endif // FACTORYENEMIGO_H

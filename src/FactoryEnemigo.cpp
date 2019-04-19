@@ -1,39 +1,60 @@
 #include "FactoryEnemigo.h"
 
-FactoryEnemigo::FactoryEnemigo()
-{
-    //ctor
-}
+FactoryEnemigo::FactoryEnemigo() {}
 
-FactoryEnemigo::~FactoryEnemigo()
-{
-    //dtor
-}
+FactoryEnemigo::~FactoryEnemigo() {}
 
-void FactoryEnemigo::crearEnemigo(int tipo) {
-/*
-    switch(tipo) {
+Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador) {
+
+    float modulo;
+
+    switch(p_tipo) {
 
         case 1:
+            tipo = p_tipo;
+            posRX = 234;
+            posRY = 71;
+            ancho = 78;
+            alto = 71;
+            escala = 0.8;
+            posicion.x = 320;
+            posicion.y = 100;
+        break;
 
-            TextureManager::loadTexture("enemigo1", "resources/enemigos.png");
-            texEnemigo = TextureManager::getTexture("enemigo1");
+        case 2:
+            tipo = p_tipo;
+            posRX = 331;
+            posRY = 71;
+            ancho = 66;
+            alto = 139;
+            escala = 0.7;
+            posicion.x = 500;
+            posicion.y = 100;
 
-            enemigo.setTexture(*texEnemigo);
-            enemigo.setPosition(320, 100);
-            enemigo.setTextureRect(sf::IntRect(403, 165, 67, 70));
-            enemigo.setScale(0.8, 0.8);
-            enemigo.setOrigin(enemigo.getGlobalBounds().width/2, enemigo.getGlobalBounds().height/2);
-
-            circuloColision.setRadius(enemigo.getGlobalBounds().width/3.0);
-            circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
-
-            aLaDerecha = true;
-
+            //Se calcula el vector unitario entre el enemigo y el jugador
+            //De esta forma, el enemigo se moverá a la misma velocidad siempre
+            modulo = sqrt(  (posicion.x - posicionJugador.x) * (posicion.x - posicionJugador.x)
+                          + (posicion.y - posicionJugador.y) * (posicion.y - posicionJugador.y));
+            direccionEnemigo.x = (posicionJugador.x - posicion.x) / modulo;
+            direccionEnemigo.y = (posicionJugador.y - posicion.y) / modulo;
         break;
 
 
+        case 3:
+            tipo = p_tipo;
+            posRX = 0;
+            posRY = 142;
+            ancho = 78;
+            alto = 71;
+            escala = 0.7;
+            posicion.x = Window::getInstancia()->getTamanyo().x/4;
+            posicion.y = 20;
+        break;
     }
 
-*/
+    std::cout << direccionEnemigo.x << std::endl;
+    std::cout << direccionEnemigo.y << std::endl;
+
+
+    return new Enemigo(tipo, sf::IntRect(posRX, posRY, ancho, alto), escala, posicion, direccionEnemigo);
 }

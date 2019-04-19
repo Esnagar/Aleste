@@ -1,64 +1,61 @@
 #include "Enemigo.h"
 
+Enemigo::~Enemigo() {}
 
-Enemigo::Enemigo(int tipoEnemigo, sf::Vector2f posicionJugador) {
+Enemigo::Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vector2f posicion, sf::Vector2f direccion) {
 
-    if(tipoEnemigo == 1) {
-        tipo = tipoEnemigo;
-        enemigo.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
-        enemigo.setTextureRect(sf::IntRect(234, 71, 78, 71));
-        enemigo.setPosition(320, 100);
-        enemigo.setScale(0.8, 0.8);
-        enemigo.setOrigin(enemigo.getGlobalBounds().width/2, enemigo.getGlobalBounds().height/2);
+    tipo = tipoEnemigo;
 
-        circuloColision.setRadius(enemigo.getGlobalBounds().width/3.0);
-        circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
+    enemigo.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
+    enemigo.setTextureRect(areaRecorte);
+    enemigo.setPosition(posicion);
+    enemigo.setScale(escala, escala);
+    enemigo.setOrigin(enemigo.getGlobalBounds().width/2, enemigo.getGlobalBounds().height/2);
 
-        aLaDerecha = true;
-    }
+    circuloColision.setRadius(enemigo.getGlobalBounds().width/3.0);
+    circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
 
-    if(tipoEnemigo == 2) {
-        tipo = tipoEnemigo;
-
-        enemigo.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
-        enemigo.setTextureRect(sf::IntRect(331, 71, 66, 139));
-
-        enemigo.setPosition(500, 100);
-        enemigo.setScale(0.7, 0.7);
-        enemigo.setOrigin(enemigo.getGlobalBounds().width/2, enemigo.getGlobalBounds().height/2);
-
-        circuloColision.setRadius(enemigo.getGlobalBounds().width/3.0);
-        circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
-
-        float modulo = sqrt((enemigo.getPosition().x * posicionJugador.x) + (enemigo.getPosition().y * posicionJugador.y));
-        direccionEnemigo.x = (posicionJugador.x - enemigo.getPosition().x) / modulo; //vector normalizado
-        direccionEnemigo.y = (posicionJugador.y - enemigo.getPosition().y) / modulo; //vector normalizado
-    }
+    direccionEnemigo.x = direccion.x;
+    direccionEnemigo.y = direccion.y;
 }
 
 
 void Enemigo::mover(int velocidad) {
 
-    if(tipo == 1) {
-        if(aLaDerecha) {
-            enemigo.move(velocidad,0.05);
+    switch(tipo) {
 
-            if(enemigo.getPosition().x > Window::getInstancia()->getTamanyo().x - 150) aLaDerecha = false;
+        // Se mueve horizontalmente y poco a poco va bajando
+        case 1:
+            if(aLaDerecha)
+                enemigo.move(velocidad,0.5);
+            else
+                enemigo.move(-velocidad,0.5);
 
-        } else {
-            enemigo.move(-velocidad,0.05);
 
-            if(enemigo.getPosition().x < 150)  aLaDerecha = true;
-        }
+            if(enemigo.getPosition().x > Window::getInstancia()->getTamanyo().x - 150)
+                aLaDerecha = false;
 
-        circuloColision.setPosition(enemigo.getPosition().x + 4, enemigo.getPosition().y + 4);
+            else if(enemigo.getPosition().x < 150)
+                aLaDerecha = true;
+
+        break;
+
+
+        //Coge la dirección del jugador en ese momento y se mueve en esa dirección
+        case 2:
+            enemigo.move(direccionEnemigo.x * velocidad, direccionEnemigo.y * velocidad);
+        break;
+
+
+        //Se mueve siguiendo un arco parabólico
+        case 3:
+            velY += gravedad;
+            enemigo.setPosition(enemigo.getPosition().x + velX, enemigo.getPosition().y + velY);
+        break;
+
     }
 
-    if(tipo == 2) {
-        enemigo.move(direccionEnemigo.x * velocidad, direccionEnemigo.y * velocidad);
-        circuloColision.setPosition(enemigo.getPosition().x + 4, enemigo.getPosition().y + 4);
-    }
-
+    circuloColision.setPosition(enemigo.getPosition().x + 4, enemigo.getPosition().y + 4);
 }
 
 
@@ -68,12 +65,11 @@ void Enemigo::update() {
 
 
 bool Enemigo::dentroPantalla() {
-    if(getRight() < 0  || getLeft() > Window::getInstancia()->getTamanyo().x || getBottom() < 0 || getTop() >Window::getInstancia()->getTamanyo().y) {
+    if(getRight() < 0  || getLeft() > Window::getInstancia()->getTamanyo().x || getBottom() < 0 || getTop() >Window::getInstancia()->getTamanyo().y)
         return false;
 
-    } else {
+    else
         return true;
-    }
 }
 
 
@@ -128,4 +124,3 @@ int Enemigo::getBottom() {
 }
 
 
-Enemigo::~Enemigo() {}
