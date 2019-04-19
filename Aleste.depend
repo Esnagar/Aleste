@@ -15,25 +15,24 @@
 	<iostream>
 	<SFML/Graphics.hpp>
 
-1555668830 /home/esther/Escritorio/Aleste/include/Disparo.h
+1555696430 /home/esther/Escritorio/Aleste/include/Disparo.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	"TextureManager.h"
 	"Window.h"
-	"Enemigo.h"
 
-1555676321 /home/esther/Escritorio/Aleste/include/Enemigo.h
+1555696473 /home/esther/Escritorio/Aleste/include/Enemigo.h
 	"Window.h"
 	"TextureManager.h"
-	"Jugador.h"
 	<cmath>
 	<SFML/Graphics.hpp>
 
-1555676490 /home/esther/Escritorio/Aleste/include/Jugador.h
+1555702852 /home/esther/Escritorio/Aleste/include/Jugador.h
 	<SFML/Graphics.hpp>
 	<iostream>
-	<Window.h>
-	<TextureManager.h>
+	"Window.h"
+	"TextureManager.h"
+	"Disparo.h"
 
 1555666900 /home/esther/Escritorio/Aleste/include/TextureManager.h
 	<SFML/Graphics.hpp>
@@ -44,26 +43,27 @@
 	"TextureManager.h"
 	<iostream>
 
-1555669008 source:/home/esther/Escritorio/Aleste/src/Disparo.cpp
+1555696440 source:/home/esther/Escritorio/Aleste/src/Disparo.cpp
 	"Disparo.h"
 
-1555676896 source:/home/esther/Escritorio/Aleste/src/Jugador.cpp
+1555703269 source:/home/esther/Escritorio/Aleste/src/Jugador.cpp
 	"Jugador.h"
 	"Window.h"
 
-1555676354 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
+1555696766 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
 	"Enemigo.h"
 
-1555676404 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
+1555704130 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
 	"Juego.h"
 
-1555675797 /home/esther/Escritorio/Aleste/include/Juego.h
+1555701550 /home/esther/Escritorio/Aleste/include/Juego.h
 	"Window.h"
 	"HUD.h"
 	"Jugador.h"
 	"Disparo.h"
 	"Enemigo.h"
 	"FactoryEnemigo.h"
+	"Arma.h"
 
 1555272614 /home/esther/Escritorio/Aleste/include/Window.h
 	<SFML/Graphics.hpp>
@@ -80,18 +80,26 @@
 1552930099 source:/home/esther/Escritorio/Aleste/src/ee.cpp
 	"ee.h"
 
-1555668727 /home/esther/Escritorio/Aleste/include/HUD.h
+1555704073 /home/esther/Escritorio/Aleste/include/HUD.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"TextureManager.h"
 
-1555668784 source:/home/esther/Escritorio/Aleste/src/HUD.cpp
+1555704062 source:/home/esther/Escritorio/Aleste/src/HUD.cpp
 	"HUD.h"
 	"Window.h"
 
 1555676950 source:/home/esther/Escritorio/Aleste/src/FactoryEnemigo.cpp
 	"FactoryEnemigo.h"
 
-1555675751 /home/esther/Escritorio/Aleste/include/FactoryEnemigo.h
+1555696871 /home/esther/Escritorio/Aleste/include/FactoryEnemigo.h
 	"Enemigo.h"
+	<iostream>
+
+1555701873 /home/esther/Escritorio/Aleste/include/Arma.h
+	"TextureManager.h"
+	"Window.h"
+
+1555702504 source:/home/esther/Escritorio/Aleste/src/Arma.cpp
+	"Arma.h"
 

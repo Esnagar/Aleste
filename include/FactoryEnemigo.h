@@ -1,7 +1,7 @@
 #ifndef FACTORYENEMIGO_H
 #define FACTORYENEMIGO_H
 #include "Enemigo.h"
-
+#include <iostream>
 class FactoryEnemigo
 {
     public:

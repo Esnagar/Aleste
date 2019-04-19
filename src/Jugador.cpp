@@ -14,9 +14,26 @@ Jugador::Jugador() {
 
     circuloColision.setRadius(jugador.getGlobalBounds().width/3.0);
     circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
+
+    arma = 1;
+}
+
+void Jugador::crearDisparo() {
+    vectorDisparos.push_back(new Disparo(jugador.getPosition().x, jugador.getPosition().y - 70));
+}
+
+void Jugador::setArma(int tipo) {
+    arma = tipo;
+    std::cout << "Activada el arma: " << arma << std::endl;
+}
+
+int Jugador::getArma() {
+    return arma;
 }
 
 void Jugador::update(float segundosUpdate) {
+
+    updateDisparos();
 
     // Actualizar coordenadas
     if (Window::getInstancia()->inputs[0])  Window::getInstancia()->setFirst(0, -kVELOCIDAD * segundosUpdate);
@@ -28,8 +45,27 @@ void Jugador::update(float segundosUpdate) {
     circuloColision.setPosition(jugador.getPosition().x, jugador.getPosition().y);
 }
 
+void Jugador::updateDisparos() {
+    //Updatear disparos
+    for(int i=0; i<vectorDisparos.size(); i++) {
+        vectorDisparos[i]->update();
+
+        //Eliminar los que salgan fuera de la pantalla
+        if(!vectorDisparos[i]->dentroPantalla()) {
+            delete vectorDisparos[i];
+            vectorDisparos[i] = nullptr;
+            vectorDisparos.erase(vectorDisparos.begin() + i);
+            ///HACER i-- ???????????????????????
+        }
+    }
+}
+
 
 void Jugador::render() {
+
+    for(int i = 0; i < vectorDisparos.size(); i++)
+        vectorDisparos[i]->render();
+
     Window::getInstancia()->renderWindow.draw(circuloColision);
     Window::getInstancia()->renderWindow.draw(jugador);
 }
@@ -42,8 +78,8 @@ float Jugador::getPosY() {
     return jugador.getPosition().y;
 }
 
-float Jugador::getRadioColision() {
-    return circuloColision.getRadius();
+sf::FloatRect Jugador::getCirculoColision() {
+    return circuloColision.getGlobalBounds();
 }
 
 void Jugador::mover(float x, float y) {
@@ -53,6 +89,18 @@ void Jugador::mover(float x, float y) {
 
 sf::FloatRect Jugador::getGBounds() {
     return jugador.getGlobalBounds();
+}
+
+
+std::vector <Disparo*> Jugador::getDisparos() {
+    return vectorDisparos;
+}
+
+
+void Jugador::borrarDisparo(int posicion) {
+    delete vectorDisparos[posicion];
+    vectorDisparos[posicion] = nullptr;
+    vectorDisparos.erase(vectorDisparos.begin() + posicion);
 }
 
 

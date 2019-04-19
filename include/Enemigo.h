@@ -2,7 +2,6 @@
 #define ENEMIGO_H_INCLUDED
 #include "Window.h"
 #include "TextureManager.h"
-#include "Jugador.h"
 #include <cmath>
 #include <SFML/Graphics.hpp>
 
@@ -31,7 +30,6 @@ class Enemigo
         void update();
         void render();
         bool dentroPantalla();
-        bool checkColisionJugador(Jugador jugador);
 
         float getPosX();
         float getPosY();

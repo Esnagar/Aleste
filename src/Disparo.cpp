@@ -1,6 +1,6 @@
 #include "Disparo.h"
 
-Disparo::Disparo(std::string ruta, float x, float y) {
+Disparo::Disparo(float x, float y) {
 
     disparo.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
     disparo.setTextureRect(sf::IntRect(247, 142, 24, 71));
@@ -13,7 +13,6 @@ Disparo::~Disparo() {}
 
 
 void Disparo::update() {
-    //comprobar colisiones con el enemigo
     disparo.move(0, -7);
 }
 
@@ -32,13 +31,6 @@ bool Disparo::dentroPantalla() {
     }
 }
 
-bool Disparo::checkColisionDisparo(Enemigo enemigo) {
-    bool colision = false;
-    if (disparo.getGlobalBounds().intersects(enemigo.getCirculoColision())) {
-        //disparo.cambiarSprite("explosion");
-        colision = true;
-    }
-}
 
 void Disparo::cambiarSprite(std::string estado) {
 
@@ -66,4 +58,8 @@ int Disparo::getTop() {
 
 int Disparo::getBottom() {
     return disparo.getPosition().y + disparo.getGlobalBounds().height;
+}
+
+sf::FloatRect Disparo::getGBounds() {
+    return disparo.getGlobalBounds();
 }

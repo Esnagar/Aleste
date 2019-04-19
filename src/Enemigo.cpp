@@ -79,18 +79,6 @@ void Enemigo::render() {
 }
 
 
-
-bool Enemigo::checkColisionJugador(Jugador jugador) {
-    bool colision = false;
-
-    //if (enemigo.getGlobalBounds().intersects(jugador.getGBounds())) {
-    if(sqrt(pow(jugador.getPosX() - enemigo.getPosition().x,2) + pow(jugador.getPosY() - enemigo.getPosition().y,2) )
-        < (circuloColision.getRadius() + jugador.getRadioColision())) {
-        colision = true;
-    }
-}
-
-
 float Enemigo::getPosX() {
     return enemigo.getPosition().x;
 }
@@ -122,5 +110,4 @@ int Enemigo::getTop() {
 int Enemigo::getBottom() {
     return enemigo.getPosition().y + enemigo.getGlobalBounds().height;
 }
-
 

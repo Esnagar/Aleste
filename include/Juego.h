@@ -6,6 +6,7 @@
 #include "Disparo.h"
 #include "Enemigo.h"
 #include "FactoryEnemigo.h"
+#include "Arma.h"
 
 #define kVELOCIDAD 15
 
@@ -17,9 +18,13 @@ class Juego
         Jugador jugador;
 
         FactoryEnemigo factoriaEnem;
+        std::vector <Enemigo*> vectorEnemigos; //deberia ser un puntero?
+        std::vector <Arma*> vectorArmas;
 
-        std::vector <Disparo*> vectorDisparos; //vectorDisparos deberia ser un puntero?
-        std::vector <Enemigo*> vectorEnemigos;
+        bool checkColisionED(Enemigo enemigo, Disparo disparo);
+        bool checkColisionEJ(Enemigo enemigo);
+        bool checkColisionJA(Arma arma);
+        bool checkColisionDA(Arma arma, Disparo disparo);
 
     protected:
 

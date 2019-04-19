@@ -42,6 +42,25 @@ HUD::HUD() {
 
 HUD::~HUD() {}
 
+void HUD::setArma(int tipoArma) {
+    if(tipoArma != 1) {
+        disparosArma = 80;
+        arm.setString("ARM  - " + std::to_string(disparosArma));
+    } else {
+        arm.setString("ARM  - ");
+    }
+
+    armNUM.setString(std::to_string(tipoArma));
+}
+
+void HUD::updateDisparosArma() {
+    disparosArma--;
+    arm.setString("ARM  - " + std::to_string(disparosArma));
+}
+
+int HUD::getDisparosArma() {
+    return disparosArma;
+}
 
 void HUD::updatePuntuacion(int tipoEnemigo) {
 

@@ -13,6 +13,10 @@ class HUD
 
         void updatePuntuacion(int tipoEnemigo);
         void updateVidas(int vidas);
+        void updateDisparosArma();
+
+        void setArma(int tipoArma);
+        int getDisparosArma();
 
         void render();
 
@@ -22,7 +26,7 @@ class HUD
 
         int puntuacion;
         int tipoArma;
-        int disparosArma;
+        int disparosArma = 80;
         int numVidas;
 
         sf::Font* fuente = new sf::Font;;
