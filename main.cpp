@@ -2,9 +2,12 @@
 #include <SFML/Graphics.hpp>
 #include "Window.h"
 #include "Juego.h"
-
+#include "TextureManager.h"
 
 int main() {
+
+    std::string url ("resources/spritesheet.png");
+    TextureManager::getInstancia()->loadTexture("Spritesheet", url);
 
     Juego juego;
 

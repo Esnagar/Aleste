@@ -1,11 +1,12 @@
 #include "Juego.h"
 
-Juego::Juego(): jugador("resources/nave2.png") {}
+Juego::Juego() { }
 
 Juego::~Juego() {}
 
 
 void Juego::update() {
+
 
     float segundosUpdate = Window::getInstancia()->relojUpdate.restart().asSeconds();
 
@@ -40,6 +41,7 @@ void Juego::update() {
             delete vectorDisparos[i];
             vectorDisparos[i] = nullptr;
             vectorDisparos.erase(vectorDisparos.begin() + i);
+            ///HACER i-- ???????????????????????
         }
     }
 

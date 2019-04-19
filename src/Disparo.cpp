@@ -2,13 +2,10 @@
 
 Disparo::Disparo(std::string ruta, float x, float y) {
 
-    TextureManager::loadTexture("disparo1", ruta);
-    texDisparo = *TextureManager::getTexture("disparo1");
-    disparo.setTexture(texDisparo);
-    disparo.setTextureRect(sf::IntRect(190, 90, 20, 20));
-
+    disparo.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
+    disparo.setTextureRect(sf::IntRect(247, 142, 24, 71));
+    disparo.setScale(0.7, 0.7);
     disparo.setOrigin(disparo.getGlobalBounds().width/2,disparo.getGlobalBounds().height/2);
-    disparo.setRotation(90);
     disparo.setPosition(x, y);
 }
 
@@ -22,8 +19,6 @@ void Disparo::update() {
 
 
 void Disparo::render() {
-    disparo.setTexture(texDisparo);
-    disparo.setTextureRect(sf::IntRect(190, 90, 50, 20)); //a que corresponde cada parametro?????
     Window::getInstancia()->renderWindow.draw(disparo);
 }
 
@@ -45,11 +40,9 @@ bool Disparo::checkColisionDisparo(Enemigo enemigo) {
     }
 }
 
-void Disparo::cambiarSprite(string estado) {
+void Disparo::cambiarSprite(std::string estado) {
 
     if(estado == "explosion") {
-        disparo.setTexture(texDisparo);
-        disparo.setTextureRect(sf::IntRect(200, 100, 50, 20));
         //Window::getInstancia()->renderWindow.draw(disparo);
 
     } else {

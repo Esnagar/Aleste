@@ -1,47 +1,37 @@
 #include "TextureManager.h"
 #include <iostream>
 
-TextureManager::TextureManager() {}
 
-map<string, sf::Texture*> TextureManager::textures;
-std::vector<string> TextureManager::order;
+TextureManager* TextureManager::claseTextura = nullptr;
+
+TextureManager* TextureManager::getInstancia() {
+    if(claseTextura == nullptr)
+        claseTextura = new TextureManager();
+
+    return claseTextura;
+}
+
+
+TextureManager::TextureManager() {}
 
 
 // Asignar un nombre (para acceder) y un path (para cargar) a la textura
-sf::Texture *TextureManager::loadTexture(string name, string path) {
+void TextureManager::loadTexture(std::string nombre, std::string &path) {
     sf::Texture *texture = new sf::Texture();
 
-    if(texture->loadFromFile(path)) {
-        textures[name] = texture;
+    if(!texture->loadFromFile(path))
+        texture = nullptr;
 
-        order.push_back(name);
-
-        return textures[name];
-
-    } else {
-        delete texture;
-        return NULL;
-    }
-}
-
-
-int TextureManager::getLength(){
-    return textures.size();
+    textures[nombre] = texture;
 }
 
 // Get textura por nombre
-sf::Texture *TextureManager::getTexture(string name) {
-    if(textures.find(name) != textures.end()) {
-        return textures[name];
+sf::Texture *TextureManager::getTexture(std::string nombre) {
+    if(textures.find(nombre) != textures.end()) {
+        return textures[nombre];
     } else {
         return NULL;
     }
-}
-
-
-// Get textura por index
-sf::Texture *TextureManager::getTexture(int index) {
-    return getTexture(order.at(index));
 }
 
 
@@ -49,7 +39,7 @@ sf::Texture *TextureManager::getTexture(int index) {
 TextureManager::~TextureManager() {
 
     sf::Texture *texture;
-    map<string, sf::Texture*>::iterator iter = textures.begin();
+    std::map<std::string, sf::Texture*>::iterator iter = textures.begin();
     while(iter != textures.end()) {
         texture = iter->second;
         delete texture;

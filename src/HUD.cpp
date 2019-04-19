@@ -22,7 +22,6 @@ HUD::HUD() {
     bandaNegra.setPosition(0, marcoVerde.getOutlineThickness());
 
 
-
     fuente->loadFromFile("resources/arcade.TTF");
 
     crearText(sc, "SC", 65, 33);
@@ -33,12 +32,10 @@ HUD::HUD() {
     crearText(armNUM, std::to_string(tipoArma), 463, 33);
     crearText(vidasNUM, std::to_string(numVidas), 740, 33);
 
-    texMininave.loadFromFile("resources/nave2.png");
-    texMininave.setSmooth(true);
-
-    mininave.setTexture(texMininave);
+    mininave.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
+    mininave.setTextureRect(sf::IntRect(0, 71, 78, 71));
     mininave.setOrigin(mininave.getGlobalBounds().width/2, mininave.getGlobalBounds().height/2);
-    mininave.setScale(0.033f, 0.05f);
+    mininave.setScale(0.3f, 0.3f);
     mininave.setPosition(690, 33);
 
 }

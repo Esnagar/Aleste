@@ -1,9 +1,10 @@
 # depslib dependency file v1.0
-1554461258 source:/home/esther/Escritorio/Aleste/main.cpp
+1555668629 source:/home/esther/Escritorio/Aleste/main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Window.h"
 	"Juego.h"
+	"TextureManager.h"
 
 1551117689 source:/home/esther/Escritorio/Aleste/src/disparo.cpp
 	"disparo.h"
@@ -14,44 +15,46 @@
 	<iostream>
 	<SFML/Graphics.hpp>
 
-1553859329 /home/esther/Escritorio/Aleste/include/Disparo.h
+1555668830 /home/esther/Escritorio/Aleste/include/Disparo.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	"TextureManager.h"
 	"Window.h"
 	"Enemigo.h"
 
-1553985315 /home/esther/Escritorio/Aleste/include/Enemigo.h
+1555665350 /home/esther/Escritorio/Aleste/include/Enemigo.h
 	"Window.h"
 	"TextureManager.h"
 	"Jugador.h"
 	<cmath>
 	<SFML/Graphics.hpp>
 
-1554461966 /home/esther/Escritorio/Aleste/include/Jugador.h
+1555668245 /home/esther/Escritorio/Aleste/include/Jugador.h
 	<SFML/Graphics.hpp>
 	<iostream>
+	<Window.h>
+	<TextureManager.h>
 
-1552408627 /home/esther/Escritorio/Aleste/include/TextureManager.h
+1555666900 /home/esther/Escritorio/Aleste/include/TextureManager.h
 	<SFML/Graphics.hpp>
 	<string>
 	<map>
 
-1553189513 source:/home/esther/Escritorio/Aleste/src/TextureManager.cpp
+1555666975 source:/home/esther/Escritorio/Aleste/src/TextureManager.cpp
 	"TextureManager.h"
 	<iostream>
 
-1553876240 source:/home/esther/Escritorio/Aleste/src/Disparo.cpp
+1555669008 source:/home/esther/Escritorio/Aleste/src/Disparo.cpp
 	"Disparo.h"
 
-1554462039 source:/home/esther/Escritorio/Aleste/src/Jugador.cpp
+1555668651 source:/home/esther/Escritorio/Aleste/src/Jugador.cpp
 	"Jugador.h"
 	"Window.h"
 
-1554456134 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
+1555667699 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
 	"Enemigo.h"
 
-1555271437 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
+1555668623 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
 	"Juego.h"
 
 1554379716 /home/esther/Escritorio/Aleste/include/Juego.h
@@ -64,7 +67,7 @@
 1555272614 /home/esther/Escritorio/Aleste/include/Window.h
 	<SFML/Graphics.hpp>
 
-1555271515 source:/home/esther/Escritorio/Aleste/src/Window.cpp
+1555666963 source:/home/esther/Escritorio/Aleste/src/Window.cpp
 	"Window.h"
 	"TextureManager.h"
 
@@ -76,11 +79,12 @@
 1552930099 source:/home/esther/Escritorio/Aleste/src/ee.cpp
 	"ee.h"
 
-1553716445 /home/esther/Escritorio/Aleste/include/HUD.h
+1555668727 /home/esther/Escritorio/Aleste/include/HUD.h
 	<SFML/Graphics.hpp>
 	<iostream>
+	"TextureManager.h"
 
-1555271541 source:/home/esther/Escritorio/Aleste/src/HUD.cpp
+1555668784 source:/home/esther/Escritorio/Aleste/src/HUD.cpp
 	"HUD.h"
 	"Window.h"
 

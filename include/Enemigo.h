@@ -8,10 +8,9 @@
 class Enemigo
 {
     private:
-        sf::Texture* texEnemigo;
+        int tipo;
         sf::Sprite enemigo;
         sf::CircleShape circuloColision;
-        int tipo;
 
         bool aLaDerecha;
         sf::Vector2f direccionEnemigo;

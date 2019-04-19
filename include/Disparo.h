@@ -8,7 +8,6 @@
 
 class Disparo {
     private:
-        sf::Texture texDisparo;
         sf::Sprite disparo;
         float posX, posY;
 
@@ -19,7 +18,7 @@ class Disparo {
         Disparo(std::string ruta, float x, float y);
         ~Disparo();
 
-        void cambiarSprite(string estado);
+        void cambiarSprite(std::string estado);
 
         void update();
         bool dentroPantalla();

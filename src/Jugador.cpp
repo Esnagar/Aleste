@@ -1,22 +1,17 @@
 #include "Jugador.h"
 #include "Window.h"
 
-Jugador::Jugador() {}
+Jugador::Jugador(std::string ruta) {}
 
 Jugador::~Jugador() { }
 
-Jugador::Jugador(std::string ruta) {
+Jugador::Jugador() {
 
-    if (!texJugador.loadFromFile(ruta)) {
-        std::cerr << "Error cargando la imagen " << ruta;
-        exit(0);
-    }
+    jugador.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
+    jugador.setTextureRect(sf::IntRect(0, 71, 78, 71));
 
-    texJugador.setSmooth(true);
-
-    jugador.setTexture(texJugador);
     jugador.setOrigin(jugador.getGlobalBounds().width/2, jugador.getGlobalBounds().height/2);
-    jugador.setScale(0.1f, 0.15f);
+    jugador.setScale(0.8f, 0.8f);
     jugador.setPosition(Window::getInstancia()->getTamanyo().x/2, Window::getInstancia()->getTamanyo().y - 100);
 
     circuloColision.setRadius(jugador.getGlobalBounds().width/3.0);

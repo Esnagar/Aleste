@@ -2,6 +2,7 @@
 #define HUD_H
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "TextureManager.h"
 
 class HUD
 {

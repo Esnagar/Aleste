@@ -5,22 +5,20 @@
 #include <string>
 #include <map>
 
-using namespace std;
-
 class TextureManager {
 
-    static map<string, sf::Texture*> textures;
-    static std::vector<string> order;
-    TextureManager();
+    private:
+        static TextureManager* claseTextura;
+        std::map<std::string, sf::Texture*> textures;
 
-public:
+        TextureManager();
+        virtual ~TextureManager();
 
-    ~TextureManager();
-    static int getLength();
 
-    static sf::Texture *loadTexture(string name, string path);
-    static sf::Texture *getTexture(string name);
-    static sf::Texture *getTexture(int index);
+    public:
+        static TextureManager* getInstancia();
+        void loadTexture(std::string nombre, std::string &path);
+        sf::Texture* getTexture(std::string nombre);
 };
 
 

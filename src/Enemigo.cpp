@@ -5,13 +5,9 @@ Enemigo::Enemigo(int tipoEnemigo, sf::Vector2f posicionJugador) {
 
     if(tipoEnemigo == 1) {
         tipo = tipoEnemigo;
-
-        TextureManager::loadTexture("enemigo1", "resources/enemigos.png");
-        texEnemigo = TextureManager::getTexture("enemigo1");
-
-        enemigo.setTexture(*texEnemigo);
+        enemigo.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
+        enemigo.setTextureRect(sf::IntRect(234, 71, 78, 71));
         enemigo.setPosition(320, 100);
-        enemigo.setTextureRect(sf::IntRect(403, 165, 67, 70));
         enemigo.setScale(0.8, 0.8);
         enemigo.setOrigin(enemigo.getGlobalBounds().width/2, enemigo.getGlobalBounds().height/2);
 
@@ -24,13 +20,11 @@ Enemigo::Enemigo(int tipoEnemigo, sf::Vector2f posicionJugador) {
     if(tipoEnemigo == 2) {
         tipo = tipoEnemigo;
 
-        TextureManager::loadTexture("enemigo2", "resources/enemigos.png");
-        texEnemigo = TextureManager::getTexture("enemigo2");
+        enemigo.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
+        enemigo.setTextureRect(sf::IntRect(331, 71, 66, 139));
 
-        enemigo.setTexture(*texEnemigo);
         enemigo.setPosition(500, 100);
-        enemigo.setTextureRect(sf::IntRect(403, 165, 67, 70));
-        enemigo.setScale(0.8, 0.8);
+        enemigo.setScale(0.7, 0.7);
         enemigo.setOrigin(enemigo.getGlobalBounds().width/2, enemigo.getGlobalBounds().height/2);
 
         circuloColision.setRadius(enemigo.getGlobalBounds().width/3.0);
@@ -84,11 +78,6 @@ bool Enemigo::dentroPantalla() {
 
 
 void Enemigo::render() {
-    enemigo.setTexture(*texEnemigo);
-    enemigo.setTextureRect(sf::IntRect(403, 165, 67, 70));
-    enemigo.setScale(0.8, 0.8);
-    enemigo.setOrigin(enemigo.getGlobalBounds().width/2,enemigo.getGlobalBounds().height/2);
-
     Window::getInstancia()->draw(circuloColision);
     Window::getInstancia()->draw(enemigo);
 }

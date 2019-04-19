@@ -16,8 +16,9 @@ Window::Window() {
     renderWindow.setFramerateLimit(60);
 
     //Esto lo borrare supongo
-    TextureManager::loadTexture("fondo", "resources/fondoPrueba.png");
-    texFondo = TextureManager::getTexture("fondo")[0];
+    std::string url("resources/fondoPrueba.png");
+    TextureManager::getInstancia()->loadTexture("fondo", url);
+    texFondo = *TextureManager::getInstancia()->getTexture("fondo");
 
     fondo.setTexture(texFondo);
     //fondo.setOrigin(fondo.getGlobalBounds().width/2,fondo.getGlobalBounds().height/2);

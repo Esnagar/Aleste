@@ -2,7 +2,8 @@
 #define JUGADOR_H_INCLUDED
 #include <SFML/Graphics.hpp>
 #include <iostream>
-
+#include <Window.h>
+#include <TextureManager.h>
 #define kVELOCIDAD 300
 
 
