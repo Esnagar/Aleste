@@ -15,11 +15,12 @@
 	<iostream>
 	<SFML/Graphics.hpp>
 
-1555696430 /home/esther/Escritorio/Aleste/include/Disparo.h
+1555757072 /home/esther/Escritorio/Aleste/include/Disparo.h
 	<iostream>
 	<SFML/Graphics.hpp>
 	"TextureManager.h"
 	"Window.h"
+	<cmath>
 
 1555696473 /home/esther/Escritorio/Aleste/include/Enemigo.h
 	"Window.h"
@@ -27,12 +28,13 @@
 	<cmath>
 	<SFML/Graphics.hpp>
 
-1555702852 /home/esther/Escritorio/Aleste/include/Jugador.h
+1555753216 /home/esther/Escritorio/Aleste/include/Jugador.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Window.h"
 	"TextureManager.h"
 	"Disparo.h"
+	"FactoryDisparo.h"
 
 1555666900 /home/esther/Escritorio/Aleste/include/TextureManager.h
 	<SFML/Graphics.hpp>
@@ -43,17 +45,17 @@
 	"TextureManager.h"
 	<iostream>
 
-1555696440 source:/home/esther/Escritorio/Aleste/src/Disparo.cpp
+1555758065 source:/home/esther/Escritorio/Aleste/src/Disparo.cpp
 	"Disparo.h"
 
-1555703269 source:/home/esther/Escritorio/Aleste/src/Jugador.cpp
+1555757515 source:/home/esther/Escritorio/Aleste/src/Jugador.cpp
 	"Jugador.h"
 	"Window.h"
 
 1555696766 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
 	"Enemigo.h"
 
-1555704130 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
+1555704295 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
 	"Juego.h"
 
 1555701550 /home/esther/Escritorio/Aleste/include/Juego.h
@@ -68,7 +70,7 @@
 1555272614 /home/esther/Escritorio/Aleste/include/Window.h
 	<SFML/Graphics.hpp>
 
-1555666963 source:/home/esther/Escritorio/Aleste/src/Window.cpp
+1555754786 source:/home/esther/Escritorio/Aleste/src/Window.cpp
 	"Window.h"
 	"TextureManager.h"
 
@@ -89,7 +91,7 @@
 	"HUD.h"
 	"Window.h"
 
-1555676950 source:/home/esther/Escritorio/Aleste/src/FactoryEnemigo.cpp
+1555752452 source:/home/esther/Escritorio/Aleste/src/FactoryEnemigo.cpp
 	"FactoryEnemigo.h"
 
 1555696871 /home/esther/Escritorio/Aleste/include/FactoryEnemigo.h
@@ -102,4 +104,10 @@
 
 1555702504 source:/home/esther/Escritorio/Aleste/src/Arma.cpp
 	"Arma.h"
+
+1555752673 /home/esther/Escritorio/Aleste/include/FactoryDisparo.h
+	"Disparo.h"
+
+1555753469 source:/home/esther/Escritorio/Aleste/src/FactoryDisparo.cpp
+	"FactoryDisparo.h"
 

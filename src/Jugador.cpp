@@ -19,7 +19,10 @@ Jugador::Jugador() {
 }
 
 void Jugador::crearDisparo() {
-    vectorDisparos.push_back(new Disparo(jugador.getPosition().x, jugador.getPosition().y - 70));
+    vectorDisparos.push_back(factoriaDisp.crearDisparo(1, jugador.getPosition()));
+
+    if(arma != 1)
+        vectorDisparos.push_back(factoriaDisp.crearDisparo(arma, jugador.getPosition()));
 }
 
 void Jugador::setArma(int tipo) {
@@ -32,6 +35,8 @@ int Jugador::getArma() {
 }
 
 void Jugador::update(float segundosUpdate) {
+
+    //cambiarSprite();
 
     updateDisparos();
 
@@ -48,7 +53,7 @@ void Jugador::update(float segundosUpdate) {
 void Jugador::updateDisparos() {
     //Updatear disparos
     for(int i=0; i<vectorDisparos.size(); i++) {
-        vectorDisparos[i]->update();
+        vectorDisparos[i]->update(jugador.getPosition());
 
         //Eliminar los que salgan fuera de la pantalla
         if(!vectorDisparos[i]->dentroPantalla()) {
@@ -59,6 +64,15 @@ void Jugador::updateDisparos() {
         }
     }
 }
+
+/*
+void Jugador::cambiarSprite() {
+    if(numSprite > 2)
+        numSprite = 0;
+
+    jugador.setTextureRect(sf::IntRect(numSprite*78, 71, 78, 71));
+    numSprite++;
+}*/
 
 
 void Jugador::render() {

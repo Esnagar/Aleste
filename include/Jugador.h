@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "TextureManager.h"
 #include "Disparo.h"
+#include "FactoryDisparo.h"
 
 #define kVELOCIDAD 300
 
@@ -14,10 +15,15 @@ class Jugador
     private:
         sf::Sprite jugador;
         sf::CircleShape circuloColision;
+
+        FactoryDisparo factoriaDisp;
+
         std::vector <Disparo*> vectorDisparos;
         int arma;
+        int numSprite = 0;
 
         void updateDisparos();
+        void cambiarSprite();
 
 
     protected:

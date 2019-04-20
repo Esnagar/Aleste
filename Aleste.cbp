@@ -42,16 +42,20 @@
 			<Add option="-Wall" />
 			<Add option="-std=c++11" />
 		</Compiler>
+		<Unit filename="include/Arma.h" />
 		<Unit filename="include/Disparo.h" />
 		<Unit filename="include/Enemigo.h" />
+		<Unit filename="include/FactoryEnemigo.h" />
 		<Unit filename="include/HUD.h" />
 		<Unit filename="include/Juego.h" />
 		<Unit filename="include/Jugador.h" />
 		<Unit filename="include/TextureManager.h" />
 		<Unit filename="include/Window.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Arma.cpp" />
 		<Unit filename="src/Disparo.cpp" />
 		<Unit filename="src/Enemigo.cpp" />
+		<Unit filename="src/FactoryEnemigo.cpp" />
 		<Unit filename="src/HUD.cpp" />
 		<Unit filename="src/Juego.cpp" />
 		<Unit filename="src/Jugador.cpp" />

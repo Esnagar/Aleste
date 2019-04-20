@@ -36,17 +36,17 @@ void Window::destroy() { renderWindow.close(); }
 
 void Window::procesarInput() {
 
-    bool arriba      = false;
-    bool abajo       = false;
-    bool izquierda   = false;
-    bool derecha     = false;
-    bool haDisparado = false;
+    bool arriba            = false;
+    bool abajo             = false;
+    bool izquierda         = false;
+    bool derecha           = false;
+    bool haDisparado       = false;
+    bool mantenerDisparo   = false;
 
 
     sf::Event event;
     while (renderWindow.pollEvent(event))
         if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)   haDisparado = true;
-
 
 
     if (Window::getInstancia()->relojInterp.getElapsedTime().asMilliseconds() > UPDATE_TICK_TIME) {
@@ -55,12 +55,14 @@ void Window::procesarInput() {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  abajo = true;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  izquierda = true;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) derecha = true;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) mantenerDisparo = true;
 
         inputs[0] = arriba;
         inputs[1] = abajo;
         inputs[2] = izquierda;
         inputs[3] = derecha;
         inputs[4] = haDisparado;
+        inputs[5] = mantenerDisparo;
     }
 }
 

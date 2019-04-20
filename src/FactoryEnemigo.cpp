@@ -23,7 +23,7 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador) 
 
         case 2:
             tipo = p_tipo;
-            posRX = 331;
+            posRX = 359;
             posRY = 71;
             ancho = 66;
             alto = 139;
@@ -31,10 +31,10 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador) 
             posicion.x = 500;
             posicion.y = 100;
 
-            //Se calcula el vector unitario entre el enemigo y el jugador
-            //De esta forma, el enemigo se moverá a la misma velocidad siempre
+            //Se calcula el vector unitario entre el enemigo y el jugador. De esta forma, el enemigo se moverá a la misma velocidad siempre
             modulo = sqrt(  (posicion.x - posicionJugador.x) * (posicion.x - posicionJugador.x)
                           + (posicion.y - posicionJugador.y) * (posicion.y - posicionJugador.y));
+
             direccionEnemigo.x = (posicionJugador.x - posicion.x) / modulo;
             direccionEnemigo.y = (posicionJugador.y - posicion.y) / modulo;
         break;
@@ -51,10 +51,6 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador) 
             posicion.y = 20;
         break;
     }
-
-    std::cout << direccionEnemigo.x << std::endl;
-    std::cout << direccionEnemigo.y << std::endl;
-
 
     return new Enemigo(tipo, sf::IntRect(posRX, posRY, ancho, alto), escala, posicion, direccionEnemigo);
 }
