@@ -1,9 +1,5 @@
 #include "Arma.h"
 
-Arma::Arma() {}
-
-Arma::~Arma() {}
-
 Arma::Arma(int id) {
 
     idArma = id;
@@ -22,6 +18,8 @@ Arma::Arma(int id) {
     numeroSuelto.setPosition(bola.getPosition().x + 5, bola.getPosition().y - 15);
 }
 
+Arma::~Arma() {}
+
 void Arma::update() {
     bola.move(0, 2);
 
@@ -38,6 +36,19 @@ void Arma::render() {
         Window::getInstancia()->draw(numeroSuelto);
 }
 
+void Arma::armaActivada() {
+    numeroSuelto.setTextureRect(sf::IntRect(0,0,0,0));
+}
+
+void Arma::setDisparada() {
+    disparada = true;
+    bola.setTextureRect(sf::IntRect(234, 0, 78, 71));
+}
+
+bool Arma::getDisparada() {
+    return disparada;
+}
+
 int Arma::getTipo() {
     return idArma;
 }
@@ -48,14 +59,5 @@ sf::FloatRect Arma::getGBnumero() {
 
 sf::FloatRect Arma::getGBbola() {
     return bola.getGlobalBounds();
-}
-
-void Arma::setDisparada() {
-    disparada = true;
-    bola.setTextureRect(sf::IntRect(234, 0, 78, 71));
-}
-
-void Arma::armaActivada() {
-    numeroSuelto.setTextureRect(sf::IntRect(0,0,0,0));
 }
 

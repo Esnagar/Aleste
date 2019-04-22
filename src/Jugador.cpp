@@ -1,5 +1,4 @@
 #include "Jugador.h"
-#include "Window.h"
 
 Jugador::~Jugador() { }
 

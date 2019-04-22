@@ -6,6 +6,7 @@
 #include "TextureManager.h"
 #include "Disparo.h"
 #include "FactoryDisparo.h"
+#include "Window.h"
 
 #define kVELOCIDAD 300
 

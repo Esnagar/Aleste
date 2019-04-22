@@ -21,6 +21,13 @@ class Juego
         std::vector <Enemigo*> vectorEnemigos; //deberia ser un puntero?
         std::vector <Arma*> vectorArmas;
 
+        sf::Clock relojEnemigos1;
+        sf::Clock relojEnemigos2;
+        sf::Clock relojEnemigos3;
+
+        int enemigosTipo1 = -1;
+        int posEnemigo1;
+
         bool checkColisionED(Enemigo enemigo, Disparo disparo);
         bool checkColisionEJ(Enemigo enemigo);
         bool checkColisionJA(Arma arma);

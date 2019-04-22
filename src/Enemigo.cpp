@@ -17,6 +17,11 @@ Enemigo::Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vec
 
     direccionEnemigo.x = direccion.x;
     direccionEnemigo.y = direccion.y;
+
+    posXinicial = enemigo.getPosition().x;
+
+    if(posXinicial >= Window::getInstancia()->getTamanyo().x/2)
+        dirVelX = -1;
 }
 
 
@@ -32,10 +37,10 @@ void Enemigo::mover(int velocidad) {
                 enemigo.move(-velocidad,0.5);
 
 
-            if(enemigo.getPosition().x > Window::getInstancia()->getTamanyo().x - 150)
+            if(enemigo.getPosition().x > posXinicial + 150)
                 aLaDerecha = false;
 
-            else if(enemigo.getPosition().x < 150)
+            else if(enemigo.getPosition().x < posXinicial - 150)
                 aLaDerecha = true;
 
         break;
@@ -50,7 +55,7 @@ void Enemigo::mover(int velocidad) {
         //Se mueve siguiendo un arco parabólico
         case 3:
             velY += gravedad;
-            enemigo.setPosition(enemigo.getPosition().x + velX, enemigo.getPosition().y + velY);
+            enemigo.setPosition((enemigo.getPosition().x + velX) * dirVelX, enemigo.getPosition().y + velY);
         break;
 
     }
@@ -65,7 +70,7 @@ void Enemigo::update() {
 
 
 bool Enemigo::dentroPantalla() {
-    if(getRight() < 0  || getLeft() > Window::getInstancia()->getTamanyo().x || getBottom() < 0 || getTop() >Window::getInstancia()->getTamanyo().y)
+    if(getRight() < 0  || getLeft() > Window::getInstancia()->getTamanyo().x || getBottom() < 0 || getTop() > Window::getInstancia()->getTamanyo().y)
         return false;
 
     else
@@ -74,7 +79,7 @@ bool Enemigo::dentroPantalla() {
 
 
 void Enemigo::render() {
-    Window::getInstancia()->draw(circuloColision);
+    //Window::getInstancia()->draw(circuloColision);
     Window::getInstancia()->draw(enemigo);
 }
 

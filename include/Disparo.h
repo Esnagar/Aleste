@@ -1,16 +1,16 @@
 #ifndef DISPARO_H
 #define DISPARO_H
-#include <iostream>
 #include <SFML/Graphics.hpp>
+#include <iostream>
+#include <cmath>
+
 #include "TextureManager.h"
 #include "Window.h"
-#include <cmath>
 
 class Disparo {
     private:
         int tipo;
         sf::Sprite disparo;
-        float posX, posY;
         float tiempo;
 
     protected:

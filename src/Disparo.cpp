@@ -40,7 +40,6 @@ void Disparo::update(sf::Vector2f posicionJugador) {
             //del coseno de grados a radianes. En cuanto a la posición de y, el disparo sube de forma constante.
             disparo.setPosition(disparo.getPosition().x + 10 * cos((2*3.14159*1250*tiempo * 3.14159) / 180), disparo.getPosition().y - 5);
             tiempo += 0.001;
-
         break;
     }
 }
@@ -52,12 +51,11 @@ void Disparo::render() {
 
 
 bool Disparo::dentroPantalla() {
-    if(getRight() < 0  || getLeft() > Window::getInstancia()->getTamanyo().x || getBottom() < 0 || getTop() >Window::getInstancia()->getTamanyo().y) {
+    if(getRight() < 0  || getLeft() > Window::getInstancia()->getTamanyo().x || getBottom() < 0 || getTop() > Window::getInstancia()->getTamanyo().y)
         return false;
-
-    } else {
+    else
         return true;
-    }
+
 }
 
 

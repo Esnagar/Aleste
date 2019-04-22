@@ -7,7 +7,7 @@ class FactoryEnemigo
     public:
         FactoryEnemigo();
         virtual ~FactoryEnemigo();
-        Enemigo* crearEnemigo(int p_tipo, sf::Vector2f posicionJugador);
+        Enemigo* crearEnemigo(int p_tipo, sf::Vector2f posicionJugador, int posEnemigo1);
 
     protected:
 

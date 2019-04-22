@@ -4,7 +4,7 @@ FactoryEnemigo::FactoryEnemigo() {}
 
 FactoryEnemigo::~FactoryEnemigo() {}
 
-Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador) {
+Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador, int posEnemigo) {
 
     float modulo;
 
@@ -17,8 +17,8 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador) 
             ancho = 78;
             alto = 71;
             escala = 0.8;
-            posicion.x = 320;
-            posicion.y = 100;
+            posicion.x = posEnemigo;
+            posicion.y = 5;
         break;
 
         case 2:
@@ -28,8 +28,12 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador) 
             ancho = 66;
             alto = 139;
             escala = 0.7;
-            posicion.x = 500;
-            posicion.y = 100;
+
+            srand(time(NULL));
+            posEnemigo = (rand() % (820 - 100)) + 100;
+
+            posicion.x = posEnemigo;
+            posicion.y = 5;
 
             //Se calcula el vector unitario entre el enemigo y el jugador. De esta forma, el enemigo se moverá a la misma velocidad siempre
             modulo = sqrt(  (posicion.x - posicionJugador.x) * (posicion.x - posicionJugador.x)
@@ -47,8 +51,12 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador) 
             ancho = 78;
             alto = 71;
             escala = 0.7;
-            posicion.x = Window::getInstancia()->getTamanyo().x/4;
-            posicion.y = 20;
+
+            srand(time(NULL));
+            posEnemigo = (rand() % (820 - 200)) + 5;
+
+            posicion.x = posEnemigo;
+            posicion.y = 5;
         break;
     }
 

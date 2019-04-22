@@ -1,9 +1,10 @@
 #ifndef ENEMIGO_H_INCLUDED
 #define ENEMIGO_H_INCLUDED
+#include <SFML/Graphics.hpp>
+#include <cmath>
+
 #include "Window.h"
 #include "TextureManager.h"
-#include <cmath>
-#include <SFML/Graphics.hpp>
 
 class Enemigo
 {
@@ -16,13 +17,14 @@ class Enemigo
         sf::Vector2f direccionEnemigo;
         float gravedad = -0.15f;
         float velX = 3.f;
-        float velY = 10.f;
+        float velY = 12.f;
+        int dirVelX = 1;
+        float posXinicial;
 
     protected:
 
 
     public:
-
         Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vector2f posicion, sf::Vector2f direccion);
         ~Enemigo();
 
