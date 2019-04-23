@@ -48,14 +48,14 @@ void Enemigo::mover(int velocidad) {
 
         //Coge la dirección del jugador en ese momento y se mueve en esa dirección
         case 2:
-            enemigo.move(direccionEnemigo.x * velocidad, direccionEnemigo.y * velocidad);
+            enemigo.move(direccionEnemigo.x * (velocidad+2), direccionEnemigo.y * (velocidad+2));
         break;
 
 
         //Se mueve siguiendo un arco parabólico
         case 3:
             velY += gravedad;
-            enemigo.setPosition((enemigo.getPosition().x + velX) * dirVelX, enemigo.getPosition().y + velY);
+            enemigo.setPosition(enemigo.getPosition().x + velX * dirVelX, enemigo.getPosition().y + velY);
         break;
 
     }

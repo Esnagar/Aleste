@@ -8,6 +8,8 @@ int main() {
 
     std::string url ("resources/spritesheet.png");
     TextureManager::getInstancia()->loadTexture("Spritesheet", url);
+    std::string url2("resources/fondo.png");
+    TextureManager::getInstancia()->loadTexture("fondo", url2);
 
     Juego juego;
 

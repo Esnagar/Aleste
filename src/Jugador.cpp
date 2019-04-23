@@ -79,7 +79,7 @@ void Jugador::render() {
     for(int i = 0; i < vectorDisparos.size(); i++)
         vectorDisparos[i]->render();
 
-    Window::getInstancia()->renderWindow.draw(circuloColision);
+    //Window::getInstancia()->renderWindow.draw(circuloColision);
     Window::getInstancia()->renderWindow.draw(jugador);
 }
 

@@ -39,13 +39,12 @@ void Juego::update() {
         }
     }
 
-
     //Generar enemigos de tipo 1 aleatoriamente
 
     if(enemigosTipo1 == -1) {
         srand(time(NULL));
-        posEnemigo1 = (rand() % (820 - 100)) + 100;
-        enemigosTipo1 = (rand() % 7) + 3;
+        posEnemigo1 = (rand() % (650 - 300)) + 300;
+        enemigosTipo1 = (rand() % (8 - 3)) + 3;
     }
 
     if(relojEnemigos1.getElapsedTime().asSeconds() > 0.3 && enemigosTipo1 > 0) {
@@ -64,14 +63,14 @@ void Juego::update() {
 
     //Generar enemigos de tipo 2 aleatoriamente
 
-    if(relojEnemigos2.getElapsedTime().asSeconds() > 4 && relojEnemigos2.getElapsedTime().asMilliseconds() % 4 == 0) {
+    if(relojEnemigos2.getElapsedTime().asSeconds() > 3.5 && relojEnemigos2.getElapsedTime().asMilliseconds() % 4 == 0) {
         vectorEnemigos.push_back(factoriaEnem.crearEnemigo(2, sf::Vector2f(jugador.getPosX(), jugador.getPosY()), 0));
         relojEnemigos2.restart();
     }
 
 
 
-    if(relojEnemigos3.getElapsedTime().asSeconds() > 4 && relojEnemigos2.getElapsedTime().asMilliseconds() % 4 == 0) {
+    if(relojEnemigos3.getElapsedTime().asSeconds() > 5 && relojEnemigos2.getElapsedTime().asMilliseconds() % 4 == 0) {
         vectorEnemigos.push_back(factoriaEnem.crearEnemigo(3, sf::Vector2f(jugador.getPosX(), jugador.getPosY()), 0));
         relojEnemigos3.restart();
     }

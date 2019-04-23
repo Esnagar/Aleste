@@ -1,6 +1,8 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 #include <SFML/Graphics.hpp>
+#include <iostream>
+
 #define UPDATE_TICK_TIME (1000/15)
 
 class Window
@@ -31,10 +33,13 @@ class Window
         //Se usarán para la animación del fondo moviéndose
         int tamanyo = 820;
         int posX = 0;
-        int posY = 2460 - tamanyo;
+        int posY = 3280 - tamanyo;
 
         sf::Clock relojUpdate;
         sf::Clock relojInterp;
+
+        sf::Clock relojDisparos;
+
         sf::Vector2f first;
         sf::Vector2f last;
 

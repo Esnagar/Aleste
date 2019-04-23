@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1555668629 source:/home/esther/Escritorio/Aleste/main.cpp
+1556036859 source:/home/esther/Escritorio/Aleste/main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Window.h"
@@ -22,13 +22,14 @@
 	"TextureManager.h"
 	"Window.h"
 
-1555957830 /home/esther/Escritorio/Aleste/include/Enemigo.h
+1556016706 /home/esther/Escritorio/Aleste/include/Enemigo.h
 	<SFML/Graphics.hpp>
 	<cmath>
+	<iostream>
 	"Window.h"
 	"TextureManager.h"
 
-1555782313 /home/esther/Escritorio/Aleste/include/Jugador.h
+1556015937 /home/esther/Escritorio/Aleste/include/Jugador.h
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Window.h"
@@ -46,16 +47,16 @@
 	"TextureManager.h"
 	<iostream>
 
-1555783027 source:/home/esther/Escritorio/Aleste/src/Disparo.cpp
+1556019681 source:/home/esther/Escritorio/Aleste/src/Disparo.cpp
 	"Disparo.h"
 
-1555930722 source:/home/esther/Escritorio/Aleste/src/Jugador.cpp
+1556016186 source:/home/esther/Escritorio/Aleste/src/Jugador.cpp
 	"Jugador.h"
 
-1555957747 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
+1556020144 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
 	"Enemigo.h"
 
-1555958000 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
+1556019591 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
 	"Juego.h"
 
 1555955236 /home/esther/Escritorio/Aleste/include/Juego.h
@@ -67,10 +68,11 @@
 	"FactoryEnemigo.h"
 	"Arma.h"
 
-1555272614 /home/esther/Escritorio/Aleste/include/Window.h
+1556020276 /home/esther/Escritorio/Aleste/include/Window.h
 	<SFML/Graphics.hpp>
+	<iostream>
 
-1555929632 source:/home/esther/Escritorio/Aleste/src/Window.cpp
+1556036915 source:/home/esther/Escritorio/Aleste/src/Window.cpp
 	"Window.h"
 	"TextureManager.h"
 
@@ -91,7 +93,7 @@
 	"HUD.h"
 	"Window.h"
 
-1555957518 source:/home/esther/Escritorio/Aleste/src/FactoryEnemigo.cpp
+1556019638 source:/home/esther/Escritorio/Aleste/src/FactoryEnemigo.cpp
 	"FactoryEnemigo.h"
 
 1555933282 /home/esther/Escritorio/Aleste/include/FactoryEnemigo.h
@@ -102,7 +104,7 @@
 	"TextureManager.h"
 	"Window.h"
 
-1555958032 source:/home/esther/Escritorio/Aleste/src/Arma.cpp
+1556016305 source:/home/esther/Escritorio/Aleste/src/Arma.cpp
 	"Arma.h"
 
 1555752673 /home/esther/Escritorio/Aleste/include/FactoryDisparo.h

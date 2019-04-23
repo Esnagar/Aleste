@@ -30,7 +30,7 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador, 
             escala = 0.7;
 
             srand(time(NULL));
-            posEnemigo = (rand() % (820 - 100)) + 100;
+            posEnemigo = (rand() % (800 - 20)) + 20;
 
             posicion.x = posEnemigo;
             posicion.y = 5;
@@ -53,8 +53,7 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador, 
             escala = 0.7;
 
             srand(time(NULL));
-            posEnemigo = (rand() % (820 - 200)) + 5;
-
+            posEnemigo = (rand() % (815 - 5)) + 5;
             posicion.x = posEnemigo;
             posicion.y = 5;
         break;

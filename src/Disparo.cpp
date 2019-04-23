@@ -21,7 +21,7 @@ void Disparo::update(sf::Vector2f posicionJugador) {
     switch(tipo) {
 
         case 1:
-            disparo.move(0, -7);
+            disparo.move(0, -8);
         break;
 
 

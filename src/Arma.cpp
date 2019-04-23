@@ -21,7 +21,7 @@ Arma::Arma(int id) {
 Arma::~Arma() {}
 
 void Arma::update() {
-    bola.move(0, 2);
+    bola.move(0, 4);
 
     if(disparada)
         numeroSuelto.move(0, -0.5);

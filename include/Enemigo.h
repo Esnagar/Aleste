@@ -2,7 +2,7 @@
 #define ENEMIGO_H_INCLUDED
 #include <SFML/Graphics.hpp>
 #include <cmath>
-
+#include <iostream>
 #include "Window.h"
 #include "TextureManager.h"
 
