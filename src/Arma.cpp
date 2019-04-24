@@ -1,19 +1,19 @@
 #include "Arma.h"
 
-Arma::Arma(int id) {
+Arma::Arma(int id, float x, float y) {
 
     idArma = id;
     id--; //Para obtener su IntRect correspondiente
 
     bola.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
     bola.setTextureRect(sf::IntRect(id*78, 0, 78, 71));
-    bola.setScale(0.7, 0.7);
+    bola.setScale(0.6, 0.6);
     bola.setOrigin(bola.getGlobalBounds().width/2, bola.getGlobalBounds().height/2);
-    bola.setPosition(100, 100);
+    bola.setPosition(x, y);
 
     numeroSuelto.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
     numeroSuelto.setTextureRect(sf::IntRect(312 + id*39, 0, 39, 71));
-    numeroSuelto.setScale(0.7, 0.7);
+    numeroSuelto.setScale(0.6, 0.6);
     numeroSuelto.setOrigin(numeroSuelto.getGlobalBounds().width/2, numeroSuelto.getGlobalBounds().height/2);
     numeroSuelto.setPosition(bola.getPosition().x + 5, bola.getPosition().y - 15);
 }

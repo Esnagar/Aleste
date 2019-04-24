@@ -14,21 +14,21 @@ class Arma
     protected:
 
     public:
-            Arma(int idArma);
-            virtual ~Arma();
+        Arma(int idArma, float x, float y);
+        virtual ~Arma();
 
-            void update();
-            void render();
+        void update();
+        void render();
 
-            int getTipo();
+        int getTipo();
 
-            void setDisparada();
-            void armaActivada();
+        void setDisparada();
+        void armaActivada();
 
-            bool getDisparada();
+        bool getDisparada();
 
-            sf::FloatRect getGBnumero();
-            sf::FloatRect getGBbola();
+        sf::FloatRect getGBnumero();
+        sf::FloatRect getGBbola();
 };
 
 #endif // ARMA_H

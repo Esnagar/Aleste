@@ -7,6 +7,7 @@
 #include "Enemigo.h"
 #include "FactoryEnemigo.h"
 #include "Arma.h"
+#include "FactoryArma.h"
 
 #define kVELOCIDAD 15
 
@@ -18,6 +19,18 @@ class Juego
         Jugador jugador;
 
         FactoryEnemigo factoriaEnem;
+        FactoryArma factoriaArma;
+
+        //Para el fondo
+        int tamanyo = 820;
+        int posX = 0;
+        int posY = 3280 - tamanyo;
+        sf::Sprite fondo;
+        bool stopArmas = false;
+        bool stopFondo = false;
+        bool stopEnemigos = false;
+
+
         std::vector <Enemigo*> vectorEnemigos; //deberia ser un puntero?
         std::vector <Arma*> vectorArmas;
 
@@ -32,6 +45,8 @@ class Juego
         bool checkColisionEJ(Enemigo enemigo);
         bool checkColisionJA(Arma arma);
         bool checkColisionDA(Arma arma, Disparo disparo);
+
+        void updateFondo();
 
     protected:
 

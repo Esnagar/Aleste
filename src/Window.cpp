@@ -15,9 +15,6 @@ Window::Window() {
     renderWindow.create(sf::VideoMode(820, 640), "Aleste");
     renderWindow.setFramerateLimit(60);
 
-    texFondo = *TextureManager::getInstancia()->getTexture("fondo");
-    fondo.setTexture(texFondo);
-
     first.x = 0.0f;
     first.y = 0.0f;
 }
@@ -63,6 +60,18 @@ void Window::procesarInput() {
             }
         }
 
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && relojModoDios.getElapsedTime().asSeconds() > 0.3) {
+            if(modoDios) {
+                modoDios = false;
+                std::cout << "Modo dios desactivado" << std::endl;
+            } else {
+                modoDios = true;
+                std::cout << "Modo dios activado!" << std::endl;
+            }
+
+            relojModoDios.restart();
+        }
+
         inputs[0] = arriba;
         inputs[1] = abajo;
         inputs[2] = izquierda;
@@ -87,19 +96,4 @@ void Window::resetDisparos() { numDisparos = 0; }
 void Window::setFirst(float i, float j) {
     first.x += i;
     first.y += j;
-}
-
-void Window::updateFondo() {
-
-    ///Tiempo hasta llegar al primer boss =~ 45 seg
-    ///Tiempo desde el primer boss hasta el segundo =~ 1 min 25 seg
-
-    ///Tiempo desde que empieza hasta que acaba este fondo =~ 45 seg
-    posY -= 4;
-    if(posY <= 0) {
-        posY = 3280 - tamanyo;
-        posX += tamanyo;
-    }
-
-    fondo.setTextureRect(sf::IntRect(posX, posY, tamanyo, tamanyo));
 }

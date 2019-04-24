@@ -16,8 +16,6 @@ HUD::HUD() {
 
 
     bandaNegra.setFillColor(sf::Color::Black);
-    bandaNegra.setOutlineColor(sf::Color::Blue);
-    bandaNegra.setOutlineThickness(2.5);
     bandaNegra.setSize(sf::Vector2f(Window::getInstancia()->getTamanyo().x, 35));
     bandaNegra.setPosition(0, marcoVerde.getOutlineThickness());
 

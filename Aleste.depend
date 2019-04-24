@@ -56,10 +56,10 @@
 1556020144 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
 	"Enemigo.h"
 
-1556019591 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
+1556104228 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
 	"Juego.h"
 
-1555955236 /home/esther/Escritorio/Aleste/include/Juego.h
+1556104817 /home/esther/Escritorio/Aleste/include/Juego.h
 	"Window.h"
 	"HUD.h"
 	"Jugador.h"
@@ -67,12 +67,13 @@
 	"Enemigo.h"
 	"FactoryEnemigo.h"
 	"Arma.h"
+	"FactoryArma.h"
 
-1556020276 /home/esther/Escritorio/Aleste/include/Window.h
+1556102458 /home/esther/Escritorio/Aleste/include/Window.h
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1556036915 source:/home/esther/Escritorio/Aleste/src/Window.cpp
+1556102480 source:/home/esther/Escritorio/Aleste/src/Window.cpp
 	"Window.h"
 	"TextureManager.h"
 
@@ -100,11 +101,11 @@
 	"Enemigo.h"
 	<iostream>
 
-1555958053 /home/esther/Escritorio/Aleste/include/Arma.h
+1556100927 /home/esther/Escritorio/Aleste/include/Arma.h
 	"TextureManager.h"
 	"Window.h"
 
-1556016305 source:/home/esther/Escritorio/Aleste/src/Arma.cpp
+1556103624 source:/home/esther/Escritorio/Aleste/src/Arma.cpp
 	"Arma.h"
 
 1555752673 /home/esther/Escritorio/Aleste/include/FactoryDisparo.h
@@ -117,4 +118,10 @@
 	"Nivel.h"
 
 1553279088 /home/esther/Escritorio/Aleste/include/Nivel.h
+
+1556101802 /home/esther/Escritorio/Aleste/include/FactoryArma.h
+	"Arma.h"
+
+1556104308 source:/home/esther/Escritorio/Aleste/src/FactoryArma.cpp
+	"FactoryArma.h"
 

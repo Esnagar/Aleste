@@ -25,28 +25,23 @@ class Window
         bool haTerminado();
         sf::Vector2u getTamanyo();
 
-
-        sf::Texture texFondo;
-        sf::Sprite fondo;
-
         //Variables para el rectángulo de recorte de la textura
         //Se usarán para la animación del fondo moviéndose
-        int tamanyo = 820;
-        int posX = 0;
-        int posY = 3280 - tamanyo;
 
         sf::Clock relojUpdate;
         sf::Clock relojInterp;
 
         sf::Clock relojDisparos;
+        sf::Clock relojModoDios;
 
         sf::Vector2f first;
         sf::Vector2f last;
 
         float percent;
-        void updateFondo();
 
         void setFirst(float i, float j);
+
+        bool modoDios = false;
 
     protected:
 
