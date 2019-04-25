@@ -13,7 +13,7 @@ class FactoryEnemigo
 
     private:
         int tipo;
-
+        int numVidas;
         int posRX;
         int posRY;
         int ancho;

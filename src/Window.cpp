@@ -52,8 +52,6 @@ void Window::procesarInput() {
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
             mantenerDisparo = true;
 
-        std::cout << haDisparado << std::endl;
-
             if(relojDisparos.getElapsedTime().asSeconds() > 0.3) {
                 haDisparado = true;
                 relojDisparos.restart();

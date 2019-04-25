@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1556036859 source:/home/esther/Escritorio/Aleste/main.cpp
+1556217496 source:/home/esther/Escritorio/Aleste/main.cpp
 	<iostream>
 	<SFML/Graphics.hpp>
 	"Window.h"
@@ -22,7 +22,7 @@
 	"TextureManager.h"
 	"Window.h"
 
-1556016706 /home/esther/Escritorio/Aleste/include/Enemigo.h
+1556118344 /home/esther/Escritorio/Aleste/include/Enemigo.h
 	<SFML/Graphics.hpp>
 	<cmath>
 	<iostream>
@@ -53,13 +53,13 @@
 1556016186 source:/home/esther/Escritorio/Aleste/src/Jugador.cpp
 	"Jugador.h"
 
-1556020144 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
+1556118360 source:/home/esther/Escritorio/Aleste/src/Enemigo.cpp
 	"Enemigo.h"
 
-1556104228 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
+1556218680 source:/home/esther/Escritorio/Aleste/src/Juego.cpp
 	"Juego.h"
 
-1556104817 /home/esther/Escritorio/Aleste/include/Juego.h
+1556219195 /home/esther/Escritorio/Aleste/include/Juego.h
 	"Window.h"
 	"HUD.h"
 	"Jugador.h"
@@ -73,7 +73,7 @@
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1556102480 source:/home/esther/Escritorio/Aleste/src/Window.cpp
+1556114414 source:/home/esther/Escritorio/Aleste/src/Window.cpp
 	"Window.h"
 	"TextureManager.h"
 
@@ -90,14 +90,14 @@
 	<iostream>
 	"TextureManager.h"
 
-1555704062 source:/home/esther/Escritorio/Aleste/src/HUD.cpp
+1556105301 source:/home/esther/Escritorio/Aleste/src/HUD.cpp
 	"HUD.h"
 	"Window.h"
 
-1556019638 source:/home/esther/Escritorio/Aleste/src/FactoryEnemigo.cpp
+1556210144 source:/home/esther/Escritorio/Aleste/src/FactoryEnemigo.cpp
 	"FactoryEnemigo.h"
 
-1555933282 /home/esther/Escritorio/Aleste/include/FactoryEnemigo.h
+1556113746 /home/esther/Escritorio/Aleste/include/FactoryEnemigo.h
 	"Enemigo.h"
 	<iostream>
 
@@ -105,7 +105,7 @@
 	"TextureManager.h"
 	"Window.h"
 
-1556103624 source:/home/esther/Escritorio/Aleste/src/Arma.cpp
+1556118223 source:/home/esther/Escritorio/Aleste/src/Arma.cpp
 	"Arma.h"
 
 1555752673 /home/esther/Escritorio/Aleste/include/FactoryDisparo.h

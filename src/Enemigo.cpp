@@ -2,9 +2,11 @@
 
 Enemigo::~Enemigo() {}
 
-Enemigo::Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vector2f posicion, sf::Vector2f direccion) {
+Enemigo::Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vector2f posicion, sf::Vector2f direccion, int numeroVidas) {
 
     tipo = tipoEnemigo;
+
+    numVidas = numeroVidas;
 
     enemigo.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
     enemigo.setTextureRect(areaRecorte);
@@ -12,7 +14,11 @@ Enemigo::Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vec
     enemigo.setScale(escala, escala);
     enemigo.setOrigin(enemigo.getGlobalBounds().width/2, enemigo.getGlobalBounds().height/2);
 
-    circuloColision.setRadius(enemigo.getGlobalBounds().width/3.0);
+    if(tipo == 4 || tipo == 5)
+        circuloColision.setRadius(enemigo.getGlobalBounds().width/5.0);
+    else
+        circuloColision.setRadius(enemigo.getGlobalBounds().width/3.0);
+
     circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
 
     direccionEnemigo.x = direccion.x;
@@ -43,12 +49,14 @@ void Enemigo::mover(int velocidad) {
             else if(enemigo.getPosition().x < posXinicial - 150)
                 aLaDerecha = true;
 
+            circuloColision.setPosition(enemigo.getPosition().x + 4, enemigo.getPosition().y + 4);
         break;
 
 
         //Coge la dirección del jugador en ese momento y se mueve en esa dirección
         case 2:
             enemigo.move(direccionEnemigo.x * (velocidad+2), direccionEnemigo.y * (velocidad+2));
+            circuloColision.setPosition(enemigo.getPosition().x + 4, enemigo.getPosition().y + 4);
         break;
 
 
@@ -56,11 +64,15 @@ void Enemigo::mover(int velocidad) {
         case 3:
             velY += gravedad;
             enemigo.setPosition(enemigo.getPosition().x + velX * dirVelX, enemigo.getPosition().y + velY);
+            circuloColision.setPosition(enemigo.getPosition().x + 4, enemigo.getPosition().y + 4);
         break;
 
+
+        case 4:
+            circuloColision.setPosition(enemigo.getPosition().x + 15, enemigo.getPosition().y + 4);
+        break;
     }
 
-    circuloColision.setPosition(enemigo.getPosition().x + 4, enemigo.getPosition().y + 4);
 }
 
 
@@ -79,8 +91,8 @@ bool Enemigo::dentroPantalla() {
 
 
 void Enemigo::render() {
-    //Window::getInstancia()->draw(circuloColision);
     Window::getInstancia()->draw(enemigo);
+    //Window::getInstancia()->draw(circuloColision);
 }
 
 
@@ -116,3 +128,10 @@ int Enemigo::getBottom() {
     return enemigo.getPosition().y + enemigo.getGlobalBounds().height;
 }
 
+int Enemigo::getNumVidas() {
+    return numVidas;
+}
+
+void Enemigo::setNumVidas(int num) {
+    numVidas = num;
+}

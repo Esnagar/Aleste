@@ -19,15 +19,17 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador, 
             escala = 0.8;
             posicion.x = posEnemigo;
             posicion.y = 5;
+            numVidas = 1;
         break;
 
         case 2:
             tipo = p_tipo;
-            posRX = 359;
+            posRX = 360;
             posRY = 71;
-            ancho = 66;
+            ancho = 65;
             alto = 139;
             escala = 0.7;
+            numVidas = 1;
 
             srand(time(NULL));
             posEnemigo = (rand() % (800 - 20)) + 20;
@@ -51,13 +53,29 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador, 
             ancho = 78;
             alto = 71;
             escala = 0.7;
+            numVidas = 1;
 
             srand(time(NULL));
             posEnemigo = (rand() % (815 - 5)) + 5;
             posicion.x = posEnemigo;
             posicion.y = 5;
         break;
+
+
+        //BOSS
+        case 4:
+            tipo = p_tipo;
+            posRX = 273;
+            posRY = 222;
+            ancho = 140;
+            alto = 140;
+            escala = 0.6;
+            posicion.x = posicionJugador.x;
+            posicion.y = posicionJugador.y;
+
+            numVidas = 20;
+        break;
     }
 
-    return new Enemigo(tipo, sf::IntRect(posRX, posRY, ancho, alto), escala, posicion, direccionEnemigo);
+    return new Enemigo(tipo, sf::IntRect(posRX, posRY, ancho, alto), escala, posicion, direccionEnemigo, numVidas);
 }

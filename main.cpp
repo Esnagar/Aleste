@@ -13,8 +13,8 @@ int main() {
 
     Juego juego;
 
-    Window::getInstancia()->first.x=juego.getPosicionJugador().x;
-    Window::getInstancia()->first.y=juego.getPosicionJugador().y;
+    Window::getInstancia()->first.x = juego.getPosicionJugador().x;
+    Window::getInstancia()->first.y = juego.getPosicionJugador().y;
 
     while(!Window::getInstancia()->haTerminado()) {
         juego.update();

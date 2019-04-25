@@ -10,6 +10,8 @@ class Enemigo
 {
     private:
         int tipo;
+        int numVidas;
+
         sf::Sprite enemigo;
         sf::CircleShape circuloColision;
 
@@ -25,7 +27,7 @@ class Enemigo
 
 
     public:
-        Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vector2f posicion, sf::Vector2f direccion);
+        Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vector2f posicion, sf::Vector2f direccion, int numeroVidas);
         ~Enemigo();
 
         void mover(int velocidad);
@@ -43,6 +45,9 @@ class Enemigo
 
         int getTipo();
         sf::FloatRect getCirculoColision();
+
+        int getNumVidas();
+        void setNumVidas(int num);
 };
 
 
