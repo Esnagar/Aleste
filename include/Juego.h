@@ -8,6 +8,7 @@
 #include "Arma.h"
 #include "FactoryEnemigo.h"
 #include "FactoryArma.h"
+#include "FactoryDisparo.h"
 
 class Juego
 {
@@ -18,20 +19,24 @@ class Juego
 
         FactoryEnemigo factoriaEnem;
         FactoryArma factoriaArma;
+        FactoryDisparo factoriaDisp;
 
         std::vector <Enemigo*> vectorEnemigos; //deberia ser un puntero?
+        std::vector <Disparo*> vectorDisparosEnem;
         std::vector <Arma*> vectorArmas;
 
-        sf::Clock relojBoss1;
-        sf::Clock relojBoss2;
         sf::Clock relojEnemigos1;
         sf::Clock relojEnemigos2;
         sf::Clock relojEnemigos3;
+        sf::Clock relojBoss1;
+        sf::Clock relojBoss2;
+        sf::Clock relojDisparos1;
+        sf::Clock relojDisparos2;
 
-        //Para el fondo
         int tamanyo = 820;
         int posYfondo = 3280 - tamanyo;
-        int posXfondo = 0;
+        //int posYfondo = 1200;
+        int posXfondo = 4100;
 
         bool stopArmas = false;
         bool stopFondo = false;
@@ -53,6 +58,8 @@ class Juego
         bool checkColisionEJ(Enemigo enemigo);
         bool checkColisionJA(Arma arma);
         bool checkColisionDA(Arma arma, Disparo disparo);
+        bool checkColisionJD(Disparo disparo);
+        bool checkColisionDD(Disparo disparoE, Disparo disparoJ);
 
     protected:
 

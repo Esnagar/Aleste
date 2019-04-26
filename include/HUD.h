@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "TextureManager.h"
+#include "Window.h"
 
 class HUD
 {
@@ -14,6 +15,7 @@ class HUD
         void updatePuntuacion(int tipoEnemigo);
         void updateVidas(int vidas);
         void updateDisparosArma();
+        void updateMarco();
 
         void setArma(int tipoArma);
         int getDisparosArma();

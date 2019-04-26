@@ -9,15 +9,18 @@
 
 class Disparo {
     private:
-        int tipo;
         sf::Sprite disparo;
+        int tipo;
         float tiempo;
+        sf::Vector2f direcDisparo;
+        bool explotado = false;
+        int numUpdates = 6;
 
     protected:
 
 
     public:
-        Disparo(int tipoDisparo, sf::IntRect areaRecorte, float escala, float x, float y);
+        Disparo(int tipoDisparo, sf::IntRect areaRecorte, float escala, float x, float y, sf::Vector2f direccionDisparo);
         ~Disparo();
 
         void cambiarSprite(std::string estado);
@@ -31,6 +34,10 @@ class Disparo {
         int getTop();
         int getBottom();
         sf::FloatRect getGBounds();
+
+        bool getExplotado();
+        int setNumUpdates(int num);
+        int getNumUpdates();
 };
 
 #endif // DISPARO_H

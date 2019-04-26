@@ -14,7 +14,7 @@ Enemigo::Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vec
     enemigo.setScale(escala, escala);
     enemigo.setOrigin(enemigo.getGlobalBounds().width/2, enemigo.getGlobalBounds().height/2);
 
-    if(tipo == 4 || tipo == 5)
+    if(tipo == 4)
         circuloColision.setRadius(enemigo.getGlobalBounds().width/5.0);
     else
         circuloColision.setRadius(enemigo.getGlobalBounds().width/3.0);

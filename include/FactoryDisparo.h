@@ -7,7 +7,7 @@ class FactoryDisparo
     public:
         FactoryDisparo();
         virtual ~FactoryDisparo();
-        Disparo* crearDisparo(int p_tipo, sf::Vector2f posicionJugador);
+        Disparo* crearDisparo(int p_tipo, sf::Vector2f posicionJugador, sf::Vector2f posicionBoss);
 
     protected:
 
@@ -18,9 +18,11 @@ class FactoryDisparo
         int posRY;
         int ancho;
         int alto;
+        int posX;
+        int posY;
         float escala;
 
-        sf::Vector2f posicion;
+        sf::Vector2f direccionDisparo;
 };
 
 #endif // FACTORYDISPARO_H

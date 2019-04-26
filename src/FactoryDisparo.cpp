@@ -4,7 +4,9 @@ FactoryDisparo::FactoryDisparo() {}
 
 FactoryDisparo::~FactoryDisparo() {}
 
-Disparo* FactoryDisparo::crearDisparo(int p_tipo, sf::Vector2f posicionJugador) {
+Disparo* FactoryDisparo::crearDisparo(int p_tipo, sf::Vector2f posicionJugador, sf::Vector2f posicionBoss) {
+
+    float modulo;
 
     switch(p_tipo) {
 
@@ -15,6 +17,8 @@ Disparo* FactoryDisparo::crearDisparo(int p_tipo, sf::Vector2f posicionJugador) 
             ancho = 24;
             alto = 71;
             escala = 0.7;
+            posX = posicionJugador.x;
+            posY = posicionJugador.y - 50;
         break;
 
         case 2:
@@ -24,6 +28,8 @@ Disparo* FactoryDisparo::crearDisparo(int p_tipo, sf::Vector2f posicionJugador) 
             ancho = 78;
             alto = 71;
             escala = 0.7;
+            posX = posicionJugador.x;
+            posY = posicionJugador.y - 50;
         break;
 
 
@@ -34,10 +40,31 @@ Disparo* FactoryDisparo::crearDisparo(int p_tipo, sf::Vector2f posicionJugador) 
             ancho = 47;
             alto = 141;
             escala = 0.7;
+            posX = posicionJugador.x;
+            posY = posicionJugador.y - 50;
+        break;
+
+        //Para los bosses
+        case 4:
+            tipo = p_tipo;
+            posRX = 252;
+            posRY = 144;
+            ancho = 28;
+            alto = 35;
+            escala = 0.7;
+
+            modulo = sqrt(  (posicionBoss.x - posicionJugador.x) * (posicionBoss.x - posicionJugador.x)
+                          + (posicionBoss.y - posicionJugador.y) * (posicionBoss.y - posicionJugador.y));
+
+            direccionDisparo.x = (posicionJugador.x - posicionBoss.x) / modulo;
+            direccionDisparo.y = (posicionJugador.y - posicionBoss.y) / modulo;
+
+            posX = posicionBoss.x + 15;
+            posY = posicionBoss.y + 15;
         break;
     }
 
-    return new Disparo(tipo, sf::IntRect(posRX, posRY, ancho, alto), escala, posicionJugador.x, posicionJugador.y - 50);
+    return new Disparo(tipo, sf::IntRect(posRX, posRY, ancho, alto), escala, posX, posY, direccionDisparo);
 
 
 }

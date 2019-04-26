@@ -73,7 +73,7 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador, 
             posicion.x = posicionJugador.x;
             posicion.y = posicionJugador.y;
 
-            numVidas = 20;
+            numVidas = 10;
         break;
     }
 

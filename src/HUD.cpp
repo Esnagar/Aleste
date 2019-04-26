@@ -1,5 +1,4 @@
 #include "HUD.h"
-#include "Window.h"
 
 HUD::HUD() {
     puntuacion = 0;
@@ -62,10 +61,14 @@ int HUD::getDisparosArma() {
 
 void HUD::updatePuntuacion(int tipoEnemigo) {
 
-    if(tipoEnemigo == 1) {
-        puntuacion += 200;
-        scNUM.setString(std::to_string(puntuacion));
+    switch(tipoEnemigo) {
+        case 1: puntuacion += 100; break;
+        case 2: puntuacion += 500; break;
+        case 3: puntuacion += 300; break;
+        case 4: puntuacion += 5000; break;
     }
+
+    scNUM.setString(std::to_string(puntuacion));
 }
 
 void HUD::updateVidas(int vidas) {
@@ -76,6 +79,13 @@ void HUD::updateVidas(int vidas) {
     if(numVidas <= 0)
         std::cout << "Has perdido!" << std::endl; //aquí reiniciar el juego
 
+}
+
+void HUD::updateMarco() {
+    if(Window::getInstancia()->modoDios)
+        marcoVerde.setOutlineColor(sf::Color(255, 242, 0));
+    else
+        marcoVerde.setOutlineColor(sf::Color(0, 75, 0));
 }
 
 void HUD::render() {

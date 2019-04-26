@@ -38,6 +38,9 @@ void Juego::update() {
     //Update del fondo
     updateFondo();
 
+    //Update del HUD
+    hud.updateMarco();
+
     //Generar enemigos
     if(!stopEnemigos)
         generarEnemigos();
@@ -83,6 +86,38 @@ void Juego::update() {
         }
     }
 
+    //Disparos de los bosses
+    if(primerBoss && relojDisparos1.getElapsedTime().asSeconds() > 0.5) {
+        vectorDisparosEnem.push_back(factoriaDisp.crearDisparo(4, getPosicionJugador(), sf::Vector2f(396, 122)));
+        relojDisparos1.restart();
+    }
+
+    if(segundoBoss && relojDisparos2.getElapsedTime().asSeconds() > 0.8) {
+        for(int i = 0; i < vectorEnemigos.size(); i++) {
+            if(vectorEnemigos[i]->getPosX() == 95)
+                vectorDisparosEnem.push_back(factoriaDisp.crearDisparo(4, getPosicionJugador(), sf::Vector2f(95, 122)));
+
+            if(vectorEnemigos[i]->getPosX() == 396)
+                vectorDisparosEnem.push_back(factoriaDisp.crearDisparo(4, getPosicionJugador(), sf::Vector2f(396, 270)));
+
+            if(vectorEnemigos[i]->getPosX() == 695)
+                vectorDisparosEnem.push_back(factoriaDisp.crearDisparo(4, getPosicionJugador(), sf::Vector2f(695, 122)));
+        }
+
+        relojDisparos2.restart();
+    }
+
+    //Updatear disparos
+    for(int i = 0; i < vectorDisparosEnem.size(); i++) {
+        vectorDisparosEnem[i]->update(getPosicionJugador());
+
+        if(!vectorDisparosEnem[i]->dentroPantalla()) {
+            delete vectorDisparosEnem[i];
+            vectorDisparosEnem[i] = nullptr;
+            vectorDisparosEnem.erase(vectorDisparosEnem.begin() + i);
+        }
+    }
+
     comprobarColisiones();
 }
 
@@ -99,6 +134,9 @@ void Juego::render() {
 
     for(int i = 0; i < vectorEnemigos.size(); i++)
         vectorEnemigos[i]->render();
+
+    for(int i = 0; i < vectorDisparosEnem.size(); i++)
+        vectorDisparosEnem[i]->render();
 
     jugador.render();
 
@@ -148,6 +186,7 @@ void Juego::updateFondo() {
             if(!primerBoss) {
                 vectorEnemigos.insert(vectorEnemigos.begin(), factoriaEnem.crearEnemigo(4, sf::Vector2f(396, 122), 0));
                 relojBoss1.restart();
+                relojDisparos1.restart();
             }
 
             stopFondo = true;
@@ -161,6 +200,7 @@ void Juego::updateFondo() {
                 vectorEnemigos.insert(vectorEnemigos.begin(), factoriaEnem.crearEnemigo(4, sf::Vector2f(396, 270), 0));
                 vectorEnemigos.insert(vectorEnemigos.begin(), factoriaEnem.crearEnemigo(4, sf::Vector2f(695, 122), 0));
                 relojBoss2.restart();
+                relojDisparos2.restart();
             }
 
             stopFondo = true;
@@ -233,14 +273,29 @@ void Juego::generarArmas() {
 
 void Juego::comprobarColisiones() {
 
+
+    for(int i = 0; i < jugador.getDisparos().size(); i++) {
+        if(jugador.getDisparos().size() > 0 && jugador.getDisparos()[i]->getExplotado() && jugador.getDisparos()[i]->getNumUpdates() <= 0) {
+            jugador.borrarDisparo(i);
+
+        } else if (jugador.getDisparos().size() > 0 && jugador.getDisparos()[i]->getExplotado() && jugador.getDisparos()[i]->getNumUpdates() > 0) {
+
+            if(jugador.getDisparos()[i]->getNumUpdates() <= 3)
+                jugador.getDisparos()[i]->cambiarSprite("miniexplosion");
+
+            jugador.getDisparos()[i]->setNumUpdates(-1);
+        }
+    }
+
+
     //Comprobar la colisión enemigo-disparo
-    for(int i = 0; i < jugador.getDisparos().size(); i++)
-        for(int j = 0; j < vectorEnemigos.size(); j++)
-            if(jugador.getDisparos().size() > 0 && checkColisionED(*vectorEnemigos[j], *jugador.getDisparos()[i])) { //si estan colisionando
+    for(int i = 0; i < jugador.getDisparos().size(); i++) {
+        for(int j = 0; j < vectorEnemigos.size(); j++) {
 
-                jugador.borrarDisparo(i);
+            if(jugador.getDisparos().size() > 0 && !jugador.getDisparos()[i]->getExplotado() && checkColisionED(*vectorEnemigos[j], *jugador.getDisparos()[i])) {
+            //if(jugador.getDisparos().size() > 0 && jugador.getDisparos()[i]->getExplotado()) {
+
                 hud.updatePuntuacion(vectorEnemigos[j]->getTipo());
-
                 vectorEnemigos[j]->setNumVidas(vectorEnemigos[j]->getNumVidas() - 1);
 
                 if(vectorEnemigos[j]->getNumVidas() == 0) {
@@ -262,15 +317,49 @@ void Juego::comprobarColisiones() {
                     delete vectorEnemigos[j];
                     vectorEnemigos[j] = nullptr;
                     vectorEnemigos.erase(vectorEnemigos.begin() + j);
+
+                    //jugador.borrarDisparo(i);
                 }
+                jugador.getDisparos()[i]->cambiarSprite("explosion");
+
+            }
+        }
+    }
+
+/*
+    for(int i = 0; i < jugador.getDisparos().size(); i++)
+        for(int j = 0; j < vectorEnemigos.size(); j++)
+            if(jugador.getDisparos().size() > 0 && !jugador.getDisparos()[i]->getExplotado() && checkColisionED(*vectorEnemigos[j], *jugador.getDisparos()[i]))
+                jugador.getDisparos()[i]->cambiarSprite("explosion");
+*/
+
+
+    //Comprobar la colisión del disparo del jugador y el disparo de los bosses
+    for(int i = 0; i < jugador.getDisparos().size(); i++)
+        for(int j = 0; j < vectorDisparosEnem.size(); j++)
+            if(jugador.getDisparos().size() > 0 && vectorDisparosEnem.size() > 0 &&
+               !jugador.getDisparos()[i]->getExplotado() && checkColisionDD(*vectorDisparosEnem[j], *jugador.getDisparos()[i])) {
+
+                //jugador.borrarDisparo(j);
+
+                jugador.getDisparos()[i]->cambiarSprite("explosion");
+
+                delete vectorDisparosEnem[j];
+                vectorDisparosEnem[j] = nullptr;
+                vectorDisparosEnem.erase(vectorDisparosEnem.begin() + j);
             }
 
 
-    //Comprobar la colisión enemigo-jugador (solo si el modo dios está desactivado)
-    if(!Window::getInstancia()->modoDios)
+    //Comprobar la colisión enemigo-jugador y disparo-jugador (solo si el modo dios está desactivado)
+    if(!Window::getInstancia()->modoDios) {
         for(int i = 0; i < vectorEnemigos.size(); i++)
             if(checkColisionEJ(*vectorEnemigos[i]))
                 hud.updateVidas(-1);
+
+        for(int i = 0; i < vectorDisparosEnem.size(); i++)
+            if(checkColisionJD(*vectorDisparosEnem[i]))
+                hud.updateVidas(-1);
+    }
 
 
     //Comprobar la colisión disparo-arma
@@ -278,7 +367,8 @@ void Juego::comprobarColisiones() {
         for(int j = 0; j < jugador.getDisparos().size(); j++)
             if(checkColisionDA(*vectorArmas[i], *jugador.getDisparos()[j])) {
                 vectorArmas[i]->setDisparada();
-                jugador.borrarDisparo(j); //mejorar para que no se vea tan pocho
+                jugador.getDisparos()[j]->cambiarSprite("explosion");
+                //jugador.borrarDisparo(j); //mejorar para que no se vea tan pocho
             }
 
     //Comprobar la colisión jugador-arma
@@ -293,6 +383,7 @@ void Juego::comprobarColisiones() {
 
 bool Juego::checkColisionED(Enemigo enemigo, Disparo disparo) {
     bool colision = false;
+
     if (disparo.getGBounds().intersects(enemigo.getCirculoColision()))
         colision = true;
 
@@ -324,6 +415,23 @@ bool Juego::checkColisionDA(Arma arma, Disparo disparo) {
 
     return colision;
 }
+
+bool Juego::checkColisionJD(Disparo disparo) {
+    bool colision = false;
+    if (disparo.getGBounds().intersects(jugador.getGBounds()))
+        colision = true;
+
+    return colision;
+}
+
+bool Juego::checkColisionDD(Disparo disparoE, Disparo disparoJ) {
+    bool colision = false;
+    if (disparoE.getGBounds().intersects(disparoJ.getGBounds()))
+        colision = true;
+
+    return colision;
+}
+
 
 sf::Vector2f Juego::getPosicionJugador() {
     return sf::Vector2f(jugador.getPosX(), jugador.getPosY());
