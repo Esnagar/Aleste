@@ -21,13 +21,14 @@ HUD::HUD() {
 
     fuente->loadFromFile("resources/arcade.TTF");
 
-    crearText(sc, "SC", 65, 33);
-    crearText(arm, "ARM  -", 435, 33);
+    crearText(sc, "SC", 25, 65, 33);
+    crearText(arm, "ARM  -", 25, 435, 33);
+    crearText(gameOver, "GAME\nOVER", 70, Window::getInstancia()->getTamanyo().x/2, Window::getInstancia()->getTamanyo().y/2);
 
     //NÚMEROS
-    crearText(scNUM, std::to_string(puntuacion), 240, 33);
-    crearText(armNUM, std::to_string(tipoArma), 463, 33);
-    crearText(vidasNUM, std::to_string(numVidas), 740, 33);
+    crearText(scNUM, std::to_string(puntuacion), 25, 220, 33);
+    crearText(armNUM, std::to_string(tipoArma), 25, 463, 33);
+    crearText(vidasNUM, std::to_string(numVidas), 25, 740, 33);
 
     mininave.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
     mininave.setTextureRect(sf::IntRect(0, 71, 78, 71));
@@ -62,23 +63,23 @@ int HUD::getDisparosArma() {
 void HUD::updatePuntuacion(int tipoEnemigo) {
 
     switch(tipoEnemigo) {
-        case 1: puntuacion += 100; break;
-        case 2: puntuacion += 500; break;
-        case 3: puntuacion += 300; break;
-        case 4: puntuacion += 5000; break;
+        case 1: puntuacion += 100; puntuacion2 += 100; break;
+        case 2: puntuacion += 500; puntuacion2 += 500; break;
+        case 3: puntuacion += 300; puntuacion2 += 300; break;
+        case 4: puntuacion += 5000; puntuacion2 += 5000; break;
+    }
+
+    if(puntuacion2/6000 > 0) {
+        updateVidas(1);
+        puntuacion2 = 0;
     }
 
     scNUM.setString(std::to_string(puntuacion));
 }
 
 void HUD::updateVidas(int vidas) {
-
     numVidas += vidas;
     vidasNUM.setString(std::to_string(numVidas));
-
-    if(numVidas <= 0)
-        std::cout << "Has perdido!" << std::endl; //aquí reiniciar el juego
-
 }
 
 void HUD::updateMarco() {
@@ -97,17 +98,24 @@ void HUD::render() {
     Window::getInstancia()->renderWindow.draw(scNUM);
     Window::getInstancia()->renderWindow.draw(armNUM);
     Window::getInstancia()->renderWindow.draw(vidasNUM);
+
+    if(numVidas <= 0)
+        Window::getInstancia()->renderWindow.draw(gameOver);
 }
 
 
-void HUD::crearText(sf::Text &texto, std::string str, float posX, float posY){
+void HUD::crearText(sf::Text &texto, std::string str, int tamanyo, float posX, float posY){
     texto.setFont(*fuente);
-    texto.setCharacterSize(25);
+    texto.setCharacterSize(tamanyo);
     texto.setColor(sf::Color::White);
     texto.setString(str);
     texto.setOrigin(texto.getGlobalBounds().width/2, texto.getGlobalBounds().height/2);
     texto.setPosition(posX, posY);
 }
 
+
+int HUD::getNumVidas() {
+    return numVidas;
+}
 
 

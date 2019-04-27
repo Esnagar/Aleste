@@ -22,7 +22,7 @@ void Juego::update() {
     jugador.update(segundosUpdate);
 
     //Crear disparos si se ha pulsado la tecla
-    if (Window::getInstancia()->inputs[4]) {
+    if (Window::getInstancia()->inputs[4] && hud.getNumVidas() > 0) {
         jugador.crearDisparo();
 
         if(jugador.getArma() != 1) {
@@ -71,8 +71,9 @@ void Juego::update() {
     }
 
     //Updatear armas
-    for(int i = 0; i < vectorArmas.size(); i++)
-        vectorArmas[i]->update();
+    if(hud.getNumVidas() > 0)
+        for(int i = 0; i < vectorArmas.size(); i++)
+            vectorArmas[i]->update();
 
 
     //Updatear enemigos
@@ -118,7 +119,8 @@ void Juego::update() {
         }
     }
 
-    comprobarColisiones();
+    if(hud.getNumVidas() > 0)
+        comprobarColisiones();
 }
 
 
@@ -138,7 +140,8 @@ void Juego::render() {
     for(int i = 0; i < vectorDisparosEnem.size(); i++)
         vectorDisparosEnem[i]->render();
 
-    jugador.render();
+    if(hud.getNumVidas() > 0)
+        jugador.render();
 
     hud.render();
 
@@ -152,6 +155,12 @@ void Juego::updateFondo() {
         stopArmas = false;
         stopEnemigos = false;
         stopFondo = false;
+    }
+
+    if(hud.getNumVidas() <= 0) {
+        stopArmas = true;
+        stopEnemigos = true;
+        stopFondo = true;
     }
 
     //Si el IntRect del fondo llega hasta el final (arriba), salta a la siguiente columna
@@ -295,10 +304,11 @@ void Juego::comprobarColisiones() {
             if(jugador.getDisparos().size() > 0 && !jugador.getDisparos()[i]->getExplotado() && checkColisionED(*vectorEnemigos[j], *jugador.getDisparos()[i])) {
             //if(jugador.getDisparos().size() > 0 && jugador.getDisparos()[i]->getExplotado()) {
 
-                hud.updatePuntuacion(vectorEnemigos[j]->getTipo());
                 vectorEnemigos[j]->setNumVidas(vectorEnemigos[j]->getNumVidas() - 1);
 
                 if(vectorEnemigos[j]->getNumVidas() == 0) {
+
+                    hud.updatePuntuacion(vectorEnemigos[j]->getTipo());
 
                     if(vectorEnemigos[j]->getTipo() == 4) {
                         if(primerBoss) {
@@ -351,14 +361,18 @@ void Juego::comprobarColisiones() {
 
 
     //Comprobar la colisión enemigo-jugador y disparo-jugador (solo si el modo dios está desactivado)
-    if(!Window::getInstancia()->modoDios) {
+    if(!jugador.getInmortal() && !Window::getInstancia()->modoDios) {
         for(int i = 0; i < vectorEnemigos.size(); i++)
-            if(checkColisionEJ(*vectorEnemigos[i]))
+            if(checkColisionEJ(*vectorEnemigos[i])) {
                 hud.updateVidas(-1);
+                jugador.setInmortal();
+            }
 
         for(int i = 0; i < vectorDisparosEnem.size(); i++)
-            if(checkColisionJD(*vectorDisparosEnem[i]))
+            if(checkColisionJD(*vectorDisparosEnem[i])) {
                 hud.updateVidas(-1);
+                jugador.setInmortal();
+            }
     }
 
 

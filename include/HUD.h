@@ -10,7 +10,7 @@ class HUD
     public:
         HUD();
         virtual ~HUD();
-        void crearText(sf::Text &texto, std::string str, float posX, float posY);
+        void crearText(sf::Text &texto, std::string str, int tamanyo, float posX, float posY);
 
         void updatePuntuacion(int tipoEnemigo);
         void updateVidas(int vidas);
@@ -19,6 +19,7 @@ class HUD
 
         void setArma(int tipoArma);
         int getDisparosArma();
+        int getNumVidas();
 
         void render();
 
@@ -27,17 +28,19 @@ class HUD
     private:
 
         int puntuacion;
+        int puntuacion2;
         int tipoArma;
         int disparosArma = 80;
         int numVidas;
 
-        sf::Font* fuente = new sf::Font;;
+        sf::Font* fuente = new sf::Font;
         sf::Text sc;
         sf::Text scNUM;
         sf::Text arm;
         sf::Text armNUM;
         sf::Text dispNUM;
         sf::Text vidasNUM;
+        sf::Text gameOver;
 
         sf::Texture texMininave;
         sf::Sprite mininave;

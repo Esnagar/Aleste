@@ -35,8 +35,7 @@ class Juego
 
         int tamanyo = 820;
         int posYfondo = 3280 - tamanyo;
-        //int posYfondo = 1200;
-        int posXfondo = 4100;
+        int posXfondo = 0;
 
         bool stopArmas = false;
         bool stopFondo = false;

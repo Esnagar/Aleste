@@ -9,12 +9,12 @@ Jugador::Jugador() {
 
     jugador.setOrigin(jugador.getGlobalBounds().width/2, jugador.getGlobalBounds().height/2);
     jugador.setScale(0.7f, 0.7f);
-    jugador.setPosition(Window::getInstancia()->getTamanyo().x/2, Window::getInstancia()->getTamanyo().y - 100);
+    jugador.setPosition(Window::getInstancia()->getTamanyo().x/2, Window::getInstancia()->getTamanyo().y/2 + 200);
 
     circuloColision.setRadius(jugador.getGlobalBounds().width/3.0);
     circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
 
-    arma = 2;
+    arma = 1;
 }
 
 void Jugador::crearDisparo() {
@@ -35,7 +35,10 @@ int Jugador::getArma() {
 
 void Jugador::update(float segundosUpdate) {
 
-    //cambiarSprite();
+    if(inmortal && relojInmortal.getElapsedTime().asSeconds() > 3) {
+        cambiarSprite("normal");
+        inmortal = false;
+    }
 
     updateDisparos();
 
@@ -78,15 +81,6 @@ void Jugador::updateDisparos() {
     }
 }
 
-/*
-void Jugador::cambiarSprite() {
-    if(numSprite > 2)
-        numSprite = 0;
-
-    jugador.setTextureRect(sf::IntRect(numSprite*78, 71, 78, 71));
-    numSprite++;
-}*/
-
 
 void Jugador::render() {
 
@@ -123,6 +117,15 @@ std::vector <Disparo*> Jugador::getDisparos() {
     return vectorDisparos;
 }
 
+void Jugador::setInmortal() {
+    inmortal = true;
+    cambiarSprite("inmortal");
+    relojInmortal.restart();
+}
+
+bool Jugador::getInmortal() {
+    return inmortal;
+}
 
 void Jugador::borrarDisparo(int posicion) {
     delete vectorDisparos[posicion];
@@ -130,4 +133,22 @@ void Jugador::borrarDisparo(int posicion) {
     vectorDisparos.erase(vectorDisparos.begin() + posicion);
 }
 
+void Jugador::cambiarSprite(std::string estado) {
+
+    if(estado == "inmortal") {
+        jugador.setTextureRect(sf::IntRect(78, 71, 78, 71));
+        jugador.setOrigin(jugador.getGlobalBounds().width/2, jugador.getGlobalBounds().height/2);
+        jugador.setScale(0.7f, 0.7f);
+
+        inmortal = true;
+
+    } else if(estado == "normal") {
+        jugador.setTextureRect(sf::IntRect(0, 71, 78, 71));
+        jugador.setOrigin(jugador.getGlobalBounds().width/2, jugador.getGlobalBounds().height/2);
+        jugador.setScale(0.7f, 0.7f);
+
+    } else {
+        std::cout << "No existe ese estado del jugador" << std::endl;
+    }
+}
 

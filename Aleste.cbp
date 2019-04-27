@@ -45,6 +45,7 @@
 		<Unit filename="include/Arma.h" />
 		<Unit filename="include/Disparo.h" />
 		<Unit filename="include/Enemigo.h" />
+		<Unit filename="include/FactoryArma.h" />
 		<Unit filename="include/FactoryDisparo.h" />
 		<Unit filename="include/FactoryEnemigo.h" />
 		<Unit filename="include/HUD.h" />
@@ -57,6 +58,7 @@
 		<Unit filename="src/Arma.cpp" />
 		<Unit filename="src/Disparo.cpp" />
 		<Unit filename="src/Enemigo.cpp" />
+		<Unit filename="src/FactoryArma.cpp" />
 		<Unit filename="src/FactoryDisparo.cpp" />
 		<Unit filename="src/FactoryEnemigo.cpp" />
 		<Unit filename="src/HUD.cpp" />

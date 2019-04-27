@@ -22,6 +22,8 @@ class Jugador
         std::vector <Disparo*> vectorDisparos;
         int arma;
         int numSprite = 0;
+        sf::Clock relojInmortal;
+        bool inmortal = false;
 
         void updateDisparos();
         void cambiarSprite();
@@ -35,10 +37,13 @@ class Jugador
 
         void mover(float x, float y);
         void crearDisparo();
+        void cambiarSprite(std::string estado);
         void update(float segundosUpdate);
         void render();
 
         void setArma(int tipo);
+        void setInmortal();
+        bool getInmortal();
 
         std::vector <Disparo*> getDisparos();
         void borrarDisparo(int posicion);

@@ -74,7 +74,6 @@ void Disparo::cambiarSprite(std::string estado) {
         disparo.setTextureRect(sf::IntRect(78, 224, 78, 71));
         disparo.setOrigin(disparo.getGlobalBounds().width/2,disparo.getGlobalBounds().height/2);
         disparo.setScale(0.6, 0.6);
-        disparo.setPosition(disparo.getPosition().x - 1, disparo.getPosition().y);
 
         explotado = true;
 
@@ -82,7 +81,6 @@ void Disparo::cambiarSprite(std::string estado) {
         disparo.setTextureRect(sf::IntRect(160, 222, 64, 61));
         disparo.setOrigin(disparo.getGlobalBounds().width/2,disparo.getGlobalBounds().height/2);
         disparo.setScale(0.6, 0.6);
-        disparo.setPosition(disparo.getPosition().x - 3, disparo.getPosition().y);
 
     } else {
         std::cout << "No existe ese estado del disparo" << std::endl;
