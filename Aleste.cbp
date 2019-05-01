@@ -49,6 +49,7 @@
 		<Unit filename="include/FactoryDisparo.h" />
 		<Unit filename="include/FactoryEnemigo.h" />
 		<Unit filename="include/HUD.h" />
+		<Unit filename="include/Interpolacion.h" />
 		<Unit filename="include/Juego.h" />
 		<Unit filename="include/Jugador.h" />
 		<Unit filename="include/Nivel.h" />
@@ -62,6 +63,7 @@
 		<Unit filename="src/FactoryDisparo.cpp" />
 		<Unit filename="src/FactoryEnemigo.cpp" />
 		<Unit filename="src/HUD.cpp" />
+		<Unit filename="src/Interpolacion.cpp" />
 		<Unit filename="src/Juego.cpp" />
 		<Unit filename="src/Jugador.cpp" />
 		<Unit filename="src/Nivel.cpp" />

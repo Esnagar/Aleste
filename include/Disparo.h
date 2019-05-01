@@ -6,6 +6,7 @@
 
 #include "TextureManager.h"
 #include "Window.h"
+#include "Interpolacion.h"
 
 class Disparo {
     private:
@@ -16,6 +17,10 @@ class Disparo {
         bool explotado = false;
         int numUpdates = 6;
 
+        Interpolacion antes;
+        Interpolacion despues;
+        sf::Vector2f posicionFinal;
+
     protected:
 
 
@@ -25,9 +30,9 @@ class Disparo {
 
         void cambiarSprite(std::string estado);
 
-        void update(sf::Vector2f posicionJugador);
+        void update(sf::Vector2f posicionJugador, float tiempoPasado);
         bool dentroPantalla();
-        void render();
+        void render(float percentTick);
 
         int getRight();
         int getLeft();

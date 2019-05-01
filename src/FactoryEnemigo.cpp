@@ -18,7 +18,7 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador, 
             alto = 71;
             escala = 0.8;
             posicion.x = posEnemigo;
-            posicion.y = 5;
+            posicion.y = 30;
             numVidas = 1;
         break;
 
@@ -49,7 +49,7 @@ Enemigo* FactoryEnemigo::crearEnemigo(int p_tipo, sf::Vector2f posicionJugador, 
         case 3:
             tipo = p_tipo;
             posRX = 0;
-            posRY = 142;
+            posRY = 143;
             ancho = 78;
             alto = 71;
             escala = 0.7;

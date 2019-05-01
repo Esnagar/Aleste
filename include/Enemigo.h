@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Window.h"
 #include "TextureManager.h"
+#include "Interpolacion.h"
 
 class Enemigo
 {
@@ -17,11 +18,16 @@ class Enemigo
 
         bool aLaDerecha = true;
         sf::Vector2f direccionEnemigo;
-        float gravedad = -0.15f;
-        float velX = 3.f;
-        float velY = 12.f;
+
+        float gravedad = -0.08f;
+        float velX = 0.25f;
+        float velY = 1.1f;
         int dirVelX = 1;
         float posXinicial;
+
+        Interpolacion antes;
+        Interpolacion despues;
+        sf::Vector2f posicionFinal;
 
     protected:
 
@@ -30,9 +36,9 @@ class Enemigo
         Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vector2f posicion, sf::Vector2f direccion, int numeroVidas);
         ~Enemigo();
 
-        void mover(int velocidad);
-        void update();
-        void render();
+        void mover(float velocidad, float tiempoPasado);
+        void update(float tiempoPasado);
+        void render(float percentTick);
         bool dentroPantalla();
 
         float getPosX();

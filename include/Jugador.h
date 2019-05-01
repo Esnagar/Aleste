@@ -7,9 +7,7 @@
 #include "Disparo.h"
 #include "FactoryDisparo.h"
 #include "Window.h"
-
-#define kVELOCIDAD 300
-
+#include "Interpolacion.h"
 
 class Jugador
 {
@@ -18,16 +16,22 @@ class Jugador
         sf::CircleShape circuloColision;
 
         FactoryDisparo factoriaDisp;
-
         std::vector <Disparo*> vectorDisparos;
-        int arma;
-        int numSprite = 0;
+
         sf::Clock relojInmortal;
+        sf::Vector2f posicionFinal;
+
+        float kVELOCIDADx = 0.5f;
+        float kVELOCIDADy = 0.5f;
+
+        int arma;
         bool inmortal = false;
 
-        void updateDisparos();
+        void updateDisparos(float tiempoPasado);
         void cambiarSprite();
 
+        Interpolacion antes;
+        Interpolacion despues;
 
     protected:
 
@@ -38,8 +42,8 @@ class Jugador
         void mover(float x, float y);
         void crearDisparo();
         void cambiarSprite(std::string estado);
-        void update(float segundosUpdate);
-        void render();
+        void update(float tiempoPasado);
+        void render(float percentTick);
 
         void setArma(int tipo);
         void setInmortal();

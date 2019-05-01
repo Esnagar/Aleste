@@ -7,19 +7,10 @@ Juego::Juego() {
 Juego::~Juego() {}
 
 
-void Juego::update() {
-
-    float segundosUpdate = Window::getInstancia()->relojUpdate.restart().asSeconds();
-
-    //Guardamos la última posición
-    Window::getInstancia()->last = Window::getInstancia()->first;
+void Juego::input() {
 
     //Procesamos las teclas pulsadas
     Window::getInstancia()->procesarInput();
-
-    //Updatear jugador
-    Window::getInstancia()->percent = std::min(1.0, (double)Window::getInstancia()->relojInterp.getElapsedTime().asMilliseconds() / UPDATE_TICK_TIME);
-    jugador.update(segundosUpdate);
 
     //Crear disparos si se ha pulsado la tecla
     if (Window::getInstancia()->inputs[4] && hud.getNumVidas() > 0) {
@@ -34,9 +25,17 @@ void Juego::update() {
             }
         }
     }
+}
+
+
+
+void Juego::update(float tiempoPasado) {
+
+    //Updatear jugador
+    jugador.update(tiempoPasado);
 
     //Update del fondo
-    updateFondo();
+    updateFondo(tiempoPasado);
 
     //Update del HUD
     hud.updateMarco();
@@ -78,7 +77,7 @@ void Juego::update() {
 
     //Updatear enemigos
     for(int i = 0; i < vectorEnemigos.size(); i++) {
-        vectorEnemigos[i]->update();
+        vectorEnemigos[i]->update(tiempoPasado);
 
         if(!vectorEnemigos[i]->dentroPantalla()) {
             delete vectorEnemigos[i];
@@ -110,7 +109,7 @@ void Juego::update() {
 
     //Updatear disparos
     for(int i = 0; i < vectorDisparosEnem.size(); i++) {
-        vectorDisparosEnem[i]->update(getPosicionJugador());
+        vectorDisparosEnem[i]->update(getPosicionJugador(), tiempoPasado);
 
         if(!vectorDisparosEnem[i]->dentroPantalla()) {
             delete vectorDisparosEnem[i];
@@ -125,7 +124,7 @@ void Juego::update() {
 
 
 
-void Juego::render() {
+void Juego::render(float percentTick) {
 
     Window::getInstancia()->beginDraw();
 
@@ -135,13 +134,13 @@ void Juego::render() {
         vectorArmas[i]->render();
 
     for(int i = 0; i < vectorEnemigos.size(); i++)
-        vectorEnemigos[i]->render();
+        vectorEnemigos[i]->render(percentTick);
 
     for(int i = 0; i < vectorDisparosEnem.size(); i++)
-        vectorDisparosEnem[i]->render();
+        vectorDisparosEnem[i]->render(percentTick);
 
     if(hud.getNumVidas() > 0)
-        jugador.render();
+        jugador.render(percentTick);
 
     hud.render();
 
@@ -149,7 +148,7 @@ void Juego::render() {
 }
 
 
-void Juego::updateFondo() {
+void Juego::updateFondo(float tiempoPasado) {
 
     if(!primerBoss && !segundoBoss) {
         stopArmas = false;
@@ -282,7 +281,7 @@ void Juego::generarArmas() {
 
 void Juego::comprobarColisiones() {
 
-
+    //Borrar todos los disparos que hayan explotado (que tienen el sprite de explosión)
     for(int i = 0; i < jugador.getDisparos().size(); i++) {
         if(jugador.getDisparos().size() > 0 && jugador.getDisparos()[i]->getExplotado() && jugador.getDisparos()[i]->getNumUpdates() <= 0) {
             jugador.borrarDisparo(i);

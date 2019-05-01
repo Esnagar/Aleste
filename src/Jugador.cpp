@@ -11,10 +11,15 @@ Jugador::Jugador() {
     jugador.setScale(0.7f, 0.7f);
     jugador.setPosition(Window::getInstancia()->getTamanyo().x/2, Window::getInstancia()->getTamanyo().y/2 + 200);
 
+    antes.setPosX(jugador.getPosition().x);
+    antes.setPosY(jugador.getPosition().y);
+    despues.setPosX(jugador.getPosition().x);
+    despues.setPosY(jugador.getPosition().y);
+
     circuloColision.setRadius(jugador.getGlobalBounds().width/3.0);
     circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
 
-    arma = 1;
+    arma = 3;
 }
 
 void Jugador::crearDisparo() {
@@ -33,44 +38,51 @@ int Jugador::getArma() {
     return arma;
 }
 
-void Jugador::update(float segundosUpdate) {
+void Jugador::update(float tiempoPasado) {
 
     if(inmortal && relojInmortal.getElapsedTime().asSeconds() > 3) {
         cambiarSprite("normal");
         inmortal = false;
     }
 
-    updateDisparos();
+    updateDisparos(tiempoPasado);
 
     // Actualizar coordenadas
-    if (Window::getInstancia()->inputs[0])  Window::getInstancia()->setFirst(0, -kVELOCIDAD * segundosUpdate);
-    if (Window::getInstancia()->inputs[1])  Window::getInstancia()->setFirst(0, kVELOCIDAD * segundosUpdate);
-    if (Window::getInstancia()->inputs[2])  Window::getInstancia()->setFirst(-kVELOCIDAD * segundosUpdate, 0);
-    if (Window::getInstancia()->inputs[3])  Window::getInstancia()->setFirst(kVELOCIDAD * segundosUpdate, 0);
 
-    jugador.setPosition(Window::getInstancia()->last*(1-Window::getInstancia()->percent) + Window::getInstancia()->first*Window::getInstancia()->percent);
+    kVELOCIDADx = 0;
+    kVELOCIDADy = 0;
+
+    if (Window::getInstancia()->inputs[0])  kVELOCIDADy = -0.5;
+    if (Window::getInstancia()->inputs[1])  kVELOCIDADy = 0.5;
+    if (Window::getInstancia()->inputs[2])  kVELOCIDADx = -0.5;
+    if (Window::getInstancia()->inputs[3])  kVELOCIDADx = 0.5;
+
+    posicionFinal.x = jugador.getPosition().x + kVELOCIDADx*tiempoPasado;
+    posicionFinal.y = jugador.getPosition().y + kVELOCIDADy*tiempoPasado;
 
     //Para que no se salga de la pantalla
     if(jugador.getPosition().x + jugador.getGlobalBounds().width/2 > 802)
-        jugador.setPosition(802 - jugador.getGlobalBounds().width/2, jugador.getPosition().y);
+        posicionFinal.x = 802 - jugador.getGlobalBounds().width/2;
 
     if(jugador.getPosition().x - jugador.getGlobalBounds().width/2 < 18)
-        jugador.setPosition(18 + jugador.getGlobalBounds().width/2, jugador.getPosition().y);
+        posicionFinal.x = 18 + jugador.getGlobalBounds().width/2;
 
     if(jugador.getPosition().y + jugador.getGlobalBounds().height/2 > 622)
-        jugador.setPosition(jugador.getPosition().x, 622 - jugador.getGlobalBounds().height/2);
+        posicionFinal.y = 622 - jugador.getGlobalBounds().height/2;
 
     if(jugador.getPosition().y - jugador.getGlobalBounds().height/2 < 53)
-        jugador.setPosition(jugador.getPosition().x, 53 + jugador.getGlobalBounds().height/2);
+        posicionFinal.x = 53 + jugador.getGlobalBounds().height/2;
 
-
-    circuloColision.setPosition(jugador.getPosition().x, jugador.getPosition().y);
+    antes.setPosX(despues.getPosX());
+    antes.setPosY(despues.getPosY());
+    despues.setPosX(posicionFinal.x);
+    despues.setPosY(posicionFinal.y);
 }
 
-void Jugador::updateDisparos() {
+void Jugador::updateDisparos(float tiempoPasado) {
     //Updatear disparos
     for(int i=0; i<vectorDisparos.size(); i++) {
-        vectorDisparos[i]->update(jugador.getPosition());
+        vectorDisparos[i]->update(jugador.getPosition(), tiempoPasado);
 
         //Eliminar los que salgan fuera de la pantalla
         if(!vectorDisparos[i]->dentroPantalla()) {
@@ -82,12 +94,15 @@ void Jugador::updateDisparos() {
 }
 
 
-void Jugador::render() {
+void Jugador::render(float percentTick) {
+
+    jugador.setPosition((float)antes.getPosX()*(1 - percentTick) + despues.getPosX()*percentTick, (float)antes.getPosY()*(1 - percentTick) + despues.getPosY()*percentTick);
+    circuloColision.setPosition(jugador.getPosition().x, jugador.getPosition().y);
 
     for(int i = 0; i < vectorDisparos.size(); i++)
-        vectorDisparos[i]->render();
+        vectorDisparos[i]->render(percentTick);
 
-    //Window::getInstancia()->renderWindow.draw(circuloColision);
+    Window::getInstancia()->renderWindow.draw(circuloColision);
     Window::getInstancia()->renderWindow.draw(jugador);
 }
 
@@ -136,16 +151,20 @@ void Jugador::borrarDisparo(int posicion) {
 void Jugador::cambiarSprite(std::string estado) {
 
     if(estado == "inmortal") {
+        jugador.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
         jugador.setTextureRect(sf::IntRect(78, 71, 78, 71));
         jugador.setOrigin(jugador.getGlobalBounds().width/2, jugador.getGlobalBounds().height/2);
         jugador.setScale(0.7f, 0.7f);
+        jugador.setPosition(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
 
         inmortal = true;
 
     } else if(estado == "normal") {
+        jugador.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
         jugador.setTextureRect(sf::IntRect(0, 71, 78, 71));
         jugador.setOrigin(jugador.getGlobalBounds().width/2, jugador.getGlobalBounds().height/2);
         jugador.setScale(0.7f, 0.7f);
+        circuloColision.setPosition(jugador.getPosition().x, jugador.getPosition().y);
 
     } else {
         std::cout << "No existe ese estado del jugador" << std::endl;

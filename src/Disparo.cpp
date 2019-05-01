@@ -16,17 +16,23 @@ Disparo::Disparo(int tipoDisparo, sf::IntRect areaRecorte, float escala, float x
     }
 
     tiempo = 0;
+
+    antes.setPosX(disparo.getPosition().x);
+    antes.setPosY(disparo.getPosition().y);
+    despues.setPosX(disparo.getPosition().x);
+    despues.setPosY(disparo.getPosition().y);
 }
 
 Disparo::~Disparo() {}
 
 
-void Disparo::update(sf::Vector2f posicionJugador) {
+void Disparo::update(sf::Vector2f posicionJugador, float tiempoPasado) {
 
     switch(tipo) {
 
         case 1:
-            disparo.move(0, -8);
+            posicionFinal.x = disparo.getPosition().x;
+            posicionFinal.y = disparo.getPosition().y - 0.5*tiempoPasado;
         break;
 
 
@@ -36,25 +42,34 @@ void Disparo::update(sf::Vector2f posicionJugador) {
             if(Window::getInstancia()->inputs[5])
                 disparo.setPosition(posicionJugador.x, posicionJugador.y - 70);
             else
-                disparo.move(0, -9);
+                disparo.move(0, -19);
         break;
 
         //El movimiento del disparo sigue la forma de una onda sinusoidal:  pos x = amplitud * cos(2*pi*frecuencia*tiempo)
         case 3:
             //Se ha usado cos() en lugar de sin() para que el disparo salga centrado. También se ha tenido que pasar el contenido
             //del coseno de grados a radianes. En cuanto a la posición de y, el disparo sube de forma constante.
-            disparo.setPosition(disparo.getPosition().x + 10 * cos((2*3.14159*1250*tiempo * 3.14159) / 180), disparo.getPosition().y - 5);
-            tiempo += 0.001;
+            posicionFinal.x = disparo.getPosition().x + (30 * cos((2*3.14159*2000*tiempo* 3.14159) / 180));
+            posicionFinal.y = disparo.getPosition().y - 0.5*tiempoPasado;
+
+            tiempo += 0.01*tiempoPasado;
         break;
 
         case 4:
-            disparo.move(direcDisparo.x * 5, direcDisparo.y * 5);
+            disparo.move(direcDisparo.x * 15, direcDisparo.y * 15);
         break;
     }
+
+    antes.setPosX(despues.getPosX());
+    antes.setPosY(despues.getPosY());
+    despues.setPosX(posicionFinal.x);
+    despues.setPosY(posicionFinal.y);
 }
 
 
-void Disparo::render() {
+void Disparo::render(float percentTick) {
+    disparo.setPosition(antes.getPosX()*(1 - percentTick) + despues.getPosX()*percentTick, antes.getPosY()*(1 - percentTick) + despues.getPosY()*percentTick);
+
     Window::getInstancia()->renderWindow.draw(disparo);
 }
 

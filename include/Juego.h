@@ -33,6 +33,9 @@ class Juego
         sf::Clock relojDisparos1;
         sf::Clock relojDisparos2;
 
+        sf::Clock relojUpdate;
+        sf::Clock relojInterp;
+
         int tamanyo = 820;
         int posYfondo = 3280 - tamanyo;
         int posXfondo = 0;
@@ -48,7 +51,7 @@ class Juego
         int enemigosTipo1 = -1;
         int posEnemigo1;
 
-        void updateFondo();
+        void updateFondo(float tiempoPasado);
         void generarEnemigos();
         void generarArmas();
         void comprobarColisiones();
@@ -67,8 +70,9 @@ class Juego
         Juego();
         ~Juego();
 
-        void update();
-        void render();
+        void input();
+        void update(float tiempoPasado);
+        void render(float percentTick);
 
         sf::Vector2f getPosicionJugador();
 };

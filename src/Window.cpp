@@ -14,15 +14,11 @@ Window* Window::getInstancia() {
 Window::Window() {
     renderWindow.create(sf::VideoMode(820, 640), "Aleste");
     renderWindow.setFramerateLimit(60);
-
-    first.x = 0.0f;
-    first.y = 0.0f;
 }
 
 Window::~Window() { destroy(); }
 
 void Window::destroy() { renderWindow.close(); }
-
 
 void Window::procesarInput() {
 
@@ -36,47 +32,39 @@ void Window::procesarInput() {
 
     sf::Event event;
     while (renderWindow.pollEvent(event)){}
-        /*if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space && relojDisparos.getElapsedTime().asSeconds() > 0.1) {
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))    arriba = true;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  abajo = true;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  izquierda = true;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) derecha = true;
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+        mantenerDisparo = true;
+
+        if(relojDisparos.getElapsedTime().asSeconds() > 0.3) {
             haDisparado = true;
             relojDisparos.restart();
-        }*/
+        }
+    }
 
-
-    //if (Window::getInstancia()->relojInterp.getElapsedTime().asMilliseconds() > UPDATE_TICK_TIME) {
-
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))    arriba = true;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  abajo = true;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))  izquierda = true;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) derecha = true;
-
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-            mantenerDisparo = true;
-
-            if(relojDisparos.getElapsedTime().asSeconds() > 0.3) {
-                haDisparado = true;
-                relojDisparos.restart();
-            }
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && relojModoDios.getElapsedTime().asSeconds() > 0.3) {
+        if(modoDios) {
+            modoDios = false;
+            std::cout << "Modo dios desactivado" << std::endl;
+        } else {
+            modoDios = true;
+            std::cout << "Modo dios activado!" << std::endl;
         }
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::G) && relojModoDios.getElapsedTime().asSeconds() > 0.3) {
-            if(modoDios) {
-                modoDios = false;
-                std::cout << "Modo dios desactivado" << std::endl;
-            } else {
-                modoDios = true;
-                std::cout << "Modo dios activado!" << std::endl;
-            }
+        relojModoDios.restart();
+    }
 
-            relojModoDios.restart();
-        }
-
-        inputs[0] = arriba;
-        inputs[1] = abajo;
-        inputs[2] = izquierda;
-        inputs[3] = derecha;
-        inputs[4] = haDisparado;
-        inputs[5] = mantenerDisparo;
-    //}
+    inputs[0] = arriba;
+    inputs[1] = abajo;
+    inputs[2] = izquierda;
+    inputs[3] = derecha;
+    inputs[4] = haDisparado;
+    inputs[5] = mantenerDisparo;
 }
 
 void Window::draw(sf::Drawable &dibujo) { renderWindow.draw(dibujo); }
@@ -90,8 +78,3 @@ bool Window::haTerminado() { return terminada; }
 sf::Vector2u Window::getTamanyo() { return renderWindow.getSize(); }
 
 void Window::resetDisparos() { numDisparos = 0; }
-
-void Window::setFirst(float i, float j) {
-    first.x += i;
-    first.y += j;
-}
