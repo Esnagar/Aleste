@@ -5,7 +5,6 @@ HUD::HUD() {
     numVidas = 3;
     tipoArma = 1;
 
-
     marcoVerde.setFillColor(sf::Color::Transparent);
     marcoVerde.setOutlineColor(sf::Color(0, 75, 0));
     marcoVerde.setOutlineThickness(18);
@@ -13,11 +12,9 @@ HUD::HUD() {
                                     Window::getInstancia()->getTamanyo().y - marcoVerde.getOutlineThickness()*2));
     marcoVerde.setPosition(18, 18);
 
-
     bandaNegra.setFillColor(sf::Color::Black);
     bandaNegra.setSize(sf::Vector2f(Window::getInstancia()->getTamanyo().x, 35));
     bandaNegra.setPosition(0, marcoVerde.getOutlineThickness());
-
 
     fuente->loadFromFile("resources/arcade.TTF");
 

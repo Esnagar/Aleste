@@ -2,6 +2,7 @@
 #define ARMA_H
 #include "TextureManager.h"
 #include "Window.h"
+#include "Interpolacion.h"
 
 class Arma
 {
@@ -11,14 +12,19 @@ class Arma
         sf::Sprite numeroSuelto;
         bool disparada = false;
 
+        Interpolacion antes;
+        Interpolacion despues;
+        Interpolacion antes2;
+        Interpolacion despues2;
+
     protected:
 
     public:
         Arma(int idArma, float x, float y);
         virtual ~Arma();
 
-        void update();
-        void render();
+        void update(float tiempoPasado);
+        void render(float percentTick, int numVidas);
 
         int getTipo();
 

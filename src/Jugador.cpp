@@ -19,7 +19,7 @@ Jugador::Jugador() {
     circuloColision.setRadius(jugador.getGlobalBounds().width/3.0);
     circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
 
-    arma = 2;
+    arma = 1;
 }
 
 void Jugador::crearDisparo() {

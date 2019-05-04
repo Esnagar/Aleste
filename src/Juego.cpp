@@ -2,6 +2,11 @@
 
 Juego::Juego() {
     fondo.setTexture(*TextureManager::getInstancia()->getTexture("fondo"));
+
+    antes.setPosX(posXfondo);
+    antes.setPosY(posYfondo);
+    despues.setPosX(posXfondo);
+    despues.setPosY(posYfondo);
 }
 
 Juego::~Juego() {}
@@ -37,39 +42,18 @@ void Juego::update(float tiempoPasado) {
     //Update del HUD
     hud.updateMarco();
 
+    //Update del fondo
+    updateFondo(tiempoPasado);
+
     //Generar enemigos
     if(!stopEnemigos)
         generarEnemigos();
 
 
-    //ZONA DE BOSSES. Si se pasa cierto tiempo en la zona de los bosses, se sigue avanzando
-    if(primerBoss && relojBoss1.getElapsedTime().asSeconds() >= 30.f){
-        primerBoss = false;
-        irAlSegundoBoss = true;
-        posYfondo -= 4;
-
-        delete vectorEnemigos[0];
-        vectorEnemigos[0] = nullptr;
-        vectorEnemigos.erase(vectorEnemigos.begin());
-    }
-
-    if(segundoBoss && relojBoss2.getElapsedTime().asSeconds() >= 100.f){
-        segundoBoss = false;
-        posYfondo -= 4;
-
-        int enemigosRestantes = vectorEnemigos.size() - 1;
-        while(enemigosRestantes >= 0) {
-            delete vectorEnemigos[enemigosRestantes];
-            vectorEnemigos[enemigosRestantes] = nullptr;
-            vectorEnemigos.erase(vectorEnemigos.begin() + enemigosRestantes);
-            enemigosRestantes--;
-        }
-    }
-
     //Updatear armas
     if(hud.getNumVidas() > 0)
         for(int i = 0; i < vectorArmas.size(); i++)
-            vectorArmas[i]->update();
+            vectorArmas[i]->update(tiempoPasado);
 
 
     //Updatear enemigos
@@ -84,12 +68,12 @@ void Juego::update(float tiempoPasado) {
     }
 
     //Disparos de los bosses
-    if(primerBoss && relojDisparos1.getElapsedTime().asSeconds() > 0.6) {
+    if(primerBoss && relojDisparos1.getElapsedTime().asSeconds() > 0.8 && hud.getNumVidas() > 0) {
         vectorDisparosEnem.push_back(factoriaDisp.crearDisparo(4, getPosicionJugador(), sf::Vector2f(396, 122)));
         relojDisparos1.restart();
     }
 
-    if(segundoBoss && relojDisparos2.getElapsedTime().asSeconds() > 0.8) {
+    if(segundoBoss && relojDisparos2.getElapsedTime().asSeconds() > 0.8 && hud.getNumVidas() > 0) {
         for(int i = 0; i < vectorEnemigos.size(); i++) {
             if(vectorEnemigos[i]->getPosX() == 95)
                 vectorDisparosEnem.push_back(factoriaDisp.crearDisparo(4, getPosicionJugador(), sf::Vector2f(95, 122)));
@@ -125,12 +109,13 @@ void Juego::render(float percentTick) {
 
     Window::getInstancia()->beginDraw();
 
-    //Update del fondo (sin interpolar)
-    updateFondo();
+    if(!primerBoss && !segundoBoss && antes.getPosY() != 0 && hud.getNumVidas() > 0)
+        fondo.setTextureRect(sf::IntRect(posXfondo, antes.getPosY()*(1 - percentTick) + despues.getPosY()*percentTick, tamanyo, tamanyo));
+
     Window::getInstancia()->renderWindow.draw(fondo);
 
     for(int i = 0; i < vectorArmas.size(); i++)
-        vectorArmas[i]->render();
+        vectorArmas[i]->render(percentTick, hud.getNumVidas());
 
     for(int i = 0; i < vectorEnemigos.size(); i++)
         vectorEnemigos[i]->render(percentTick);
@@ -147,7 +132,7 @@ void Juego::render(float percentTick) {
 }
 
 
-void Juego::updateFondo() {
+void Juego::updateFondo(float tiempoPasado) {
 
     if(!primerBoss && !segundoBoss) {
         stopArmas = false;
@@ -162,7 +147,7 @@ void Juego::updateFondo() {
     }
 
     //Si el IntRect del fondo llega hasta el final (arriba), salta a la siguiente columna
-    if(posYfondo <= 0) {
+    if(posYfondo == 0) {
         posYfondo = 3280 - tamanyo;
 
         if(posXfondo == 3280 && irAlSegundoBoss)
@@ -177,7 +162,6 @@ void Juego::updateFondo() {
             posXfondo -= tamanyo;
             stopFondo = true;
         }
-
         posXfondo += tamanyo;
     }
 
@@ -188,7 +172,7 @@ void Juego::updateFondo() {
         stopEnemigos = true;
 
         //Entramos en la zona del primer boss
-        if(posYfondo == 768 && posXfondo == 3280) {
+        if(posYfondo > 759 && posYfondo < 771 && posXfondo == 3280 && !finPrimerBoss) {
             //Que solo genere el Boss la primera vez que entra
             if(!primerBoss) {
                 vectorEnemigos.insert(vectorEnemigos.begin(), factoriaEnem.crearEnemigo(4, sf::Vector2f(396, 122), 0));
@@ -201,7 +185,7 @@ void Juego::updateFondo() {
         }
 
         //Entramos en la zona del segundo boss
-        if(posYfondo == 768 && posXfondo == 4100) {
+        if(posYfondo > 759 && posYfondo < 771 && posXfondo == 4100 && !finSegundoBoss) {
             if(!segundoBoss) {
                 vectorEnemigos.insert(vectorEnemigos.begin(), factoriaEnem.crearEnemigo(4, sf::Vector2f(95, 122), 0));
                 vectorEnemigos.insert(vectorEnemigos.begin(), factoriaEnem.crearEnemigo(4, sf::Vector2f(396, 270), 0));
@@ -219,10 +203,22 @@ void Juego::updateFondo() {
     if(!stopArmas)
         generarArmas();
 
-    if(!stopFondo)
-        posYfondo -= 4;
+    if(!stopFondo && posYfondo != 0)
+        posYfondo -= 4*tiempoPasado/30;
 
-    fondo.setTextureRect(sf::IntRect(posXfondo, posYfondo, tamanyo, tamanyo));
+    if(posYfondo <= 0)
+        posYfondo = 0;
+
+    antes.setPosX(despues.getPosX());
+    antes.setPosY(despues.getPosY());
+    despues.setPosX(posXfondo);
+    despues.setPosY(posYfondo);
+
+    if(despues.getPosY() == 0) {
+        antes.setPosX(despues.getPosX());
+        antes.setPosY(despues.getPosY());
+        fondo.setTextureRect(sf::IntRect(posXfondo, posYfondo, tamanyo, tamanyo));
+    }
 }
 
 
@@ -258,22 +254,36 @@ void Juego::generarEnemigos() {
 
 
 void Juego::generarArmas() {
-    if(posYfondo / 820.f == 1) {
-        srand(time(NULL));
-        int tipoArma = (rand() % 3 + 1);
-        vectorArmas.push_back(factoriaArma.crearArma(tipoArma, 1));
+
+    if((float) posYfondo / 820.f > 0.99 && (float) posYfondo / 820.f < 1.01) {
+        if(!armaCreada) {
+            srand(time(NULL));
+            int tipoArma = (rand() % 3 + 1);
+            vectorArmas.push_back(factoriaArma.crearArma(tipoArma, 1));
+            armaCreada = true;
+        }
     }
 
-    if(posYfondo / 820.f == 2) {
-        srand(time(NULL));
-        int tipoArma = (rand() % (3 - 1)) + 1;
-        vectorArmas.push_back(factoriaArma.crearArma(tipoArma, 2));
+    else if((float) posYfondo / 820.f > 1.99 && (float) posYfondo / 820.f < 2.01) {
+        if(!armaCreada) {
+            srand(time(NULL));
+            int tipoArma = (rand() % (3 - 1)) + 1;
+            vectorArmas.push_back(factoriaArma.crearArma(tipoArma, 2));
+            armaCreada = true;
+        }
     }
 
-    if(posYfondo / 820.f == 3) {
-        srand(time(NULL));
-        int tipoArma = (rand() % (3 - 1)) + 1;
-        vectorArmas.push_back(factoriaArma.crearArma(tipoArma, 0));
+    else if((float) posYfondo / 820.f > 2.99 && (float) posYfondo / 820.f < 3.01) {
+        if(!armaCreada) {
+            srand(time(NULL));
+            int tipoArma = (rand() % (3 - 1)) + 1;
+            vectorArmas.push_back(factoriaArma.crearArma(tipoArma, 0));
+            armaCreada = true;
+        }
+    }
+
+    else {
+        armaCreada = false;
     }
 }
 
@@ -312,13 +322,13 @@ void Juego::comprobarColisiones() {
                         if(primerBoss) {
                             primerBoss = false;
                             irAlSegundoBoss = true;
-                            posYfondo -= 4;
+                            finPrimerBoss = true;
                         }
 
                         //Si hemos matado al último boss del nivel 2, el vector de enemigos en ese momento solo tendrá a ese boss
                         if(segundoBoss && vectorEnemigos.size() == 1) {
                             segundoBoss = false;
-                            posYfondo -= 4;
+                            finSegundoBoss = true;
                         }
                     }
 

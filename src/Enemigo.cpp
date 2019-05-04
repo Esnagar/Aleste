@@ -33,9 +33,6 @@ Enemigo::Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vec
     antes.setPosY(enemigo.getPosition().y);
     despues.setPosX(enemigo.getPosition().x);
     despues.setPosY(enemigo.getPosition().y);
-
-    std::cout << antes.getPosX() << std::endl;
-    std::cout << antes.getPosY() << std::endl;
 }
 
 

@@ -16,13 +16,13 @@ Arma* FactoryArma::crearArma(int p_tipo, int posicion) {
         break;
 
         case 1: //centro
-            posX = 380;
-            posY = -195;
+            posX = 378;
+            posY = -245;
         break;
 
         case 2: //derecha
             posX = 680;
-            posY = -190;
+            posY = -245;
         break;
     }
 

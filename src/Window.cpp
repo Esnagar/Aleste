@@ -31,7 +31,13 @@ void Window::procesarInput() {
 
 
     sf::Event event;
-    while (renderWindow.pollEvent(event)){}
+    while (renderWindow.pollEvent(event)){
+        switch (event.type) {
+            case sf::Event::Closed:
+                destroy();
+            break;
+        }
+    }
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))    arriba = true;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  abajo = true;

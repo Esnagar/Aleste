@@ -59,8 +59,8 @@ void Disparo::update(sf::Vector2f posicionJugador, float tiempoPasado) {
         break;
 
         case 4:
-            posicionFinal.x = disparo.getPosition().x + direcDisparo.x * (float)Window::getInstancia()->numUpdates/100 * tiempoPasado;
-            posicionFinal.y = disparo.getPosition().y + direcDisparo.y * (float)Window::getInstancia()->numUpdates/100 * tiempoPasado;
+            posicionFinal.x = disparo.getPosition().x + direcDisparo.x * (float)Window::getInstancia()->numUpdates/80 * tiempoPasado;
+            posicionFinal.y = disparo.getPosition().y + direcDisparo.y * (float)Window::getInstancia()->numUpdates/80 * tiempoPasado;
         break;
     }
 
@@ -73,7 +73,6 @@ void Disparo::update(sf::Vector2f posicionJugador, float tiempoPasado) {
 
 void Disparo::render(float percentTick) {
     disparo.setPosition(antes.getPosX()*(1 - percentTick) + despues.getPosX()*percentTick, antes.getPosY()*(1 - percentTick) + despues.getPosY()*percentTick);
-
     Window::getInstancia()->renderWindow.draw(disparo);
 }
 

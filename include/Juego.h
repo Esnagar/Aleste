@@ -40,18 +40,21 @@ class Juego
         int posYfondo = 3280 - tamanyo;
         int posXfondo = 0;
 
+        bool armaCreada = false;
         bool stopArmas = false;
         bool stopFondo = false;
         bool stopEnemigos = false;
 
         bool primerBoss = false;
         bool segundoBoss = false;
+        bool finPrimerBoss = false;
+        bool finSegundoBoss = false;
         bool irAlSegundoBoss = false;
 
         int enemigosTipo1 = -1;
         int posEnemigo1;
 
-        void updateFondo();
+        void updateFondo(float tiempoPasado);
         void generarEnemigos();
         void generarArmas();
         void comprobarColisiones();
