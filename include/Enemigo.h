@@ -19,9 +19,9 @@ class Enemigo
         bool aLaDerecha = true;
         sf::Vector2f direccionEnemigo;
 
-        float gravedad = -0.08f;
-        float velX = 0.25f;
-        float velY = 1.1f;
+        float gravedad = -0.025f;
+        float velX = 1.3f;
+        float velY = 1.25f;
         int dirVelX = 1;
         float posXinicial;
 

@@ -28,8 +28,8 @@ class Window
 
         bool modoDios = false;
 
-        float numUpdates = 15.f;
-        float UPDATE_TICK_TIME = 1000.f/numUpdates;
+        int numUpdates = 15;
+        float UPDATE_TICK_TIME = (float)1000/numUpdates;
 
     protected:
 

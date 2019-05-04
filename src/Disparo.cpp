@@ -39,24 +39,28 @@ void Disparo::update(sf::Vector2f posicionJugador, float tiempoPasado) {
         //Disparo que se mantiene encima del jugador como un escudo
         case 2:
             //Si el jugador no ha dejado de pulsar la barra espaciadora no se dispara, en caso contrario, avanza
-            if(Window::getInstancia()->inputs[5])
-                disparo.setPosition(posicionJugador.x, posicionJugador.y - 70);
-            else
-                disparo.move(0, -19);
+            if(Window::getInstancia()->inputs[5]) {
+                posicionFinal.x = posicionJugador.x;
+                posicionFinal.y = posicionJugador.y - 70;
+            } else {
+                posicionFinal.x = disparo.getPosition().x;
+                posicionFinal.y = disparo.getPosition().y - (float)Window::getInstancia()->numUpdates/20*tiempoPasado;
+            }
         break;
 
         //El movimiento del disparo sigue la forma de una onda sinusoidal:  pos x = amplitud * cos(2*pi*frecuencia*tiempo)
         case 3:
             //Se ha usado cos() en lugar de sin() para que el disparo salga centrado. También se ha tenido que pasar el contenido
             //del coseno de grados a radianes. En cuanto a la posición de y, el disparo sube de forma constante.
-            posicionFinal.x = disparo.getPosition().x + (30 * cos((2*3.14159*2000*tiempo* 3.14159) / 180));
-            posicionFinal.y = disparo.getPosition().y - 0.5*tiempoPasado;
-
-            tiempo += 0.01*tiempoPasado;
+            //posicionFinal.x = disparo.getPosition().x + (250 * cos((2*3.14159*1500*tiempo*3.14159) / 180))*(float)tiempoPasado/1000;
+            posicionFinal.x = disparo.getPosition().x + (10*(60/Window::getInstancia()->numUpdates) * cos((2*3.14159*1250*tiempo*3.14159) / 180));
+            posicionFinal.y = disparo.getPosition().y - 0.25*tiempoPasado;
+            tiempo += 0.001*(60/Window::getInstancia()->numUpdates);
         break;
 
         case 4:
-            disparo.move(direcDisparo.x * 15, direcDisparo.y * 15);
+            posicionFinal.x = disparo.getPosition().x + direcDisparo.x * (float)Window::getInstancia()->numUpdates/100 * tiempoPasado;
+            posicionFinal.y = disparo.getPosition().y + direcDisparo.y * (float)Window::getInstancia()->numUpdates/100 * tiempoPasado;
         break;
     }
 
@@ -134,3 +138,12 @@ int Disparo::setNumUpdates(int num) {
 int Disparo::getNumUpdates() {
     return numUpdates;
 }
+
+int Disparo::getNumUpdatesTotales() {
+    return numUpdatesTotales;
+}
+
+int Disparo::getTipo() {
+    return tipo;
+}
+

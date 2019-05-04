@@ -51,7 +51,7 @@ class Juego
         int enemigosTipo1 = -1;
         int posEnemigo1;
 
-        void updateFondo(float tiempoPasado);
+        void updateFondo();
         void generarEnemigos();
         void generarArmas();
         void comprobarColisiones();
@@ -62,6 +62,9 @@ class Juego
         bool checkColisionDA(Arma arma, Disparo disparo);
         bool checkColisionJD(Disparo disparo);
         bool checkColisionDD(Disparo disparoE, Disparo disparoJ);
+
+        Interpolacion antes;
+        Interpolacion despues;
 
     protected:
 

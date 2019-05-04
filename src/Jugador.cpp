@@ -19,18 +19,24 @@ Jugador::Jugador() {
     circuloColision.setRadius(jugador.getGlobalBounds().width/3.0);
     circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
 
-    arma = 3;
+    arma = 2;
 }
 
 void Jugador::crearDisparo() {
     vectorDisparos.push_back(factoriaDisp.crearDisparo(1, jugador.getPosition(), sf::Vector2f(0,0)));
 
-    if(arma != 1)
-        vectorDisparos.push_back(factoriaDisp.crearDisparo(arma, jugador.getPosition(), sf::Vector2f(0,0)));
+    if(arma == 2 && !escudoActivado) { //Para que no genere disparos del tipo 2 mientras se tiene pulsada la barra espaciadora
+        vectorDisparos.push_back(factoriaDisp.crearDisparo(2, jugador.getPosition(), sf::Vector2f(0,0)));
+        escudoActivado = true;
+    }
+
+    if(arma == 3)
+        vectorDisparos.push_back(factoriaDisp.crearDisparo(3, jugador.getPosition(), sf::Vector2f(0,0)));
 }
 
 void Jugador::setArma(int tipo) {
     arma = tipo;
+    escudoActivado = false;
     std::cout << "Activada el arma: " << arma << std::endl;
 }
 
@@ -57,8 +63,6 @@ void Jugador::update(float tiempoPasado) {
     if (Window::getInstancia()->inputs[2])  kVELOCIDADx = -0.5;
     if (Window::getInstancia()->inputs[3])  kVELOCIDADx = 0.5;
 
-    posicionFinal.x = jugador.getPosition().x + kVELOCIDADx*tiempoPasado;
-    posicionFinal.y = jugador.getPosition().y + kVELOCIDADy*tiempoPasado;
 
     //Para que no se salga de la pantalla
     if(jugador.getPosition().x + jugador.getGlobalBounds().width/2 > 802)
@@ -73,6 +77,9 @@ void Jugador::update(float tiempoPasado) {
     if(jugador.getPosition().y - jugador.getGlobalBounds().height/2 < 53)
         posicionFinal.x = 53 + jugador.getGlobalBounds().height/2;
 
+    posicionFinal.x = jugador.getPosition().x + kVELOCIDADx*tiempoPasado;
+    posicionFinal.y = jugador.getPosition().y + kVELOCIDADy*tiempoPasado;
+
     antes.setPosX(despues.getPosX());
     antes.setPosY(despues.getPosY());
     despues.setPosX(posicionFinal.x);
@@ -86,6 +93,9 @@ void Jugador::updateDisparos(float tiempoPasado) {
 
         //Eliminar los que salgan fuera de la pantalla
         if(!vectorDisparos[i]->dentroPantalla()) {
+            if(vectorDisparos[i]->getTipo() == 2)
+                escudoActivado = false;
+
             delete vectorDisparos[i];
             vectorDisparos[i] = nullptr;
             vectorDisparos.erase(vectorDisparos.begin() + i);
@@ -143,6 +153,9 @@ bool Jugador::getInmortal() {
 }
 
 void Jugador::borrarDisparo(int posicion) {
+    if(vectorDisparos[posicion]->getTipo() == 2)
+        escudoActivado = false;
+
     delete vectorDisparos[posicion];
     vectorDisparos[posicion] = nullptr;
     vectorDisparos.erase(vectorDisparos.begin() + posicion);

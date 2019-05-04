@@ -25,6 +25,7 @@ class Jugador
         float kVELOCIDADy = 0.5f;
 
         int arma;
+        bool escudoActivado = false;
         bool inmortal = false;
 
         void updateDisparos(float tiempoPasado);

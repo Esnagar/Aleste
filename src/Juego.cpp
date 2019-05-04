@@ -34,9 +34,6 @@ void Juego::update(float tiempoPasado) {
     //Updatear jugador
     jugador.update(tiempoPasado);
 
-    //Update del fondo
-    updateFondo(tiempoPasado);
-
     //Update del HUD
     hud.updateMarco();
 
@@ -87,7 +84,7 @@ void Juego::update(float tiempoPasado) {
     }
 
     //Disparos de los bosses
-    if(primerBoss && relojDisparos1.getElapsedTime().asSeconds() > 0.5) {
+    if(primerBoss && relojDisparos1.getElapsedTime().asSeconds() > 0.6) {
         vectorDisparosEnem.push_back(factoriaDisp.crearDisparo(4, getPosicionJugador(), sf::Vector2f(396, 122)));
         relojDisparos1.restart();
     }
@@ -128,6 +125,8 @@ void Juego::render(float percentTick) {
 
     Window::getInstancia()->beginDraw();
 
+    //Update del fondo (sin interpolar)
+    updateFondo();
     Window::getInstancia()->renderWindow.draw(fondo);
 
     for(int i = 0; i < vectorArmas.size(); i++)
@@ -148,7 +147,7 @@ void Juego::render(float percentTick) {
 }
 
 
-void Juego::updateFondo(float tiempoPasado) {
+void Juego::updateFondo() {
 
     if(!primerBoss && !segundoBoss) {
         stopArmas = false;
@@ -288,7 +287,7 @@ void Juego::comprobarColisiones() {
 
         } else if (jugador.getDisparos().size() > 0 && jugador.getDisparos()[i]->getExplotado() && jugador.getDisparos()[i]->getNumUpdates() > 0) {
 
-            if(jugador.getDisparos()[i]->getNumUpdates() <= 3)
+            if(jugador.getDisparos()[i]->getNumUpdates() <= jugador.getDisparos()[i]->getNumUpdatesTotales()/2)
                 jugador.getDisparos()[i]->cambiarSprite("miniexplosion");
 
             jugador.getDisparos()[i]->setNumUpdates(-1);
@@ -335,21 +334,12 @@ void Juego::comprobarColisiones() {
         }
     }
 
-/*
-    for(int i = 0; i < jugador.getDisparos().size(); i++)
-        for(int j = 0; j < vectorEnemigos.size(); j++)
-            if(jugador.getDisparos().size() > 0 && !jugador.getDisparos()[i]->getExplotado() && checkColisionED(*vectorEnemigos[j], *jugador.getDisparos()[i]))
-                jugador.getDisparos()[i]->cambiarSprite("explosion");
-*/
-
 
     //Comprobar la colisión del disparo del jugador y el disparo de los bosses
     for(int i = 0; i < jugador.getDisparos().size(); i++)
         for(int j = 0; j < vectorDisparosEnem.size(); j++)
             if(jugador.getDisparos().size() > 0 && vectorDisparosEnem.size() > 0 &&
                !jugador.getDisparos()[i]->getExplotado() && checkColisionDD(*vectorDisparosEnem[j], *jugador.getDisparos()[i])) {
-
-                //jugador.borrarDisparo(j);
 
                 jugador.getDisparos()[i]->cambiarSprite("explosion");
 
@@ -381,7 +371,6 @@ void Juego::comprobarColisiones() {
             if(checkColisionDA(*vectorArmas[i], *jugador.getDisparos()[j])) {
                 vectorArmas[i]->setDisparada();
                 jugador.getDisparos()[j]->cambiarSprite("explosion");
-                //jugador.borrarDisparo(j); //mejorar para que no se vea tan pocho
             }
 
     //Comprobar la colisión jugador-arma
@@ -396,7 +385,6 @@ void Juego::comprobarColisiones() {
 
 bool Juego::checkColisionED(Enemigo enemigo, Disparo disparo) {
     bool colision = false;
-
     if (disparo.getGBounds().intersects(enemigo.getCirculoColision()))
         colision = true;
 
