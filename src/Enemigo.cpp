@@ -2,7 +2,7 @@
 
 Enemigo::~Enemigo() {}
 
-Enemigo::Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vector2f posicion, sf::Vector2f direccion, int numeroVidas) {
+Enemigo::Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vector2f posicion, float radio, sf::Vector2f direccion, int numeroVidas) {
 
     tipo = tipoEnemigo;
 
@@ -14,11 +14,7 @@ Enemigo::Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vec
     enemigo.setScale(escala, escala);
     enemigo.setOrigin(enemigo.getGlobalBounds().width/2, enemigo.getGlobalBounds().height/2);
 
-    if(tipo == 4)
-        circuloColision.setRadius(enemigo.getGlobalBounds().width/5.0);
-    else
-        circuloColision.setRadius(enemigo.getGlobalBounds().width/3.0);
-
+    circuloColision.setRadius(enemigo.getGlobalBounds().width/radio);
     circuloColision.setOrigin(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
 
     direccionEnemigo.x = direccion.x;
@@ -51,11 +47,8 @@ void Enemigo::mover(float velocidad, float tiempoPasado) {
             else if(enemigo.getPosition().x < posXinicial - 150)
                 aLaDerecha = true;
 
-
             posicionFinal.x = enemigo.getPosition().x + velocidad*tiempoPasado;
             posicionFinal.y = enemigo.getPosition().y + 0.05f*tiempoPasado;
-            circuloColision.setPosition(enemigo.getPosition().x + 4, enemigo.getPosition().y + 4);
-
         break;
 
 
@@ -63,8 +56,6 @@ void Enemigo::mover(float velocidad, float tiempoPasado) {
         case 2:
             posicionFinal.x = enemigo.getPosition().x + (direccionEnemigo.x * (velocidad+0.03))*tiempoPasado;
             posicionFinal.y = enemigo.getPosition().y + (direccionEnemigo.y * (velocidad+0.03))*tiempoPasado;
-
-            circuloColision.setPosition(enemigo.getPosition().x + 4, enemigo.getPosition().y + 4);
         break;
 
 
@@ -73,8 +64,6 @@ void Enemigo::mover(float velocidad, float tiempoPasado) {
             velY += gravedad*(60/Window::getInstancia()->numUpdates);
             posicionFinal.x = enemigo.getPosition().x + velX*dirVelX*(float)tiempoPasado/5;
             posicionFinal.y = enemigo.getPosition().y + velY*tiempoPasado;
-
-            circuloColision.setPosition(enemigo.getPosition().x + 4, enemigo.getPosition().y + 4);
         break;
 
 
@@ -107,7 +96,7 @@ bool Enemigo::dentroPantalla() {
 void Enemigo::render(float percentTick) {
     if(tipo != 4) {
         enemigo.setPosition(antes.getPosX()*(1 - percentTick) + despues.getPosX()*percentTick, antes.getPosY()*(1 - percentTick) + despues.getPosY()*percentTick);
-        circuloColision.setPosition(enemigo.getPosition().x, enemigo.getPosition().y);
+        circuloColision.setPosition(enemigo.getPosition().x + 5, enemigo.getPosition().y);
     }
 
     Window::getInstancia()->draw(enemigo);

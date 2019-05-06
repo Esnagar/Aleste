@@ -40,7 +40,6 @@ class Jugador
         Jugador();
         ~Jugador();
 
-        void mover(float x, float y);
         void crearDisparo();
         void cambiarSprite(std::string estado);
         void update(float tiempoPasado);

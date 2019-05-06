@@ -28,7 +28,7 @@ class Window
 
         bool modoDios = false;
 
-        int numUpdates = 15;
+        int numUpdates = 30;
         float UPDATE_TICK_TIME = (float)1000/numUpdates;
 
     protected:
@@ -36,7 +36,7 @@ class Window
     private:
         static Window* window;
 
-        bool terminada;
+        bool terminada = false;
         void destroy();
 
 

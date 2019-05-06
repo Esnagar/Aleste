@@ -18,6 +18,7 @@ class FactoryEnemigo
         int posRY;
         int ancho;
         int alto;
+        float radio;
         float escala;
 
         sf::Vector2f posicion;

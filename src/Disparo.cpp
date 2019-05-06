@@ -39,12 +39,13 @@ void Disparo::update(sf::Vector2f posicionJugador, float tiempoPasado) {
         //Disparo que se mantiene encima del jugador como un escudo
         case 2:
             //Si el jugador no ha dejado de pulsar la barra espaciadora no se dispara, en caso contrario, avanza
-            if(Window::getInstancia()->inputs[5]) {
+            if(Window::getInstancia()->inputs[5] && !disparado) {
                 posicionFinal.x = posicionJugador.x;
                 posicionFinal.y = posicionJugador.y - 70;
             } else {
                 posicionFinal.x = disparo.getPosition().x;
                 posicionFinal.y = disparo.getPosition().y - (float)Window::getInstancia()->numUpdates/20*tiempoPasado;
+                disparado = true;
             }
         break;
 
@@ -95,7 +96,7 @@ void Disparo::cambiarSprite(std::string estado) {
 
         explotado = true;
 
-    } else if(estado =="miniexplosion") {
+    } else if(estado == "miniexplosion") {
         disparo.setTextureRect(sf::IntRect(160, 222, 64, 61));
         disparo.setOrigin(disparo.getGlobalBounds().width/2,disparo.getGlobalBounds().height/2);
         disparo.setScale(0.6, 0.6);
@@ -144,5 +145,9 @@ int Disparo::getNumUpdatesTotales() {
 
 int Disparo::getTipo() {
     return tipo;
+}
+
+bool Disparo::getDisparado() {
+    return disparado;
 }
 

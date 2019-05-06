@@ -31,7 +31,7 @@ Arma::Arma(int id, float x, float y) {
 Arma::~Arma() {}
 
 void Arma::update(float tiempoPasado) {
-    bola.setPosition(bola.getPosition().x, bola.getPosition().y + (float)4.82*tiempoPasado/30);
+    bola.setPosition(bola.getPosition().x, bola.getPosition().y + (float)4*tiempoPasado/30);//(float)5.47*tiempoPasado/30);
 
     if(disparada)
         numeroSuelto.setPosition(numeroSuelto.getPosition().x, numeroSuelto.getPosition().y - 1.2*tiempoPasado/30);

@@ -15,6 +15,7 @@ class Disparo {
         float tiempo;
         sf::Vector2f direcDisparo;
         bool explotado = false;
+        bool disparado = false;
         int numUpdatesTotales = std::ceil(6*(float)Window::getInstancia()->numUpdates/60);
         int numUpdates = numUpdatesTotales;
 
@@ -40,6 +41,7 @@ class Disparo {
         int getTop();
         int getBottom();
         int getTipo();
+        bool getDisparado();
         sf::FloatRect getGBounds();
 
         bool getExplotado();

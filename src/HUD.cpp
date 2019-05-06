@@ -76,6 +76,10 @@ void HUD::updatePuntuacion(int tipoEnemigo) {
 
 void HUD::updateVidas(int vidas) {
     numVidas += vidas;
+
+    if(numVidas < 0)
+        numVidas = 0;
+
     vidasNUM.setString(std::to_string(numVidas));
 }
 

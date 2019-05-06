@@ -45,7 +45,6 @@ int Jugador::getArma() {
 }
 
 void Jugador::update(float tiempoPasado) {
-
     if(inmortal && relojInmortal.getElapsedTime().asSeconds() > 3) {
         cambiarSprite("normal");
         inmortal = false;
@@ -62,7 +61,6 @@ void Jugador::update(float tiempoPasado) {
     if (Window::getInstancia()->inputs[1])  kVELOCIDADy = 0.5;
     if (Window::getInstancia()->inputs[2])  kVELOCIDADx = -0.5;
     if (Window::getInstancia()->inputs[3])  kVELOCIDADx = 0.5;
-
 
     //Para que no se salga de la pantalla
     if(jugador.getPosition().x + jugador.getGlobalBounds().width/2 > 802)
@@ -91,6 +89,9 @@ void Jugador::updateDisparos(float tiempoPasado) {
     for(int i=0; i<vectorDisparos.size(); i++) {
         vectorDisparos[i]->update(jugador.getPosition(), tiempoPasado);
 
+        if(vectorDisparos[i]->getTipo() == 2 && vectorDisparos[i]->getDisparado())
+            escudoActivado = false;
+
         //Eliminar los que salgan fuera de la pantalla
         if(!vectorDisparos[i]->dentroPantalla()) {
             if(vectorDisparos[i]->getTipo() == 2)
@@ -112,7 +113,7 @@ void Jugador::render(float percentTick) {
     for(int i = 0; i < vectorDisparos.size(); i++)
         vectorDisparos[i]->render(percentTick);
 
-    Window::getInstancia()->renderWindow.draw(circuloColision);
+    //Window::getInstancia()->renderWindow.draw(circuloColision);
     Window::getInstancia()->renderWindow.draw(jugador);
 }
 
@@ -128,15 +129,9 @@ sf::FloatRect Jugador::getCirculoColision() {
     return circuloColision.getGlobalBounds();
 }
 
-void Jugador::mover(float x, float y) {
-    jugador.setPosition(x, y);
-    circuloColision.setPosition(jugador.getPosition().x, jugador.getPosition().y);
-}
-
 sf::FloatRect Jugador::getGBounds() {
     return jugador.getGlobalBounds();
 }
-
 
 std::vector <Disparo*> Jugador::getDisparos() {
     return vectorDisparos;
@@ -164,20 +159,14 @@ void Jugador::borrarDisparo(int posicion) {
 void Jugador::cambiarSprite(std::string estado) {
 
     if(estado == "inmortal") {
-        jugador.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
         jugador.setTextureRect(sf::IntRect(78, 71, 78, 71));
-        jugador.setOrigin(jugador.getGlobalBounds().width/2, jugador.getGlobalBounds().height/2);
         jugador.setScale(0.7f, 0.7f);
-        jugador.setPosition(circuloColision.getGlobalBounds().width/2, circuloColision.getGlobalBounds().height/2);
-
-        inmortal = true;
+        jugador.setOrigin(jugador.getOrigin().x, jugador.getOrigin().y);
 
     } else if(estado == "normal") {
-        jugador.setTexture(*TextureManager::getInstancia()->getTexture("Spritesheet"));
         jugador.setTextureRect(sf::IntRect(0, 71, 78, 71));
-        jugador.setOrigin(jugador.getGlobalBounds().width/2, jugador.getGlobalBounds().height/2);
         jugador.setScale(0.7f, 0.7f);
-        circuloColision.setPosition(jugador.getPosition().x, jugador.getPosition().y);
+        jugador.setOrigin(jugador.getOrigin().x, jugador.getOrigin().y);
 
     } else {
         std::cout << "No existe ese estado del jugador" << std::endl;

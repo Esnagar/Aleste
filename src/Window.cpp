@@ -18,7 +18,10 @@ Window::Window() {
 
 Window::~Window() { destroy(); }
 
-void Window::destroy() { renderWindow.close(); }
+void Window::destroy() {
+    renderWindow.close();
+    terminada = true;
+}
 
 void Window::procesarInput() {
 
@@ -31,13 +34,10 @@ void Window::procesarInput() {
 
 
     sf::Event event;
-    while (renderWindow.pollEvent(event)){
-        switch (event.type) {
-            case sf::Event::Closed:
-                destroy();
-            break;
-        }
-    }
+    while (renderWindow.pollEvent(event))
+        if (event.type == sf::Event::Closed)
+            destroy();
+
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))    arriba = true;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  abajo = true;

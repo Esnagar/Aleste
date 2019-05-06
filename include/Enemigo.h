@@ -33,7 +33,7 @@ class Enemigo
 
 
     public:
-        Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vector2f posicion, sf::Vector2f direccion, int numeroVidas);
+        Enemigo(int tipoEnemigo, sf::IntRect areaRecorte, float escala, sf::Vector2f posicion, float radio, sf::Vector2f direccion, int numeroVidas);
         ~Enemigo();
 
         void mover(float velocidad, float tiempoPasado);
